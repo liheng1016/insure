@@ -1,0 +1,14 @@
+{
+  "name": "pro.insur",
+  "version": "1.0.0",
+  "description": "保险",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "insur"
+  ],
+  "author": "chengyang,yinjiajun,liheng",
+  "license": "ISC"
+}

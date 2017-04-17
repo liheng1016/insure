@@ -1,0 +1,38 @@
+body{
+	padding: 0;
+	margin: 0;
+	font-family: "Microsoft YaHei";
+	user-select:none;
+	-moz-user-select:none;/*火狐*/
+	-webkit-user-select:none;/*webkit浏览器*/
+}
+ul,li,p,h1,h2,h3,h4,h5,a{
+	padding: 0;
+	margin:0;
+}
+ul{
+	list-style-type: none;
+}
+.content{
+	overflow: hidden;
+	/*height: 100%;*/
+	width: 100%;
+	position: absolute;
+	top: 48px;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+.content__main{
+	position: absolute;
+	background: #f1f1f1;
+	padding:0 17px;
+	left: 150px;
+	top:0;
+	bottom: 0;
+	right: 0;
+	min-width: 874px;
+	width: calc(100% - 150px);
+	overflow: hidden;
+	overflow-y: auto;
+}

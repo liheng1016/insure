@@ -1,0 +1,31 @@
+{
+    "name":"insure",
+    "label":"保险",
+    "path":"/insure",
+    "module_path":"/index.js",
+    "indexRoute":"/riskwarning",
+    "level":1,
+    "auth":"",
+    "subs":[{
+        "name":"insue/riskwarning",
+        "label":"风险警示",
+        "path":"/riskwarning",
+        "module_path":"/riskWarning/index.js",
+        "level":2,
+        "subs":[]
+    },{
+        "name":"insue/riskwarning",
+        "label":"风险警示>>添加",
+        "path":"/riskwarning/add",
+        "module_path":"/riskWarning/index.js",
+        "level":2,
+        "subs":[]
+    },{
+        "name":"insue/riskwarning",
+        "label":"风险警示>>详情",
+        "path":"/riskwarning/detail",
+        "module_path":"/riskWarning/index.js",
+        "level":2,
+        "subs":[]
+    }]
+}
