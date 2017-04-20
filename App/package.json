@@ -57,8 +57,12 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "@stararc-component/gridlayout": "^1.0.6",
     "@stararc-component/header": "^1.0.3",
+    "@stararc-component/pagination": "^1.0.2",
+    "@stararc-component/select": "^1.0.7",
     "@stararc-component/slidemenu": "^1.0.1",
+    "@stararc-component/table": "^1.0.2",
     "aes-js": "^2.1.0",
     "babel-polyfill": "^6.16.0",
     "crypto-js": "^3.1.7",

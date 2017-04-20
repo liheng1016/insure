@@ -55,7 +55,7 @@ module.exports = {
             // 'process.env.NODE_ENV': JSON.stringify('production')
             'process.env.NODE_ENV': JSON.stringify('develop'),
             // 'LOCAL_DOMAIN':JSON.stringify('http://statistic.com')
-            'LOCAL_DOMAIN':JSON.stringify('http://statistic_tp.com')
+            'LOCAL_DOMAIN':JSON.stringify('http://insur_tp.com')
 
         }),
         new ExtractTextPlugin("[name].css"),

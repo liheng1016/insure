@@ -1,0 +1,75 @@
+.maint--container{
+	background: white;
+	height:234px;
+	margin-bottom:10px;
+	font-family:"微软雅黑";
+
+}
+.information{
+	width:100%;
+	height:auto;
+	
+}
+.information--login{
+	display:block;
+	width:200px;
+	height:173px;
+	float:left;
+	border:1px solid #dedede;
+	margin-left:100px;
+	margin-top:36px;
+}
+.information--title{
+	display:block;
+	float:left;
+	height:100px;
+	margin-top:80px;
+	margin-left:24px;
+}
+.company{
+	height:50px;
+	line-height:50px;
+	font-size:16px;
+	color:#8c8c8c;
+}
+.company span{
+	color:#333333;
+}
+.dress{
+	color:#8c8c8c;
+}
+.dress span{
+	color:#333333;
+}
+.claim--container{
+	background: white;
+	height:114px;
+	margin-bottom:10px;
+	font-family:"微软雅黑";
+	padding-left:100px;
+}
+.claim--person{
+	width:50%;
+	height:38px;
+	line-height:38px;
+	color:#666666;
+	float:left;
+	margin-top:10px;
+}
+.claim--person span:nth-of-type(1){
+	width:110px;
+	text-align: right;
+	float:left;
+	display: block;
+}
+.claim--person span:nth-of-type(2){
+	float:left;
+	display: block;
+	color:#333333;
+	padding-left:15px;
+}
+.clear{
+	overflow: hidden;
+	margin:8px 10px 8px;
+}
+

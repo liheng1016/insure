@@ -1,0 +1,25 @@
+.layout{
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+.layout-header{
+	composes:layout;
+	min-height: 35px;
+	top: 0;
+}
+.layout-content{
+	composes:layout;
+	top: 35px;
+	bottom:50px;
+	right: 0;
+	/*right: 34px;*/
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.layout-footer{
+	composes:layout;
+	height: 50px;
+	bottom: 0;
+	background: white;
+}

@@ -1,0 +1,111 @@
+.detail{
+	background: white;
+	height:auto;
+	font-family:"微软雅黑";
+	padding-top:8px;
+}
+.detail--main{
+	padding-left:15px;
+	padding-right:15px;
+}
+.detail--main h1{
+	height:49px;
+	line-height:49px;
+	width:100%;
+	font-size:24px;
+	color:#2b2b2b;
+	text-align: center;
+	font-weight: 500;
+}
+.detail_new{
+	height:56px;
+	border-bottom:1px solid #cfcfcf;
+	color:#6d6d6d;
+}
+.detail_new--title{
+	font-size:14px;
+	line-height:26px;
+	height:26px;
+}
+.detail_new--time{
+	font-size:14px;
+	line-height:26px;
+	height:26px;
+}
+
+.detail--content{
+	height:26px;
+	padding-top:10px;
+	height:auto;
+	line-height:26px;
+	font-size:14px;
+	text-indent:25px;
+	color:#494949;
+}
+.detail-content--word{
+	height:26px;
+	padding-top:10px;
+	height:auto;
+	line-height:26px;
+	font-size:14px;
+	text-indent:25px;
+	color:#494949;
+}
+.detail-content--msg{
+	margin-top:18px;
+	height:38px;
+	line-height:38px;
+	
+}
+.detail-content--company{
+	height:24px;
+	line-height:24px;
+	float: right;
+	width:100%;
+	text-align: right;
+}
+.detail-content--time{
+	height:24px;
+	line-height:24px;
+	float: right;
+	width:100%;
+	text-align: right;
+}
+.detail-content--img{
+	height:99px;
+	width:100%;
+}
+.detail-content--img li{
+	height:99px;
+	margin-right:10px;
+}
+.detail-content--img li .img{
+	height:99px;
+	width:99px;
+	float:left;
+	
+}
+.clear{
+	clear:both;
+}
+.detail--accessory{
+	height:30px;
+	line-height:30px;
+	font-size:12px;
+	margin-top:10px;
+}
+.detail--accessory span{
+	cursor: pointer;
+	font-size:14px;
+	text-decoration: underline;
+	color:#0196ea;
+}
+.detail--dress{
+	height:30px;
+	line-height:30px;
+	font-size:14px;
+}
+.de--clear{
+	overflow: hidden;
+	margin:8px 10px 8px;
+}

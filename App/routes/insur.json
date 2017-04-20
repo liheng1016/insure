@@ -17,15 +17,29 @@
         "name":"insue/riskwarning",
         "label":"风险警示>>添加",
         "path":"/riskwarning/add",
-        "module_path":"/riskWarning/index.js",
+        "module_path":"/riskWarning/add/add.js",
         "level":2,
         "subs":[]
     },{
         "name":"insue/riskwarning",
         "label":"风险警示>>详情",
         "path":"/riskwarning/detail",
-        "module_path":"/riskWarning/index.js",
+        "module_path":"/riskWarning/detail/detail.js",
         "level":2,
         "subs":[]
+    },{
+        "name":"insue/baseSetting",
+        "label":"基础设置",
+        "path":"/baseSetting",
+        "module_path":"/baseSetting/index.js",
+        "level":2,
+        "subs":[{
+	        "name":"insue/baseSetting",
+	        "label":"基础设置维护",
+	        "path":"/baseSetting/maintenance",
+	        "module_path":"/baseSetting/maintenance/maintenance.js",
+	        "level":2,
+	        "subs":[]
+        }]
     }]
 }

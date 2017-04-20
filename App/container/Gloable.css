@@ -13,6 +13,9 @@ ul,li,p,h1,h2,h3,h4,h5,a{
 ul{
 	list-style-type: none;
 }
+*{
+	box-sizing: border-box;
+}
 .content{
 	overflow: hidden;
 	/*height: 100%;*/
@@ -32,7 +35,7 @@ ul{
 	bottom: 0;
 	right: 0;
 	min-width: 874px;
-	width: calc(100% - 150px);
-	overflow: hidden;
+	/*width: calc(100% - 150px);*/
+	overflow-x: hidden;
 	overflow-y: auto;
 }
