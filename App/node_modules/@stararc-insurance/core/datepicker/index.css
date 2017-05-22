@@ -1,0 +1,7 @@
+.datepicker{
+	position:relative;
+}
+.datepicker input{
+	outline: none;
+	font-size: 12px;
+}

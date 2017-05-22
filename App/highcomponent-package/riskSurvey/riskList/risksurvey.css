@@ -1,0 +1,117 @@
+/*主体外壳*/
+.settlementwarp{
+	width:100%;
+	height:auto;
+}
+.settlement-header{
+	width:100%;
+	height:50px;
+	padding:0px 17px;
+}
+
+.select-name{
+	width:40%;
+	height:50px;
+	line-height:50px;
+	display: inline-block;
+	text-align:center;
+	font-size:14px;
+	float:left;
+}
+.select-content{
+	width:60%;
+	display: inline-block;
+	height:50px;
+	line-height:50px;
+	float:left;
+}
+
+.header-tips{
+	height:50px;
+	display:inline-block;
+}
+
+.select-address{
+	width:17%;
+	composes:header-tips;
+	margin-right:1%;
+}
+
+
+.settlement-header--select{
+	width:17%;
+	composes:header-tips;
+	margin-right:1%;
+}
+.settlement-header--time{
+	width:20%;
+	composes:header-tips;
+	margin-right:1%;
+}
+.settlement-header--input{
+	width:24%;
+	composes:header-tips;
+	margin-right:1%;
+
+}
+.settlement-header--button{
+	width:15%;
+	composes:header-tips;
+	float:right;
+}
+.separator{
+	width:10%;
+	display: inline-block;
+	height:50px;
+	line-height: 50px;
+	text-align: center;
+	color:#ccc;
+	float:left;
+}
+.input-content{
+	width:70%;
+	display: inline-block;
+	float:left;
+
+}
+
+/*table*/
+.table--list{
+	background: white;
+	padding-bottom:17px;
+	height:auto;
+	padding:10px;
+	font-family:"微软雅黑";
+	overflow: auto;
+
+}
+.table--main{
+	width:100%;
+	border:1px; 
+	table-layout: fixed;
+}
+.table_title{
+	width:100%;
+	background:#ececec;
+	height:36px;
+	font-family:"微软雅黑";
+	font-size:14px;
+	line-height:36px;
+	color:#666666;
+	text-align:center;
+}
+
+.table_row{
+	width:100%;
+	background:#ececec;
+	height:36px;
+	/*line-height:36px;*/
+	font-family:"微软雅黑";
+	font-size:14px;
+	color:#666666;
+	text-align:center;
+}
+.pagination{
+	float: right;
+	margin-top: 10px;
+}

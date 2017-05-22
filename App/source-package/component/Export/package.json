@@ -1,0 +1,15 @@
+{
+  "name": "@stararc-insurance/export-file",
+  "version": "1.0.8",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "dependencies": {
+    "@stararc-insurance/common-request": "^1.0.0",
+    "@stararc-component/button": "^1.0.4"
+  },
+  "author": "liheng",
+  "license": "ISC"
+}

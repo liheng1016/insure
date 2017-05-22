@@ -1,0 +1,33 @@
+{
+    "name":"insur/baseSetting",
+    "label":"基础设置",
+    "path":"/risk",
+    "module_path":"",
+    "indexRoute":"/baseSetting",
+    "level":1,
+    "auth":"",
+    "subs":[{
+        "name":"insue/baseSetting",
+        "label":"基础设置",
+        "path":"/baseSetting",
+        "module_path":"",
+        "indexRoute":"/baseSetting/maintenance",
+        "level":2,
+        "subs":[{
+            "name":"insue/baseSetting",
+            "label":"基础信息",
+            "path":"/baseSetting/maintenance",
+            "module_path":"/maintenance/maintenance.js",
+            "level":3,
+            "subs":[]
+        },{
+            "name":"insue/baseSetting",
+            "label":"基础信息>>编辑",
+            "path":"/baseSetting/edit",
+            "module_path":"/maintenance/edit/edit.js",
+            "not_show":true,
+            "level":3,
+            "subs":[]
+        }]
+    }]
+}    

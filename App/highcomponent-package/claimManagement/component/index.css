@@ -1,0 +1,385 @@
+@value red_color: #e2161f;
+@value link_color: #399CE0;
+.settleeditwrap{
+	width:100%;
+	height:auto;
+	padding: 10px 0px;
+}
+.back_button{
+	padding:10px 17px;
+	overflow: hidden;
+}
+/**
+ * 投保人信息
+ */
+.applicant{
+	width:100%;
+	height:auto;
+	background:#f1f1f1;
+}
+.applicant--title{
+	width:auto;
+	height:38px;
+	line-height:38px;
+	padding-left:10px;
+}
+.applicantcontent-wrap{
+	width:100%;
+	background:white;
+	height:45px;
+	display: inline-block;
+}
+
+.detail_content--wrap{
+	width:100%;
+	height:auto;
+	padding-left:15px;
+}
+.applicant-select{
+	width:50%;
+	display: inline-block;
+	background:lime;
+	font-size:12px;
+	padding-left:20px;
+	color:link_color;
+	height: 45px;
+	line-height: 45px;
+	background: url(../img/pic.png) no-repeat 8px center;
+}
+
+/**
+ * 投保人信息内容
+ */
+.applicant-content{
+	width:100%;
+	background:white;
+	height:auto;
+	padding:15px 15px;
+	display: inline-block;
+}
+.applicant-content--li{
+	width:50%;
+	background:white;
+	height:45px;
+	display: inline-block;
+}
+.content-li--name{
+	width: 39%;
+	display: inline-block;
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: #676767;
+    line-height: 30px;
+    float:left;
+    line-height: 45px;
+    padding-right: 5px;
+}
+.content-li--input{
+	width: 60%;
+	display: inline-block;
+    float:left;
+}
+.separator{
+	width:10%;
+	display:block;
+	float:left;
+	height:36px;
+	line-height:36px;
+	text-align:center;
+	color:#ccc;
+}
+.informant-pic{
+	background:url(../img/pic.png) no-repeat ;
+	background-position: center ;
+	width:30px;
+	height:45px;
+	display: inline-block;
+	float:right;
+}
+.name{
+	width:auto;
+	height:45px;
+	float:right;
+}
+.prompt{
+	width:auto;
+	height:20px;
+	line-height:20px;
+	color:red_color;
+	font-size:12px;
+	display:block;
+}
+
+.applicant-content--mustli{
+	width:50%;
+	background:white;
+	height:55px;
+	display: inline-block;
+}
+.applicant-mustcontent{
+	width:100%;
+	background:white;
+	height:auto;
+	padding:10px 10px;
+	display: inline-block;
+}
+.deductible{
+	width:100%;
+	display: inline-block;
+}
+.deductible--name{
+	width:19%;
+	display: block;
+	float: left;
+	text-align: right;
+	font-size: 12px;
+	color:#818181;
+}
+.deductible--content{
+	width:80.1%;
+	display: block;
+	float: left;
+	margin-left:3px;
+}
+.deductible--content textarea{
+	max-width: 100%;
+    min-width: 100%;
+    max-height: 150px;
+    min-height: 100px;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	color:#646464;
+	border:1px solid #ccc;
+	padding:3px 8px;
+}
+
+.deductible--content li{
+	width:90px;
+	/*width:calc((100% - 10px*4 )/5);*/
+	height:90px;
+	display: inline-block;
+	float:left;
+	border:1px solid #ccc;
+	margin-right:10px;
+	position: relative;
+}
+.deductible--content li img{
+	width:100%;
+	height:100%;
+}
+.res--picture{
+	width:100%;
+	height:100px;
+	margin-bottom:10px;
+}
+.upload{
+	width:100%;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+.upload--name{
+	width:19%;
+	line-height:32px;
+	float:left;
+	display:block;
+	font-size:12px;
+	color:#656565;
+	text-align: right;
+	padding-right: 5px;
+}
+.upload--limit{
+	font-size:14px;
+	color:#a7a7a7;
+	margin-left:5px;
+	height: 32px;
+	line-height: 32px;
+	display: inline-block;
+	vertical-align: top;
+}
+.upload--button{
+	width: 81%;
+	display: inline-block;
+}
+.action--componnet{
+	overflow: hidden;
+    padding: 10px 0px;
+    width: 100%;
+}
+li.res-remark--upload{
+	margin-right: 0;
+	background-color: white;
+	background: url("../img/add.png") no-repeat center;	
+	background-size: 50% 50%;
+	border:1px solid #ccc;
+	z-index: 999;
+}
+
+.upload--icon{
+	height: 100%;
+    width: 100%;
+    z-index: 1000;
+    opacity: 0;
+}
+.delete--icon{
+	position: absolute;
+	top: -8px;
+	right: -8px;
+	height:20px;
+	width: 20px;
+	display: inline-block;
+	background:url("../img/delete.png") no-repeat center;
+	background-color: white;
+	border-radius: 50%;
+	transition: all ease-in-out 0.5;
+	cursor: pointer;
+}
+.delete--icon:hover{
+	transform: scale(1.2);
+}
+.area--dialog{
+	z-index: 998
+}
+.dialog--shade{
+	background: #999999;
+	opacity: 0.8;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left:0;
+	top: 0; 
+	z-index: 999
+}
+.enterprisepopups{
+	width: 80%;
+    height: 90%;
+    background: white;
+    position: fixed;
+    margin-left: 10%;
+    left: 0;
+    top: 5%;
+    z-index: 1000;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0 15px;
+
+}
+.search--warp{
+	width:100%;
+}
+.search{
+	width: 50%;
+    height: 50px;
+    margin: 0 auto; 
+    padding: 10px 0;
+}
+.search--input{
+	width:90%;
+	height:32px;
+	display:block;
+	float:left;
+}
+.search_button{
+	width:10%;
+	height:32px;
+	display:block;
+	float:left;
+}
+.search-content{
+	width:100%;
+	height:auto;
+}
+.table_title{
+	width:100%;
+	height:36px;
+	background:#ececec;
+	font-family:"微软雅黑";
+	font-size:14px;
+	line-height:36px;
+	color:#666666;
+	text-align:center;
+}
+.table--main{
+	width:100%;
+	background:#f5f5f5;
+	border:1px solid #FFFFFF; 
+	table-layout: fixed;
+}
+.table_row{
+	width:100%;
+	background:#ececec;
+	height:36px;
+	font-family:"微软雅黑";
+	font-size:14px;
+	color:#666666;
+	text-align:center;
+	cursor: pointer;
+}
+.table_row td{
+	text-overflow: ellipsis; 
+	white-space: nowrap; 
+	overflow: hidden;
+	padding:0px 5px;
+}
+.table_row--hover{
+	composes:table_row;
+	background: #e9f7ff;
+	color: #00bf9a;
+
+}
+.table_select{
+	width:10%;
+}
+.circle{
+	width:18px;
+	height:18px;
+	border:1px solid #ccc;
+	margin:0 auto;
+}
+.selected--all{
+	display: inline-block;
+	font-size: 14px;
+	margin-left: 15px;
+	padding-right: 25px;
+	cursor: pointer;
+	background: url("../img/pic.png") right no-repeat;
+}
+
+.selected{
+	composes:selected--all;
+}
+.company_select--not{
+	width: 15px;
+	height: 15px;
+	display: inline-block;
+	background: url("../img/not-select.png") no-repeat center;
+}
+
+.company_select{
+	composes:company_select--not;
+	background: url("../img/select.png") no-repeat center;
+}
+
+.pagination--box{
+	float: right;
+}
+
+.file--upload{
+	width: 80px;
+	height: 32px;
+	position: relative;
+	display: inline-block;
+	vertical-align: bottom;
+}
+.file--upload form{
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+	z-index: 1000;
+}
+.upload--button>a{
+	font-size: 14px;
+	color:link_color;
+}
+

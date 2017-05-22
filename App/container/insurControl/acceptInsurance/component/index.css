@@ -1,0 +1,385 @@
+@value red_color: #e2161f;
+@value blue_color: #3ca1d7;
+.button--return{
+	overflow: hidden;
+	margin-top:10px;
+}
+.applicant-wrap{
+	width: 100%;
+	height:auto;
+}
+.title{
+	padding-left:10px;
+	height:34px;
+	line-height:34px;
+	font-size:14px;
+	color:#696969;
+}
+
+.insured-content{
+	height:40px;
+	/*line-height: 40px;*/
+	background:white;
+	margin-bottom: 1px;
+	padding:  0 10px;
+}
+.insured--tips{
+	color:blue_color;
+	height: 40px;
+	line-height: 40px;
+	font-size: 12px;
+}
+.content{
+	width:100%;
+	background:white;
+	height:auto;
+	padding-top: 5px;
+    padding-right: 15px;
+	display: inline-block;
+}
+.content--li{
+	width:50%;
+	display:inline-block;
+	height:45px;
+	margin-top:5px;
+	vertical-align: baseline;
+	
+}
+.labelname{
+	width:44%;
+	float:left;
+	display:block;
+	text-align: right;
+	font-size:12px;
+	color:#676767;
+	line-height:30px;
+	padding-right: 5px;
+}
+
+.labelinput{
+	width:55%;
+	float:left;
+}
+.labelinput input{
+	background:'#f8f8f8';
+	width:'100%'
+}
+
+
+.insured--name{
+	/*float:left;*/
+	display:inline-block;
+	font-size:12px;
+	text-align: right;
+	color:blue_color;
+}
+.insured--name img{
+	margin-right:5px;
+}
+.insured--input{
+	width:auto;
+	line-height: 40px;
+	display:inline-block;
+	color:blue_color;
+	font-size:12px;
+}
+
+.insure__select--not{
+	display: inline-block;
+	background: url("../img/not-select.png") no-repeat left;
+	text-indent: 20px;	
+	margin:0 10px;
+}
+
+.insure__select{
+	composes:insure__select--not;
+	background: url("../img/select.png") no-repeat left;
+}
+
+.separator{
+	width:10%;
+	display:block;
+	float:left;
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	color:#ccc;
+}
+.clear{
+	clear:both;
+}
+.labelname img{
+	margin-right:5px;
+}
+.prompt{
+	width:auto;
+	height:20px;
+	line-height:20px;
+	color:red_color;
+	font-size:12px;
+	display:block;
+}
+.deductible{
+	width:100%;
+	display: inline-block;
+	margin-top:5px;
+}
+.deductible--name{
+	width:15%;
+	display: block;
+	float: left;
+	text-align: right;
+	font-size: 12px;
+	color:#818181;
+	vertical-align: top;
+	margin-right:1%;
+}
+.deductible--content{
+	width:83%;
+	display: block;
+	float: left;
+	margin-left:3px;
+}
+.deductible--content textarea{
+	max-width: 100%;
+    min-width: 100%;
+    max-height: 150px;
+    min-height: 100px;
+	font-family: "微软雅黑";
+	font-size: 14px;
+	color:#646464;
+	padding:3px 8px;
+	border:1px solid #ccc;
+}
+.upload{
+	width:100%;
+	height:50px;
+	margin-top:10px;
+	margin-bottom:10px;
+	position:relative;
+}
+
+.upload--name{
+	width:16%;
+	/*float:left;*/
+	display:inline-block;
+	font-size:12px;
+	color:#656565;
+	text-align: right;
+	padding-right: 5px;
+}
+
+.upload--limit{
+	width:auto;
+	font-size:14px;
+	color:#a7a7a7;
+	margin-left:5px;
+}
+
+.upload--button{
+	width: 82%;
+	display: inline-block;
+	margin-left:5px;
+
+}
+
+.article--name{
+	width:16%;
+	float:left;
+	display:block;
+	font-size:12px;
+	text-align: right;
+	color:#626262;
+	line-height: 60px;
+	height:60px;
+}
+
+.article--content{
+	width:auto;
+	float:left;
+	display:block;
+	font-size:14px;
+	text-align: left;
+	color:#2a9ed7;
+	margin-left:5px;
+	line-height: 60px;
+	height:60px;
+}
+.action--componnet{
+	/*margin-top: 20px;*/
+	/*margin-bottom:15px;*/
+	padding: 10px 0;
+	overflow: hidden;
+	width:100%;
+}
+.choice{
+	width:100%;
+	height:40px;
+	background:white;
+	margin-bottom:1px;
+	padding:0px 10px;
+}
+.choice--name{
+	color:blue_color;
+	font-size:12px;
+	width:auto;
+	float:left;
+	line-height:40px;
+}
+.choice--name img{
+	margin-right:5px;
+}
+
+/*选择企业弹窗*/
+.enterprisepopups{
+	width: 80%;
+    height: 80%;
+    background: white;
+    position: fixed;
+    /* margin-top: 10%; */
+    margin-left: 10%;
+    left: 0;
+    top: 10%;
+    z-index: 1000;
+    padding: 10px;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+}
+.area--dialog{
+	z-index: 998
+}
+.dialog--shade{
+	background: #999999;
+	opacity: 0.8;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	left:0;
+	top: 0; 
+	z-index: 999
+}
+.search--warp{
+	width:100%;
+	margin-bottom: 10px;
+}
+.search{
+	width: 50%;
+    margin: 0 auto; 
+    height:32px;
+}
+.search--input{
+	width:90%;
+	height:32px;
+	display:block;
+	float:left;
+}
+.search_button{
+	width:10%;
+	height:32px;
+	display:block;
+	float:left;
+}
+.search-content{
+	width:100%;
+	height:auto;
+}
+.table_title{
+	width:100%;
+	height:36px;
+	background:#ececec;
+	font-family:"微软雅黑";
+	font-size:14px;
+	line-height:36px;
+	color:#666666;
+	text-align:center;
+}
+.table--main{
+	width:100%;
+	background:#f5f5f5;
+	border:1px solid #FFFFFF; 
+	table-layout: fixed;
+}
+.table_row{
+	width:100%;
+	background:#ececec;
+	font-family:"微软雅黑";
+	font-size:14px;
+	color:#666666;
+	height: 35px;
+	text-align:center;
+}
+.table_row td{
+	text-overflow: ellipsis; 
+	white-space: nowrap; 
+	overflow: hidden;
+	padding:0px 5px;
+}
+.table_row--hover{
+	composes:table_row;
+	background: #e9f7ff;
+	color: #00bf9a;
+}
+.table_select{
+	width:10%;
+}
+.pagination--box{
+	float: right;
+}
+.circle{
+	width:18px;
+	height:18px;
+	border:1px solid #ccc;
+	margin:0 auto;
+}
+.selected--all{
+	display: inline-block;
+	font-size: 14px;
+	margin-left: 15px;
+	padding-right: 25px;
+	cursor: pointer;
+	background: url("../img/pic.png") right no-repeat;
+}
+
+.selected{
+	composes:selected--all;
+	
+}
+.attach--display{
+	display: inline-block;
+	font-size: 14px;
+	color:blue_color;
+	display:block;
+	height:auto;
+	position: absolute;
+	top:32px;
+}
+.attach--display a,
+.article--content a{
+	color: #2a9ed7;
+}
+.upload--file{
+	display: inline-block;
+	width: 80px;
+	height: 30px;
+	position: relative;
+	vertical-align: middle;
+}
+.upload--handle{
+	display: inline-block;
+	position: absolute;
+	z-index: 1000;
+	opacity: 0;
+}
+
+.company_select--not{
+	width: 15px;
+	height: 15px;
+	display: inline-block;
+	background: url("../img/not-select.png") no-repeat center;
+}
+
+.company_select{
+	composes:company_select--not;
+	background: url("../img/select.png") no-repeat center;
+}

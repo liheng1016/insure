@@ -1,0 +1,11 @@
+{
+  "name": "@stararc-insurance/alert-tips",
+  "version": "1.0.1",
+  "description": "alert",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "liheng",
+  "license": "ISC"
+}

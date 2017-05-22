@@ -1,0 +1,14 @@
+{
+  "name": "@stararc-insurance/common-request",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1"
+  },
+  "author": "liheng",
+  "license": "ISC"
+}

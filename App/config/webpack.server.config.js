@@ -14,6 +14,6 @@ var server = new WebpackDevServer(compiler, {
     'content-base': '../',
     'filename': 'app.js',
     'quiet': true,
-    'publicPath': "/Static/js/",
+    'publicPath': "/build/js/",
 });
 server.listen(9090);

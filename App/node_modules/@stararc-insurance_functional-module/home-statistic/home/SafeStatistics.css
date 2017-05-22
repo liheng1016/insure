@@ -1,0 +1,35 @@
+.content{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+.content_left{
+    position: absolute;
+    top: 35px;
+    bottom: 0;
+    width: 75%;
+}
+/*.left{
+    height: 100%;
+    margin-right:220px;
+}*/
+.content_right{
+    width: 25%;
+    position: absolute;
+    top: 35px;
+    right: 17px;
+    bottom: 0;
+    /*left:10%;*/
+}
+.page-title{
+    /*height: 2.5em;*/
+    /*font-size: 14px;*/
+    height: 35px;
+    line-height: 35px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    /*line-height: 2.5em;*/
+    /*line-height: 2em;*/
+}

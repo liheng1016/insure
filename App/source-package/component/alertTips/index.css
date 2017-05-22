@@ -1,0 +1,58 @@
+.shade{
+	position: fixed;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	background: #ccc;
+	opacity: 0.8;
+	z-index: 9999;
+}
+
+.alert--content{
+	position: fixed;
+	width: 300px;
+	height:110px;
+	left: 50%;
+	top: 50%;
+	margin-left: -150px;
+	margin-top: -55px;
+	background: white;
+	border-radius: 10px;
+	vertical-align: middle;
+	text-align: center;
+	z-index: 10000;
+}
+
+.alert--false{
+	position: fixed;
+	width: 300px;
+	height:160px;
+	left: 50%;
+	top: 50%;
+	margin-left: -150px;
+	margin-top: -80px;
+	background: white;
+	border-radius: 10px;
+	vertical-align: middle;
+	text-align: center;
+	z-index: 10000;
+}
+.tips-p{
+	height: 110px;
+	font-size: 22px;
+	line-height: 110px;
+}
+
+.tips-f{
+	height: 90px;
+	font-size: 22px;
+	line-height: 90px;
+}
+.button{
+	width:80px;
+	height:32px;
+	background: #ffd63f;
+	color:black;
+	border-radius:30px;
+}

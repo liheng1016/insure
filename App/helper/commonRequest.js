@@ -3,6 +3,8 @@
  */
 import fetch from 'isomorphic-fetch';
 export default function commonRequest(path, data = {}, method = 'GET', headers = null) {
+    path = PATH_PREFIX + path;
+
     if (process.env.NODE_ENV != 'production') {
         path = LOCAL_DOMAIN + path;
     }
@@ -24,11 +26,13 @@ export default function commonRequest(path, data = {}, method = 'GET', headers =
         let r = '';
         try {
             r = response.json();
+
         } catch (e) {
             r = {
                 msg: e
             };
         }
+
         return r;
     }, function (err) {
         return {'ret': '-1', 'msg': '网络连接失败!', error: err};

@@ -1,0 +1,206 @@
+.riskserveywrap{
+	width:100%;
+	height:auto;
+}
+.header-button{
+	width:100%;
+	height:auto;
+	margin:8px 0px;
+	overflow: hidden;
+}
+.content{
+	width:100%;
+	height:100px;
+}
+
+.general{
+	width:100%;
+	height:auto;
+	background:white;
+	padding: 10px 10px;
+	position: relative;
+}
+.general-title{
+	
+	width:100%;
+}
+.general-company{
+	width:auto;
+	display:inline-block;
+	height:32px;
+	line-height:32px;
+	font-size:18px;
+	margin-right: 20px;
+}
+.general-score{
+	width: 60px;
+    display: inline-block;
+    margin-left: 5px;
+    position: relative;
+    height: 30px;
+}
+.score{
+	width:auto;
+	display: inline-block;
+	height:32px;
+	line-height:32px;
+	color:#0a95d7;
+	font-weight: 600;
+}
+.general-img{
+	width: 12px;
+    height: 20px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 5px;
+}
+.general-img img {
+	display: block;
+	cursor:pointer;
+}
+.general-li{
+	width:100%;
+	height:30px;
+	line-height:30px;
+	cursor: pointer;
+}
+.general-li--name{
+	width:auto;
+	display: inline-block;
+	font-size:12px;
+}
+.general-li--content{
+	width:auto;
+	display: inline-block;
+	font-size:12px;
+	margin-left:3px;
+}
+
+/*9.6评分隐藏显示块*/
+.scorediv{
+	width: 152px;
+    background: white;
+    border: 1px solid #cccccc;
+    top: 5px;
+    padding: 3px 15px;
+    position: absolute;
+    left: 65px;
+
+}
+.score-header{
+	width:auto;
+	height: 34px;
+	line-height: 34px;
+	font-size: 14px;
+	display: block;
+	font-weight: 600;
+}
+.score-header--name{
+	width:auto;
+	display: inline-block;
+}
+.score-header--res{
+	width:auto;
+	display: inline-block;
+}
+.scorediv-li{
+	width:auto;
+	height: 24px;
+	line-height:24px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+/*风险*/
+.dangerdiv{
+	width:100%;
+	height: auto;
+}
+.danger-title{
+	width:100%;
+	background:#f8f8f8;
+	height: 46px;
+	margin:10px 0px;
+	padding-left:10px;
+	font-size:14px;
+	line-height:46px;
+}
+.danger-title a{
+	color:#a4a4a4;
+	font-size:12px;
+}
+.dangercontent{
+	width:100%;
+	padding:5px 10px;
+	background:white;
+	height:auto;
+	position:relative;
+}
+.danger-content--line{
+	width:100%;
+	height:40px;
+	line-height:40px;
+}
+.tips{
+	width:auto;
+	display:inline-block;
+	font-size:14px;
+
+}
+
+.line-identifying{
+	color:#0099dd;
+	composes:tips;
+}
+.line-question{
+	color:#323232;
+	composes:tips;
+}
+.outcome{
+	width:100%;
+	height:30px;
+	line-height:30px;
+	font-size:12px;
+	color:#383838;
+}
+.record-on-spot{
+	width:100%;
+	height:30px;
+}
+.spot-name{
+	width:auto;
+	height:30px;
+	line-height:30px;
+	font-size:12px;
+	color:#383838;
+}
+.danger-picture{
+	width:100%;
+	height:auto;
+}
+.pic--li{
+	width:81px;
+	height:80px;
+	display:inline-block;
+	margin-right:10px;
+}
+.picture-li img{
+	width:81px;
+	height:80px;
+	cursor:pointer;
+}
+.solve-picture{
+	width:72px;
+	height:57px;
+	position:absolute;
+	right:5%;
+	top:5%;
+}
+.qualified{
+	width:100%;
+	padding:5px 10px;
+	background:white;
+	height:auto;
+	margin-bottom:5px;
+}

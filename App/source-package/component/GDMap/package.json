@@ -1,0 +1,11 @@
+{
+  "name": "@stararc-insurance/gd-map",
+  "version": "1.0.0",
+  "description": "",
+  "main": "GDMap.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "liheng",
+  "license": "ISC"
+}

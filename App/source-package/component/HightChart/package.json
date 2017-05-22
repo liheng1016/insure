@@ -1,0 +1,11 @@
+{
+  "name": "@stararc-insurance/high-charts",
+  "version": "1.0.1",
+  "description": "highcharts",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "liheng",
+  "license": "ISC"
+}

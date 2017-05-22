@@ -1,0 +1,111 @@
+.rank__main{
+    margin-right: 17px;
+    position: relative;
+    /*padding: 17px;*/
+    height: 100%;
+}
+.rank-wrap{
+    width: 100%;
+    font-size: 12px;
+    background-color: #fff;
+    padding: 0px 15px;
+    text-indent: 5px;
+}
+.rank-wrap--YH{
+    composes: rank-wrap;
+    height: 15em;
+}
+.rank-wrap--QY{
+    composes: rank-wrap;
+    position: absolute;
+    top: 16em;
+    bottom: 2em;
+    width: 100%;
+    margin-top: 25px;
+}
+.rank-wrap h3{
+    height: 30px;
+    line-height: 30px;
+    margin:  0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #808080;
+    color: #676767;
+    padding-left: 20px;
+}
+.rank-wrap--YH h3{
+    background: url("../img/icon-yh.png") no-repeat center left;
+}
+
+.rank-wrap--QY h3{
+    background: url("../img/icon-tb.png") no-repeat center left;
+}
+/*.yhqutRight h3 img{
+    float: left;
+    margin-top: 4px;
+}*/
+
+.rank-wrap h3 span{
+    font-size: 16px;
+    font-weight: normal;
+    float: left;
+}
+
+
+.rank-wrap > table{
+    width: 100%;
+    table-layout: fixed;
+    text-align: left;
+    font-size: 14px;
+}
+.rank-wrap > table thead tr{
+    text-align: center;
+}
+.rank-wrap > table tbody td{
+    font-size: 12px;
+}
+.rank-wrap td, .rank-wrap th{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: normal;
+}
+.rank-wrap > table td:last-child,.rank-wrap > table th:last-child{
+    text-align: center;
+}
+
+.rank-wrap > table tr{
+    height: 22px;
+    line-height: 22px;
+}
+.rank-wrap--QY >table tr{
+    height: 25px;
+    line-height: 25px;
+}
+
+.rank-wrap dl {
+    padding: 10px 15px 15px;
+    padding: 0;
+}
+
+.rank-wrap dl div{
+    float: left;
+}
+.rank-wrap dl dt{
+    line-height: 32px;
+}
+.rank-wrap dl span{
+    float: right;
+}
+.rank-wrap dl ul li{
+    line-height: 22px;
+}
+.rank-wrap dl ul li:after{
+    content: "";
+    height: 0;clear: both;
+    visibility: hidden;
+    display: block;
+}
+.link{
+    color:  #0095e1;
+    text-decoration: none;
+}

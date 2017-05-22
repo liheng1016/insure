@@ -1,0 +1,17 @@
+{
+  "name": "@stararc-insurance/date-picker",
+  "version": "1.0.1",
+  "description": "datepiacker",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "datepicker"
+  ],
+  "dependencies": {
+    "@stararc-component/datepicker": "^1.0.20"
+  },
+  "author": "liheng",
+  "license": "ISC"
+}

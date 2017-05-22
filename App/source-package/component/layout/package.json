@@ -1,0 +1,11 @@
+{
+  "name": "@stararc-insurance/layout",
+  "version": "1.0.0",
+  "description": "lauout",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "liheng",
+  "license": "ISC"
+}

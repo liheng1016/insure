@@ -2,14 +2,14 @@
  * Created by able on 2016/10/13 0013.
  */
 import Aes from 'wheel-aes';
-import {AES_KEY, AES_IV} from '../config';
+// import {AES_KEY, AES_IV} from '../config';
 // import {getCookieRequest} from '../request/loginRequest';
 var CookieFromServer = {
     cookie: convertCookieToObj(),
     getPassword: function (key = 'password') {
         let password = this.cookie[key];
-        let aesObj = new Aes(AES_KEY, AES_IV);
-        return password ? aesObj.decrypt(password) : '';
+        // let aesObj = new Aes(AES_KEY, AES_IV);
+        // return password ? aesObj.decrypt(password) : '';
     },
     getValue: function (key) {
         return this.cookie[key] || '';

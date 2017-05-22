@@ -1,0 +1,14 @@
+.trends__content{
+    padding-top: 20px;
+    margin-top: 10px;
+    background: #FFFFFF;
+}
+.company_trends_search{
+    height: 50px;
+    line-height: 50px;
+    padding: 0 10px;
+}
+.content__chart{
+    min-height: 270px;
+    width: 100%;
+}

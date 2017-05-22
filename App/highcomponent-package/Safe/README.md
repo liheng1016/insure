@@ -1,0 +1,100 @@
+###保险 首页统计功能块
+
+>des 对外暴露路由，数据存储状态
+
+>该模块的默认入口是/acceptInsur
+
+```
+import safeReducer from "./model/safe/reducer";
+
+import surveyReducer from "./model/survey/reducer";
+
+import childRoutes from "./route.js";
+
+let route = require("./route/index.json");
+
+export {
+    safeReducer,
+    surveyReducer,
+    route,
+    childRoutes
+}
+```
+###以下是路由部分
+
+```
+{
+    
+    "name":"insue/statisticHome",
+    "label":"首页统计",
+    "path":"/home",
+    "module_path":"",
+    "indexRoute":"/safe",
+    "level":2,
+    "subs":[{
+        "name":"statistic/safe",
+        "label":"首页",
+        "path":"/safe",
+        "module_path":"/home/SafeStatistics.js",
+        "level":2,
+        "subs":[]
+    },{
+        "name":"statistic/safeTrends/:type",
+        "label":"风险趋势",
+        "path":"/safe/safeTrends/:type",
+        "module_path":"/component/SafeTrends.js",
+        "level":2,
+        "not_show":true,
+        "subs":[]
+    },{
+        "name":"statistic/company/list",
+        "label":"企业二级列表",
+        "path":"/company/list",
+        "module_path":"/subComponent/CompanyList.js",
+        "level":2,
+        "not_show":true,
+        "subs":[]
+    },{
+        "name":"statistic/hidden/list",
+        "label":"隐患二级列表",
+        "path":"/hidden/list",
+        "module_path":"/subComponent/HiddenList.js",
+        "level":2,
+        "not_show":true,
+        "subs":[]
+    },{
+        "name":"statistic/task/list",
+        "label":"任务二级列表",
+        "path":"/task/list",
+        "module_path":"/subComponent/TaskList.js",
+        "level":2,
+        "not_show":true,
+        "subs":[]
+    },{
+        "name":"statistic/map/company",
+        "label":"地图",
+        "path":"/map/company",
+        "module_path":"/subComponent/MapForCompany.js",
+        "level":2,
+        "not_show":true,
+        "subs":[]
+    },{
+        "name":"statistic/insureCompany/list",
+        "label":"投保企业二级列表",
+        "path":"/insureCompany/list",
+        "module_path":"/subComponent/InsureCompanyList.js",
+        "level":2,
+        "not_show":true,
+        "subs":[]
+    },{
+        "name":"insue/riskSurvey",
+        "label":"查勘记录>>详情",
+        "path":"/riskSurvey/detail/:id",
+        "module_path":"/subComponent/detail/detail.js",
+        "level":3,
+        "not_show":true,
+        "subs":[]
+    }]
+
+}             
+```

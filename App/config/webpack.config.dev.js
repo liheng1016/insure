@@ -11,12 +11,16 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
     entry: {
         app: [
-            path.resolve(__dirname, '../main.js')
+            // path.resolve(__dirname, '../main.js')
+            // path.resolve(__dirname, '../test/main.js')
+            path.resolve(__dirname, '../test-module/main.js')
         ]
     },
     output: {
-        path: path.resolve(__dirname, '../Static/js'),
-        publicPath: '/Static/js/',
+         path: path.resolve(__dirname, '../build/js'),
+        publicPath: '/build/js/',
+        // path: path.resolve(__dirname, '../Static/js'),
+        // publicPath: '/Static/js/',
         filename: 'app.js'
     },
     module: {
@@ -55,7 +59,9 @@ module.exports = {
             // 'process.env.NODE_ENV': JSON.stringify('production')
             'process.env.NODE_ENV': JSON.stringify('develop'),
             // 'LOCAL_DOMAIN':JSON.stringify('http://statistic.com')
-            'LOCAL_DOMAIN':JSON.stringify('http://insur_tp.com')
+            'PATH_PREFIX':JSON.stringify(''),
+            'LOCAL_DOMAIN':JSON.stringify('http://insur_tp.com'),
+            // 'LOCAL_DOMAIN':JSON.stringify('http://middle.insurance.test.csgrid.cn')
 
         }),
         new ExtractTextPlugin("[name].css"),

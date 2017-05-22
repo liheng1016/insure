@@ -1,0 +1,38 @@
+.search__pie{
+	padding: 10px;
+	position: absolute;
+	top: 0;
+	left:0;
+	right: 0;
+	width: 100%;
+}
+.search__pie input{
+	box-shadow: none;
+}
+.search__pie input:focus{
+	border:1px solid #3fafef;
+}
+.table__list{
+	background:white;
+}
+.table__list thead th{
+	background: #dedede;
+}
+.pagination{
+	padding: 10px 0;
+	float: right;
+}
+.search__pie button{
+	border-radius: 0;
+}
+.body_content{
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    width: 100%;
+    padding: 0 10px;
+    overflow-y: auto;
+    overflow-x:hidden;
+}

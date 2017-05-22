@@ -1,0 +1,11 @@
+{
+  "name": "@stararc-insurance/plug-in",
+  "version": "1.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "liheng",
+  "license": "ISC"
+}

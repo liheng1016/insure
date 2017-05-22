@@ -11,7 +11,7 @@ var precss = require('precss');
 var autoprefixer = require('autoprefixer');
 var values = require('postcss-modules-values');
 var postcssImport = require('postcss-import');
-var PLATFORM_NAME = '安全生产大数据分析系统';
+var PLATFORM_NAME = '保险产品';
 function getDateString() {
     let dateObj = new Date();
     return dateObj.toLocaleDateString().replace(/-|\//g, '') + dateObj.getHours() + dateObj.getMinutes();
@@ -66,9 +66,9 @@ module.exports = {
         new ExtractTextPlugin("[name]-[contenthash].css"),
         new HtmlWebpackPlugin({
             title: PLATFORM_NAME,
-            filename: path.resolve(__dirname, '../build/home.html'),
+            filename: path.resolve(__dirname, '../build/index.html'),
             inject: 'body',
-            favicon: path.resolve(__dirname, './icon.png'),
+            // favicon: path.resolve(__dirname, './icon.png'),
             templateContent: function (templateParams, compilation) {
                 let html = '<!DOCTYPE html>';
                 html += '<html lang="zh-CN">';

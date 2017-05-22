@@ -3,43 +3,247 @@
     "label":"保险",
     "path":"/insure",
     "module_path":"/index.js",
-    "indexRoute":"/riskwarning",
+    "indexRoute":"/safe",
     "level":1,
     "auth":"",
     "subs":[{
+        "name":"statistic/safe",
+        "label":"首页",
+        "path":"/safe",
+        "module_path":"/Safe/SafeStatistics.js",
+        "level":2,
+        "subs":[]
+    },{
         "name":"insue/riskwarning",
         "label":"风险警示",
         "path":"/riskwarning",
-        "module_path":"/riskWarning/index.js",
+        "module_path":"/riskWarning/list/list.js",
         "level":2,
         "subs":[]
     },{
         "name":"insue/riskwarning",
-        "label":"风险警示>>添加",
+        "label":"风险警示添加",
         "path":"/riskwarning/add",
         "module_path":"/riskWarning/add/add.js",
         "level":2,
+        "not_show":true,
         "subs":[]
     },{
         "name":"insue/riskwarning",
-        "label":"风险警示>>详情",
-        "path":"/riskwarning/detail",
+        "label":"风险警示详情",
+        "path":"/riskwarning/detail/:id",
         "module_path":"/riskWarning/detail/detail.js",
         "level":2,
+        "not_show":true,
         "subs":[]
     },{
         "name":"insue/baseSetting",
         "label":"基础设置",
         "path":"/baseSetting",
-        "module_path":"/baseSetting/index.js",
+        "module_path":"",
+        "indexRoute":"/baseSetting/maintenance",
         "level":2,
         "subs":[{
-	        "name":"insue/baseSetting",
-	        "label":"基础设置维护",
-	        "path":"/baseSetting/maintenance",
-	        "module_path":"/baseSetting/maintenance/maintenance.js",
-	        "level":2,
-	        "subs":[]
+            "name":"insue/baseSetting",
+            "label":"基础信息",
+            "path":"/baseSetting/maintenance",
+            "module_path":"/baseSetting/maintenance/maintenance.js",
+            "level":3,
+            "subs":[]
+        },{
+            "name":"insue/baseSetting",
+            "label":"基础信息>>编辑",
+            "path":"/baseSetting/edit",
+            "module_path":"/baseSetting/maintenance/edit/edit.js",
+            "not_show":true,
+            "level":3,
+            "subs":[]
         }]
+    },{
+        "name":"insue/insurcontrol",
+        "label":"承保管理",
+        "path":"/insurcontrol",
+        "module_path":"",
+        "indexRoute":"/insuranceInformation",
+        "level":2,
+        "subs":[{
+            "name":"insue/insurControl/insuranceInformation",
+            "label":"投保申请",
+            "path":"/insuranceInformation",
+            "module_path":"/insurControl/insuranceInformation/insuranceInformation.js",
+            "level":3,
+            "subs":[]
+        },{
+            "name":"insue/insurControl/insuranceInformation",
+            "label":"投保详情",
+            "path":"/insuranceInformation/detail/:id",
+            "module_path":"/insurControl/insuranceInformation/detail/detail.js",
+            "level":3,
+            "not_show":true,
+            "subs":[]
+        },{
+            "name":"insue/insurControl/acceptInsurance",
+            "label":"承保信息",
+            "path":"/acceptInsurance",
+            "module_path":"/insurControl/acceptInsurance/acceptinsurance.js",
+            "level":3,
+            "subs":[]
+        },{
+            "name":"insue/insurControl/acceptInsurance",
+            "label":"承保保单创建",
+            "path":"/acceptInsurance/add",
+            "module_path":"/insurControl/acceptInsurance/add/add.js",
+            "not_show":true,
+            "level":3,
+            "subs":[]
+        },{
+            "name":"insue/insurControl/acceptInsurance",
+            "label":"承保详情",
+            "path":"/acceptInsurance/detail/:id",
+            "module_path":"/insurControl/acceptInsurance/detail/detail.js",
+            "not_show":true,
+            "level":3,
+            "subs":[]
+        },{
+            "name":"insue/insurControl/acceptInsurance",
+            "label":"承保编辑",
+            "path":"/acceptInsurance/edit/:id",
+            "module_path":"/insurControl/acceptInsurance/edit/edit.js",
+            "level":3,
+            "not_show":true,
+            "subs":[]
+        }]
+    },{
+        "name":"insue/claimManagement",
+        "label":"理赔管理",
+        "path":"/claim",
+        "indexRoute":"/claimManagement",
+        "module_path":"",
+        "level":2,
+        "subs":[{
+            "name":"insue/claimManagement",
+            "label":"理赔列表",
+            "path":"/claimManagement",
+            "module_path":"/claimManagement/claimmanagement.js",
+            "level":3,
+            "subs":[]
+        },{
+            "name":"insue/claimManagement",
+            "label":"理赔管理>>详情",
+            "path":"/claimManagement/detail/:id",
+            "module_path":"/claimManagement/detail/detail.js",
+            "level":3,
+            "not_show":true,
+            "subs":[]
+        },{
+            "name":"insue/claimManagement",
+            "label":"理赔管理>>编辑",
+            "path":"/claimManagement/edit/:id",
+            "module_path":"/claimManagement/edit/edit.js",
+            "level":3,
+            "not_show":true,
+            "subs":[]
+        },{
+            "name":"insue/claimManagement",
+            "label":"理赔管理>>创建",
+            "path":"/claimManagement/add",
+            "module_path":"/claimManagement/add/add.js",
+            "level":3,
+            "not_show":true,
+            "subs":[]
+        }]
+    },{
+        "name":"insue/riskSurvey",
+        "label":"企业安全",
+        "path":"/risk",
+        "module_path":"",
+        "indexRoute":"/riskSurvey",
+        "not_show":true,
+        "level":2,
+        "subs":[{
+            "name":"insue/riskSurvey",
+            "label":"查勘记录",
+            "path":"/riskSurvey",
+            "module_path":"/riskSurvey/riskList/risksurvey.js",
+            "level":3,
+            "subs":[]
+        },{
+            "name":"insue/riskSurvey",
+            "label":"查勘记录>>详情",
+            "path":"/riskSurvey/detail",
+            "module_path":"/riskSurvey/riskList/detail/detail.js",
+            "level":3,
+            "subs":[]
+        },{
+            "name":"insue/riskLog",
+            "label":"风险清单",
+            "path":"/riskLog",
+            "module_path":"/riskSurvey/riskList/risksurvey.js",
+            "level":3,
+            "subs":[]
+        },{
+            "name":"insue/riskLog",
+            "label":"风险清单>>详情",
+            "path":"/riskLog/detail",
+            "module_path":"/riskSurvey/riskList/risksurvey.js",
+            "level":3,
+            "subs":[]
+        }]
+    },{
+        "name":"statistic/safeTrends/:type",
+        "label":"风险趋势",
+        "path":"/safe/safeTrends/:type",
+        "module_path":"/Safe/component/SafeTrends.js",
+        "level":2,
+        "not_show":true,
+        "subs":[]
+    },{
+        "name":"statistic/company/list",
+        "label":"企业二级列表",
+        "path":"/company/list",
+        "module_path":"/Safe/subComponent/CompanyList.js",
+        "level":2,
+        "not_show":true,
+        "subs":[]
+    },{
+        "name":"statistic/hidden/list",
+        "label":"隐患二级列表",
+        "path":"/hidden/list",
+        "module_path":"/Safe/subComponent/HiddenList.js",
+        "level":2,
+        "not_show":true,
+        "subs":[]
+    },{
+        "name":"statistic/task/list",
+        "label":"任务二级列表",
+        "path":"/task/list",
+        "module_path":"/Safe/subComponent/TaskList.js",
+        "level":2,
+        "not_show":true,
+        "subs":[]
+    },{
+        "name":"statistic/map/company",
+        "label":"地图",
+        "path":"/map/company",
+        "module_path":"/Safe/subComponent/MapForCompany.js",
+        "level":2,
+        "not_show":true,
+        "subs":[]
+    },{
+        "name":"statistic/insureCompany/list",
+        "label":"投保企业二级列表",
+        "path":"/insureCompany/list",
+        "module_path":"/Safe/subComponent/InsureCompanyList.js",
+        "level":2,
+        "not_show":true,
+        "subs":[]
+    },{
+        "name":"insue/riskSurvey",
+        "label":"查勘记录>>详情",
+        "path":"/riskSurvey/detail/:id",
+        "module_path":"/riskSurvey/riskList/detail/detail.js",
+        "level":3,
+        "not_show":true,
+        "subs":[]
     }]
 }

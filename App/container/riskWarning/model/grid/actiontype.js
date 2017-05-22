@@ -1,5 +1,4 @@
-
-import ActionTypeHandle from '../../../../helper/ActionTypeHandle';
+import {ActionTypeHandle} from '@stararc-insurance/redux-build-tools';
 let handle=new ActionTypeHandle('GRID_ACTION_TYPE');
 const GRID_ACTION_TYPE={
 	LIST:handle.createRequestActionType('LIST'),

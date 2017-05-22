@@ -1,0 +1,11 @@
+{
+  "name": "@stararc-insurance/help-tools",
+  "version": "1.0.0",
+  "description": "",
+  "main": "function.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "liheng",
+  "license": "ISC"
+}

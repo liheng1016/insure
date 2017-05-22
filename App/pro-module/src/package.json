@@ -1,0 +1,41 @@
+{
+  "name": "@stararc-insurance/pro",
+  "version": "1.0.5",
+  "description": "保险模块的整合版",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "dependencies": {
+    "@stararc-insurance_functional-module/base-setting": "^1.0.1",
+    "@stararc-insurance_functional-module/claim-management": "^1.0.1",
+    "@stararc-insurance_functional-module/home-statistic": "^1.0.1",
+    "@stararc-insurance_functional-module/insur-control": "^1.0.1",
+    "@stararc-insurance_functional-module/risk-warning": "^1.0.6",
+    "@stararc-insurance/alert-tips": "^1.0.1",
+    "@stararc-insurance/common-request": "^1.0.0",
+    "@stararc-insurance/date-picker": "^1.0.1",
+    "@stararc-insurance/export-file": "^1.0.8",
+    "@stararc-insurance/gd-map": "^1.0.0",
+    "@stararc-insurance/help-tools": "^1.0.0",
+    "@stararc-insurance/high-charts": "^1.0.1",
+    "@stararc-insurance/layout": "^1.0.0",
+    "@stararc-insurance/plug-in": "^1.0.1",
+    "@stararc-insurance/pro": "^1.0.0",
+    "@stararc-insurance/redux-build-tools": "^1.0.2",
+    "@stararc-insurance/test": "^1.0.12",
+    "@stararc-insurance/upload-file": "^1.0.2",
+    "@stararc-component/big-img": "^1.0.2",
+    "@stararc-component/datepicker": "^1.0.20",
+    "@stararc-component/gridlayout": "^1.0.6",
+    "@stararc-component/iframe-upload": "^1.0.2",
+    "@stararc-component/input": "^1.0.6",
+    "@stararc-component/pagination": "^1.0.5",
+    "@stararc-component/select": "^1.0.9",
+    "@stararc-component/slidemenu": "^1.0.1",
+    "@stararc-component/table": "^1.0.2",
+    "@stararc-component/textarea": "^1.0.2"
+  },
+  "author": "liheng",
+  "license": "ISC"
+}
