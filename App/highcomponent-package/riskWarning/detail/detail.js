@@ -31,6 +31,8 @@ var _bigImg2 = _interopRequireDefault(_bigImg);
 
 var _helpTools = require('@stararc-insurance/help-tools');
 
+var _layout = require('@stararc-insurance/layout');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -64,17 +66,25 @@ var Detailing = function (_Component) {
 				'div',
 				null,
 				_react2.default.createElement(
-					'div',
-					{ className: _detail2.default['de--clear'] },
-					_react2.default.createElement(_button2.default, {
-						styleCss: ButtonStyle,
-						text: "返回",
-						onClick: function onClick(e) {
-							return history.go(-1);
-						} })
+					_layout.LayoutHeader,
+					{ styleCss: { height: 50 } },
+					_react2.default.createElement(
+						'div',
+						{ className: _detail2.default['de--clear'] },
+						_react2.default.createElement(_button2.default, {
+							styleCss: ButtonStyle,
+							text: "返回",
+							onClick: function onClick(e) {
+								return history.go(-1);
+							} })
+					)
 				),
-				_react2.default.createElement(Detail, this.props),
-				_react2.default.createElement(Detailcontent, this.props)
+				_react2.default.createElement(
+					_layout.LayoutContent,
+					{ styleCss: { top: 50, bottom: 0 } },
+					_react2.default.createElement(Detail, this.props),
+					_react2.default.createElement(Detailcontent, this.props)
+				)
 			);
 		}
 	}, {
@@ -117,7 +127,7 @@ var Detail = exports.Detail = function (_Component2) {
 					{ className: _detail2.default["detail--main"] },
 					_react2.default.createElement(
 						'h1',
-						null,
+						{ className: _detail2.default["detail--main--h1"] },
 						detail.title
 					),
 					_react2.default.createElement(
@@ -183,11 +193,7 @@ var Detailcontent = exports.Detailcontent = function (_Component3) {
 				_react2.default.createElement(
 					'div',
 					{ className: _detail2.default["detail--main"] },
-					_react2.default.createElement(
-						'div',
-						{ className: _detail2.default["detail--content"] },
-						_react2.default.createElement('span', { className: _detail2.default["detail-content--word"], dangerouslySetInnerHTML: { __html: detail.content } })
-					),
+					_react2.default.createElement('div', { className: _detail2.default["detail-content--word"], dangerouslySetInnerHTML: { __html: detail.content } }),
 					_react2.default.createElement('div', { className: _detail2.default["clear"] }),
 					_react2.default.createElement(
 						'ul',

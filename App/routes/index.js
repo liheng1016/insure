@@ -4,11 +4,14 @@
 import {create_route} from './create_route';
 const statistic_conf  = require('./insur.json');
 
+const registerJson = require('./register.json');
+
 export const appRoute = {
     path:'/',
     indexRoute:{onEnter:(nextState,replace)=>replace(statistic_conf.path)},
     childRoutes:[
-    	create_route(statistic_conf)
+    	create_route(statistic_conf),
+    	create_route(registerJson)
     ]
 }
 

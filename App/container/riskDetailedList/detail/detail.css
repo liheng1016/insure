@@ -1,0 +1,148 @@
+.header-button{
+	width:auto;
+	height:auto;
+	padding:10px;
+	overflow: hidden;
+	background: white;
+	margin:10px;
+}
+
+.content{
+	padding:0 10px;
+}
+.base-info{
+	background: white;
+	padding: 8px;
+	margin:20px 0 10px;
+	position: relative;
+}
+
+.base-info p{
+	margin-bottom: 15px;
+	font-size: 14px;
+}
+
+.base-info p.company-name{
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.item{
+	color: #0095e2;
+	margin-right: 10px;
+}
+
+.attachment img{
+	margin-right: 10px;
+	width: 75px;
+	height: 75px;
+}
+
+.origin{
+	text-align: right;
+	margin-bottom: 5px;
+	font-size: 14px;
+}
+.origin span {
+	margin-right: 15px
+}
+.feed-status{
+	width: 80px;
+	height: 50px;
+	position: absolute;
+	top: 50%;
+	margin-top: -25px;
+	right: 150px;
+}
+/*上传部分*/
+.feed-back{
+	background: white;
+	padding: 8px;
+	overflow:hidden;
+}
+.deductible--content{
+	width: calc(100% - 80px);
+	display: inline-block;
+}
+.submit-btn{
+	width: 80px;
+	vertical-align: top;
+	padding: 10px 0;
+	display: inline-block;
+}
+.deductible--content li{
+	width:50px;
+	height:50px;
+	display: inline-block;
+	float:left;
+	border:1px solid #ccc;
+	margin-right:10px;
+	position: relative;
+}
+.deductible--content li img{
+	width:100%;
+	height:100%;
+}
+li.res-remark--upload{
+	margin-right: 0;
+	background-color: white;
+	background: url("../img/add.png") no-repeat center;	
+	background-size: 50% 50%;
+	border:2px dashed #0095e2;
+	z-index: 999;
+}
+
+.img-count{
+	height: 50px;
+	width: 50px;
+	padding: 0 10px;
+	display: table-cell;
+	vertical-align: bottom;
+}
+.upload--icon{
+	height: 100%;
+    width: 100%;
+    z-index: 1000;
+    opacity: 0;
+}
+.delete--icon{
+	position: absolute;
+	top: -8px;
+	right: -8px;
+	height:20px;
+	width: 20px;
+	display: inline-block;
+	background:url("../img/delete.png") no-repeat center;
+	animation: all ease-in-out 0.5;
+	cursor: pointer;
+}
+
+.delete--icon:hover{
+	transform: scale(1.2);
+}
+
+.error-tip{
+	margin:5px 0;
+	font-size: 12px;
+	color:#ff0000;
+}
+.feedback-list{
+	background: white;
+	padding: 8px;
+}
+.feedback-pies{
+	color: #666666;
+	border-top:1px solid #d2d2d2;
+}
+.feedback-pies:nth-last-child(1){
+	border-bottom:1px solid #d2d2d2;
+}
+.feedback-pies_title{
+	font-size: 14px;
+	margin: 10px 0;
+}
+.attachment--pies img{
+	margin-right: 10px;
+	width: 50px;
+	height: 50px;
+}

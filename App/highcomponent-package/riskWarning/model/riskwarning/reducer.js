@@ -14,6 +14,8 @@ var _actiontype2 = _interopRequireDefault(_actiontype);
 
 var _reactRouter = require("react-router");
 
+var _alertTips = require("@stararc-insurance/alert-tips");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var riskwarningListState = {
@@ -64,9 +66,18 @@ function getList(state, data, condition) {
 
 function add_risk(state, data) {
 	if (data.id) {
+		(0, _alertTips.openAlert)(true, "添加成功");
+		setTimeout(function () {
+			(0, _alertTips.closeAlert)();
 
-		// browserHistory.push("#/riskwarning")
-		location.href = "#/riskwarning";
+			if (process.env.NODE_ENV != 'production') {
+				location.href = "/riskwarning";
+			} else {
+				_reactRouter.browserHistory.push("/riskwarning");
+			}
+		}, 1500);
+	} else {
+		(0, _alertTips.openAlert)(false, "创建失败");
 	}
 	return Object.assign({}, state, {
 		isRight: ""

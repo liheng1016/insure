@@ -166,7 +166,6 @@ var SettleEditWrap = function (_Component) {
 			for (var r in refs) {
 				paramsFeild = Object.assign(paramsFeild, paramsFeild, _extends({}, refs[r].getValue()));
 			};
-			console.log(paramsFeild);
 			// 报案人信息，案件受理信息 必填字段不通过不发送请求
 			if (!paramsFeild["infoVerify"] || !paramsFeild["hearVerify"]) {
 				return;
@@ -197,7 +196,7 @@ var SettleEditWrap = function (_Component) {
 		value: function componentWillReceiveProps(nextProps) {
 			if (nextProps.detail != this.props.detail) {
 				this.setState({
-					selectValue: nextProps.detail.companyInsurance
+					selectValue: _extends({}, nextProps.detail.companyInsurance, nextProps.detail.company)
 				});
 			}
 		}

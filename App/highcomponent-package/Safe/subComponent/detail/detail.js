@@ -31,7 +31,13 @@ var _action = require("../../model/survey/action");
 
 var _action2 = _interopRequireDefault(_action);
 
+var _bigImg = require("@stararc-component/big-img");
+
+var _bigImg2 = _interopRequireDefault(_bigImg);
+
 var _helpTools = require("@stararc-insurance/help-tools");
+
+var _layout = require("@stararc-insurance/layout");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -60,8 +66,16 @@ var RiskServeyDetail = function (_Component) {
 			return _react2.default.createElement(
 				"div",
 				{ className: _detail2.default["riskserveywrap"] },
-				_react2.default.createElement(HeaderButton, null),
-				_react2.default.createElement(RiskServeyContent, _extends({}, this.props, { risk: this.props.getdetail }))
+				_react2.default.createElement(
+					_layout.LayoutHeader,
+					{ styleCss: { height: 50 } },
+					_react2.default.createElement(HeaderButton, null)
+				),
+				_react2.default.createElement(
+					_layout.LayoutContent,
+					{ styleCss: { top: 50, bottom: 0 } },
+					_react2.default.createElement(RiskServeyContent, _extends({}, this.props, { risk: this.props.getdetail }))
+				)
 			);
 		}
 	}, {
@@ -207,12 +221,12 @@ var ContentGeneral = exports.ContentGeneral = function (_Component5) {
 					"div",
 					{ className: _detail2.default["general-title"] },
 					_react2.default.createElement(
-						"p",
+						"div",
 						{ className: _detail2.default["general-company"] },
 						risk.company_name
 					),
 					_react2.default.createElement(
-						"p",
+						"div",
 						{ className: _detail2.default["general-score"] },
 						_react2.default.createElement(
 							"span",
@@ -342,21 +356,41 @@ var LiScoreDiv = exports.LiScoreDiv = function (_Component7) {
 var Danger = exports.Danger = function (_Component8) {
 	_inherits(Danger, _Component8);
 
-	function Danger() {
+	function Danger(props) {
 		_classCallCheck(this, Danger);
 
-		return _possibleConstructorReturn(this, (Danger.__proto__ || Object.getPrototypeOf(Danger)).apply(this, arguments));
+		var _this9 = _possibleConstructorReturn(this, (Danger.__proto__ || Object.getPrototypeOf(Danger)).call(this, props));
+
+		_this9.state = {
+			isopenMoreArrow: false
+
+		};
+		return _this9;
 	}
 
 	_createClass(Danger, [{
 		key: "render",
 		value: function render() {
+			var _this10 = this;
+
 			return _react2.default.createElement(
 				"div",
 				{ className: _detail2.default["dangerdiv"] },
-				_react2.default.createElement(DangerTitle, this.props),
-				_react2.default.createElement(DangerConter, this.props)
+				_react2.default.createElement(DangerTitle, _extends({}, this.props, { isopenMoreArrow: this.state.isopenMoreArrow, openMoreArrow: function openMoreArrow(e) {
+						return _this10.openMoreArrow();
+					} })),
+				this.state.isopenMoreArrow ? _react2.default.createElement(DangerConter, this.props) : ''
 			);
+		}
+	}, {
+		key: "openMoreArrow",
+		value: function openMoreArrow() {
+			var isopenMoreArrow = this.state.isopenMoreArrow;
+
+
+			this.setState({
+				isopenMoreArrow: !isopenMoreArrow
+			});
 		}
 	}]);
 
@@ -384,11 +418,16 @@ var DangerTitle = exports.DangerTitle = function (_Component9) {
 				{ className: _detail2.default["danger-title"] },
 				"\u98CE\u9669",
 				_react2.default.createElement(
-					"a",
-					{ href: "javascript:;" },
+					"span",
+					{ className: _detail2.default["danger_items"] },
 					"(\u5171",
 					risk.items && risk.items.rectify && risk.items.rectify.total || 0,
 					"\u6761)"
+				),
+				_react2.default.createElement(
+					"span",
+					{ className: _detail2.default["arrow"], onClick: this.props.openMoreArrow },
+					_react2.default.createElement("img", { src: !this.props.isopenMoreArrow ? require("../img/arrow.png") : require("../img/arrow-top.png") })
 				)
 			);
 		}
@@ -423,7 +462,7 @@ var DangerConter = exports.DangerConter = function (_Component10) {
 	}, {
 		key: "getContent",
 		value: function getContent() {
-			var _this12 = this;
+			var _this13 = this;
 
 			var items = this.props.risk && this.props.risk.items && this.props.risk.items.rectify && this.props.risk.items.rectify.list || [];
 
@@ -454,7 +493,7 @@ var DangerConter = exports.DangerConter = function (_Component10) {
 					_react2.default.createElement(
 						"ul",
 						{ className: _detail2.default["danger-picture"] },
-						_this12.getDangerPicture(item.attachments)
+						_this13.getDangerPicture(item.attachments)
 					),
 					_react2.default.createElement(
 						"div",
@@ -467,6 +506,8 @@ var DangerConter = exports.DangerConter = function (_Component10) {
 	}, {
 		key: "getDangerPicture",
 		value: function getDangerPicture() {
+			var _this14 = this;
+
 			var img = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
 			img = img || [];
@@ -474,10 +515,29 @@ var DangerConter = exports.DangerConter = function (_Component10) {
 			return img.map(function (m, key) {
 				return _react2.default.createElement(
 					"li",
-					{ className: _detail2.default["pic--li"], key: key },
+					{ className: _detail2.default["pic--li"], key: key, onClick: function onClick(e) {
+							return _this14.big_img(img, key);
+						} },
 					_react2.default.createElement("img", { src: m.attachment_path })
 				);
 			});
+		}
+	}, {
+		key: "big_img",
+		value: function big_img() {
+			var imgArr = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+			var index = arguments[1];
+
+			var newImgArr = [];
+
+			imgArr.map(function (img) {
+				newImgArr.push({
+					id: img.attachment_id,
+					path: img.attachment_path
+				});
+			});
+
+			(0, _bigImg2.default)(newImgArr, index);
 		}
 	}]);
 
@@ -535,15 +595,22 @@ var DangderP = exports.DangderP = function (_Component11) {
 var DangerQualified = exports.DangerQualified = function (_Component12) {
 	_inherits(DangerQualified, _Component12);
 
-	function DangerQualified() {
+	function DangerQualified(props) {
 		_classCallCheck(this, DangerQualified);
 
-		return _possibleConstructorReturn(this, (DangerQualified.__proto__ || Object.getPrototypeOf(DangerQualified)).apply(this, arguments));
+		var _this16 = _possibleConstructorReturn(this, (DangerQualified.__proto__ || Object.getPrototypeOf(DangerQualified)).call(this, props));
+
+		_this16.state = {
+			isopenMoreQualified: false
+		};
+		return _this16;
 	}
 
 	_createClass(DangerQualified, [{
 		key: "render",
 		value: function render() {
+			var _this17 = this;
+
 			var items = this.props.risk && this.props.risk.items && this.props.risk.items.finish || {};
 
 			return _react2.default.createElement(
@@ -554,14 +621,25 @@ var DangerQualified = exports.DangerQualified = function (_Component12) {
 					{ className: _detail2.default["danger-title"] },
 					"\u5408\u683C",
 					_react2.default.createElement(
-						"a",
-						{ href: "javascript:;" },
-						"  (\u5171",
+						"span",
+						{ className: _detail2.default["danger_items"] },
+						"(\u5171",
 						items.total || 0,
 						"\u6761)"
+					),
+					_react2.default.createElement(
+						"span",
+						{ className: _detail2.default["arrow"], onClick: function onClick(e) {
+								return _this17.openMoreQualified();
+							} },
+						_react2.default.createElement("img", { src: !this.state.isopenMoreQualified ? require("../img/arrow.png") : require("../img/arrow-top.png") })
 					)
 				),
-				this.getContent(items.list)
+				this.state.isopenMoreQualified ? _react2.default.createElement(
+					"div",
+					null,
+					this.getContent(items.list)
+				) : ''
 			);
 		}
 	}, {
@@ -582,6 +660,16 @@ var DangerQualified = exports.DangerQualified = function (_Component12) {
 				);
 			});
 		}
+	}, {
+		key: "openMoreQualified",
+		value: function openMoreQualified() {
+			var isopenMoreQualified = this.state.isopenMoreQualified;
+
+
+			this.setState({
+				isopenMoreQualified: !isopenMoreQualified
+			});
+		}
 	}]);
 
 	return DangerQualified;
@@ -595,17 +683,24 @@ var DangerQualified = exports.DangerQualified = function (_Component12) {
 var NotFilling = exports.NotFilling = function (_Component13) {
 	_inherits(NotFilling, _Component13);
 
-	function NotFilling() {
+	function NotFilling(props) {
 		_classCallCheck(this, NotFilling);
 
-		return _possibleConstructorReturn(this, (NotFilling.__proto__ || Object.getPrototypeOf(NotFilling)).apply(this, arguments));
+		var _this18 = _possibleConstructorReturn(this, (NotFilling.__proto__ || Object.getPrototypeOf(NotFilling)).call(this, props));
+
+		_this18.state = {
+			isopenMoreNotFilling: false
+		};
+		return _this18;
 	}
 
 	_createClass(NotFilling, [{
 		key: "render",
 		value: function render() {
-			var items = this.props.risk && this.props.risk.items && this.props.risk.items.non || {};
+			var _this19 = this;
 
+			var items = this.props.risk && this.props.risk.items && this.props.risk.items.non || {};
+			console.log("123456");
 			return _react2.default.createElement(
 				"div",
 				null,
@@ -614,14 +709,25 @@ var NotFilling = exports.NotFilling = function (_Component13) {
 					{ className: _detail2.default["danger-title"] },
 					"\u672A\u586B",
 					_react2.default.createElement(
-						"a",
-						{ href: "#" },
-						"  (\u5171",
+						"span",
+						{ className: _detail2.default["danger_items"] },
+						"(\u5171",
 						items.total || 0,
 						"\u6761)"
+					),
+					_react2.default.createElement(
+						"span",
+						{ className: _detail2.default["arrow"], onClick: function onClick(e) {
+								return _this19.openMoreNotFilling();
+							} },
+						_react2.default.createElement("img", { src: !this.state.isopenMoreNotFilling ? require("../img/arrow.png") : require("../img/arrow-top.png") })
 					)
 				),
-				this.getContent(items.list)
+				this.state.isopenMoreNotFilling ? _react2.default.createElement(
+					"div",
+					null,
+					this.getContent(items.list)
+				) : ''
 			);
 		}
 	}, {
@@ -632,9 +738,19 @@ var NotFilling = exports.NotFilling = function (_Component13) {
 			return items.map(function (item, key) {
 				return _react2.default.createElement(
 					"div",
-					{ className: _detail2.default["qualified"] },
+					{ className: _detail2.default["qualified"], key: key },
 					_react2.default.createElement(DangderP, { LableName: item.classify, content: item.question })
 				);
+			});
+		}
+	}, {
+		key: "openMoreNotFilling",
+		value: function openMoreNotFilling() {
+			var isopenMoreNotFilling = this.state.isopenMoreNotFilling;
+
+
+			this.setState({
+				isopenMoreNotFilling: !isopenMoreNotFilling
 			});
 		}
 	}]);

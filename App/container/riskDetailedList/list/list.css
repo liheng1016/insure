@@ -1,0 +1,38 @@
+/*主体外壳*/
+.settlementwarp{
+	height:auto;
+}
+.settlement-header{
+	width:100%;
+	height:50px;
+	background:white;
+	margin:10px 0px;
+}
+
+.search_top--warp{
+	width:485px;
+	height:50px;
+	float:right;
+	padding-top:10px;
+}
+.search_wrap{
+	width:294px;
+	height:30px;
+	display: block;
+	float:right;
+	margin-right:10px;
+}
+
+
+.pagination{
+	float: right;
+	margin-top: 10px;
+}
+.table--list{
+	background: white;
+	padding-bottom:17px;
+	height:auto;
+	padding:10px;
+	font-family:"微软雅黑";
+	overflow: auto;
+}

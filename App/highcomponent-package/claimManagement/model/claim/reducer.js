@@ -12,6 +12,8 @@ var _actiontype = require("./actiontype");
 
 var _actiontype2 = _interopRequireDefault(_actiontype);
 
+var _reactRouter = require("react-router");
+
 var _alertTips = require("@stararc-insurance/alert-tips");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -90,13 +92,21 @@ function create_suc(state, data) {
 		(0, _alertTips.openAlert)(true, "创建成功！");
 		setTimeout(function () {
 			(0, _alertTips.closeAlert)();
-			window.location.href = "#/claimManagement";
-		}, 2000);
+			if (process.env.NODE_ENV != 'production') {
+				location.href = "/claimManagement";
+			} else {
+				_reactRouter.browserHistory.push("/claimManagement");
+			}
+		}, 1500);
 	} else {
 		(0, _alertTips.openAlert)(false, "创建失败！");
 	}
 
-	return Object.assign({}, state);
+	return Object.assign({}, state, {
+		sceneAttachment: [],
+		accidentAttachment: {},
+		thingsAttachment: {}
+	});
 }
 
 function update_suc(state, data) {
@@ -190,9 +200,12 @@ function delete_attach(state, data) {
 		sceneAttachment: newMediaList
 	});
 }
-//
+//卸载附件
 function clear_claim_detail(state) {
 	return Object.assign({}, state, {
-		detail: {}
+		detail: {},
+		sceneAttachment: [],
+		accidentAttachment: {},
+		thingsAttachment: {}
 	});
 }

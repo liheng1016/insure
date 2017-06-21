@@ -46,9 +46,7 @@ class SettlementDetail extends Component{
 	}
 	componentWillUnmount() {
 		let {unmout_claim_detail} = this.props;
-		unmout_claim_detail({
-			
-		})
+		unmout_claim_detail()
 	}
 
 }
@@ -56,7 +54,6 @@ class SettlementDetail extends Component{
 export class ActionBar extends Component{
 	render() {
 		let actionbar = this.props.actionbar || {};
-		console.log(actionbar.status,'状态')
 		let ButtonStyle={width:'60px',background:'#f2c01f',float:'right',marginLeft:'10px'};
 		let backStyle={width:'60px',background:'#f5a70f',float:'right',marginLeft:'10px'};
 		let status = {
@@ -104,24 +101,23 @@ export class ApplicantInformation extends Component{
 /*投保人内容*/
 export class ApplicantContent extends Component{
 	render() {
-		let applicant = this.props.applicant.companyInsurance||{};
-		console.log(applicant,'所有数据投保人内容')
+		let applicant = this.props.applicant && this.props.applicant.company||{};
 		return (
 			<ul className={style["applicant"]}>
 				<LiComponent lableName={'投保人名称 : '}
-					content={applicant.company_name}/>
+					content={applicant.organName}/>
 				<LiComponent lableName={'所属地区 : '}
-					content={applicant.grid_name}/>
+					content={applicant.gridName}/>
 				<LiComponent lableName={'工商注册号 : '}
-					content={applicant.company}/>
+					content={applicant.register}/>
 				<LiComponent lableName={'行业类型 : '}
-					content={applicant.type_name}/>
+					content={applicant.typeName}/>
 				<LiComponent lableName={'法人 : '}
-					content={applicant.company}/>
+					content={applicant.legalPerson}/>
 				<LiComponent lableName={'法人联系方式 : '}
-					content={applicant.company}/>
+					content={applicant.legalPhone}/>
 				<LiComponent lableName={'企业地址 : '}
-					content={applicant.company}/>
+					content={applicant.address}/>
 			</ul>
 		);
 	}
@@ -305,7 +301,7 @@ export class AccidentDetailsContent extends Component{
 				<LiComponent lableName={'出险时间 : '}
 					content={getFormatData(accident.accident_at)}/>
 				<LiComponent lableName={'事故类型 : '}
-					content={accident.accidentTypes}/>
+					content={accident.accident_type_name}/>
 				<LiComponent lableName={'是否涉及人伤 : '}
 					content={accident.is_involve_people=="2"?"是":"否"}/>
 				<LiPass lableName={'事故经过 : '}
@@ -375,19 +371,21 @@ export class LossSituation extends Component{
  */
 export class LossSituationContent extends Component{
 	render() {
-		let content = this.props.loss && this.props.loss.attachment && this.props.loss.attachment[0] ||{};
+		let accident = this.props.loss && this.props.loss.accidentAttachment && this.props.loss.accidentAttachment[0] ||{};
+		let things = this.props.loss && this.props.loss.thingsAttachment && this.props.loss.thingsAttachment[0] ||{};
+
 		return (
 			<ul className={style["applicant-content"]}>
 				<li className={style["losssituation"]}>
 					<span className={style["loss-name"]}>伤亡人员清单 : </span>
 					<span className={style["loss-content"]}>
-						<a href={content.attachment_path} download="">{content.name}</a>
+						<a href={accident.attachment_path} download="">{accident.name}</a>
 					</span>
 				</li>
 				<li className={style["losssituation"]}>
 					<span className={style["loss-name"]}>物损清单 : </span>
 					<span className={style["loss-content"]}>
-						<a href={content.attachment_path} download="">{content.name}</a>
+						<a href={things.attachment_path} download="">{things.name}</a>
 					</span>
 				</li>
 			</ul>

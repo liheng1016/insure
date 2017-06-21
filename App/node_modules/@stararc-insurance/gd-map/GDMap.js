@@ -42,20 +42,24 @@ var GDMap = function (_Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             var container = this.refs.mapContainer;
+            var self = this;
+
             var map = initMap(container);
-            var _props = this.props,
-                mapEvent = _props.mapEvent,
-                polygons = _props.polygons,
-                polygonEvent = _props.polygonEvent;
+
+            var _self$props = self.props,
+                mapEvent = _self$props.mapEvent,
+                polygons = _self$props.polygons,
+                polygonEvent = _self$props.polygonEvent;
 
 
-            this.map = map;
+            self.map = map;
+
             bindMapEvent(map, mapEvent);
 
-            if (this.props.markers) {
-                this.markers = createMarkers(this.props.markers, this.props.markerEvent);
-                var _map = this.map;
-                this.markers.map(function (m) {
+            if (self.props.markers) {
+                self.markers = createMarkers(self.props.markers, self.props.markerEvent);
+                var _map = self.map;
+                self.markers.map(function (m) {
                     m.setMap(_map);
                 });
             }

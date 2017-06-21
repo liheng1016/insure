@@ -2,6 +2,7 @@ import React,{ Component } from 'react';
 import {connect} from 'react-redux';
 
 import GDMap from '@stararc-insurance/gd-map';
+
 import style from './MapForCompany.css';
 import{
     timeToString,
@@ -12,56 +13,36 @@ import {GoBackButton} from '@stararc-component/button';
 
 import safeAction from '../model/safe/safe.action'
 
+import {load_script} from "@stararc-insurance/help-tools";
+
+import * as Map from "@stararc-plugin/map";
+
+
 class MapForCompany extends Component{
 	constructor(props) {
 	    super(props);
 	
 	    this.state = {
 	    	markers:[],
-	    	infowin:{}
+	    	infowin:{},
+            showMap:false
 	    };
 	}
 	render() {
+        let mapStyle = {
+                width:'100%',
+                height:'100%'
+            };
 		return (
 			<div className={style["map--content"]}>
                 <div className={style["go_back"]}>
                     <GoBackButton></GoBackButton>
                 </div>
-				<GDMap 
-					markers={this.state.markers} 
-					infowin={this.state.infowin}
-					markerEvent={this.setMarkerEvent()}/>
+                <div ref="container" style={mapStyle}></div>
 			</div>
 		);
 	}
-	// 地图标志点击事件
-    setMarkerEvent() {
-        let _this = this;
-        return [{
-            type: 'click',
-            eventHandle: function (context) {
-                let extData = context.getExtData();
-                let data = _this.state.markers;
-                let mapWindowData = null, infowin = null;
-                for(let i = 0 ; i < data.length;i++){
-                    if(data[i].id == extData.id){
-                        mapWindowData = data[i];
-                        break;
-                    }
-                }
-                if(mapWindowData){
-                    infowin = {
-                        content: _this.createInfoHtml(mapWindowData),
-                        position: {geo_long: Number(mapWindowData.geo_long)||113.280637, geo_lat:Number(mapWindowData.geo_lat)||23.125178}
-                    };
-                    _this.setState({
-                        infowin
-                    });
-                }
-            }
-        }]
-    }
-
+	
     // 创建地图窗口标签
     createInfoHtml(data = {}) {
         let html = '<div class="dgMapInfowin">';
@@ -77,17 +58,33 @@ class MapForCompany extends Component{
     }
     componentWillReceiveProps(nextProps){
         if(nextProps.complist != this.props.complist){
+            let self = this;
+
             let markers = this.filterCompany(nextProps.complist);
-            this.setState({
-                markers:markers
-            })
+            
+            const marker_events = [{
+                type:'click',
+                handle:function(context){
+                    let marker = this;
+
+                    let position = marker.getPosition();
+                    let info_config = {
+                        content:self.createInfoHtml(marker.G)
+                    };
+                    // 点击点标记时设置信息窗体
+                    Map.open_info_win(info_config,position,self.map);
+                }
+            }];
+
+            // 标注点标记
+            Map.set_marker(markers,marker_events,self.map);
         }
     }
     filterCompany(complist=[]){
         let complists = [];
         complist.map((com,key)=>{
-            com.geo_long = Number(com.geo_long||113.280637);
-            com.geo_lat = Number(com.geo_lat||23.125178);
+            com.lng = Number(com.geo_long||116.280637);
+            com.lat = Number(com.geo_lat||23.125178);
 
             complists.push(com);
         })
@@ -95,9 +92,23 @@ class MapForCompany extends Component{
         return complists;
     }
     componentDidMount(){
-        let {insureCompanyListForMap} = this.props;
+        let {insureCompanyListForMap} = this.props,self = this;
 
-        insureCompanyListForMap();
+        const url = 'http://webapi.amap.com/maps?v=1.3&key=57263d2a64c3e10d5fc13819ed372b00';
+
+        load_script(url,function(){
+            insureCompanyListForMap();
+
+            let container = self.refs.container;
+            let map_config = {
+                resizeEnable: true,
+                zoom: 9,
+                center: [113.280637, 23.125178]
+            };
+            const map_obj = Map.init(container,map_config);
+
+            self.map = map_obj;
+        });
     }
 
 } 

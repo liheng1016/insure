@@ -11,13 +11,13 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 module.exports = {
     entry: {
         app: [
-            // path.resolve(__dirname, '../main.js')
+            path.resolve(__dirname, '../main.js')
             // path.resolve(__dirname, '../test/main.js')
-            path.resolve(__dirname, '../test-module/main.js')
+            // path.resolve(__dirname, '../test-module/main.js')
         ]
     },
     output: {
-         path: path.resolve(__dirname, '../build/js'),
+        path: path.resolve(__dirname, '../build/js'),
         publicPath: '/build/js/',
         // path: path.resolve(__dirname, '../Static/js'),
         // publicPath: '/Static/js/',
@@ -39,11 +39,23 @@ module.exports = {
                     presets: ['es2015', 'stage-0', 'react']
                 }
             },
+            {
+                test:function(path){
+                   var reg = /quill\.(core|snow)\.css$/
+                   return reg.test(path);
+                },
+                loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
+            },
             // { test: /\.css$/, loader: 'style-loader!css-loader?modules!postcss-loader' },
             {
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&localIdentName=[path][name]---[local]---[hash:base64:5]!postcss-loader')
-            }, {
+                // test: /\.css$/,
+                test:function(path){
+                    return /\.css$/.test(path)&&!/quill\.(core|snow)\.css$/.test(path)
+                },
+                loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&localIdentName=[path][name]---[local]---[hash:base64:5]!postcss-loader'),
+               
+            }, 
+            {
                 test: /\.(png|jpg|gif)\??.*$/,
                 loader: "file-loader"
             }, {

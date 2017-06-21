@@ -1,0 +1,50 @@
+{
+    
+    "name":"insue/home",
+    "label":"承保管理",
+    "path":"/accept",
+    "module_path":"",
+    "indexRoute":"/acceptInsur",
+    "level":2,
+    "subs":[{
+        "name":"insue",
+        "label":"承保管理",
+        "path":"/acceptInsur",
+        "module_path":"",
+        "indexRoute":"/insuranceInformation",
+        "level":2,
+        "subs":[{
+            "name":"insue/acceptInsurance",
+            "label":"承保信息",
+            "path":"/acceptInsurance",
+            "module_path":"/acceptInsurance/list/acceptinsurance.js",
+            "level":3,
+            "subs":[]
+        },{
+            "name":"insue/acceptInsurance",
+            "label":"承保保单创建",
+            "path":"/acceptInsurance/add",
+            "module_path":"/acceptInsurance/add/add.js",
+            "not_show":true,
+            "level":3,
+            "subs":[]
+        },{
+            "name":"insue/acceptInsurance",
+            "label":"承保详情",
+            "path":"/acceptInsurance/detail/:id",
+            "module_path":"/acceptInsurance/detail/detail.js",
+            "not_show":true,
+            "level":3,
+            "subs":[]
+        },{
+            "name":"insue/acceptInsurance",
+            "label":"承保编辑",
+            "path":"/acceptInsurance/edit/:id",
+            "module_path":"/acceptInsurance/edit/edit.js",
+            "level":3,
+            "not_show":true,
+            "subs":[]
+        }]
+    }]
+
+}    

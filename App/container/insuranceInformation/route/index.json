@@ -1,0 +1,34 @@
+{
+    
+    "name":"insue/home",
+    "label":"承保管理",
+    "path":"/accept",
+    "module_path":"",
+    "indexRoute":"/acceptInsur",
+    "level":2,
+    "subs":[{
+        "name":"insue",
+        "label":"承保管理",
+        "path":"/acceptInsur",
+        "module_path":"",
+        "indexRoute":"/insuranceInformation",
+        "level":2,
+        "subs":[{
+            "name":"insue/insuranceInformation",
+            "label":"投保申请",
+            "path":"/insuranceInformation",
+            "module_path":"/insuranceInformation/list/insuranceInformation.js",
+            "level":3,
+            "subs":[]
+        },{
+            "name":"insue/insuranceInformation",
+            "label":"投保详情",
+            "path":"/insuranceInformation/detail/:id",
+            "module_path":"/insuranceInformation/detail/detail.js",
+            "level":3,
+            "not_show":true,
+            "subs":[]
+        }]
+    }]
+
+}    

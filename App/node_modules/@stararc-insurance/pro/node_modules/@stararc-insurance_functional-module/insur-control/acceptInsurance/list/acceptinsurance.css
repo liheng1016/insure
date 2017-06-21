@@ -1,0 +1,122 @@
+.title_wrap{
+	width:100%;
+	padding:10px 15px;
+}
+.titlt--top{
+	width:100%;
+	height:40px;
+	line-height:40px;
+	padding:4px 0px;
+	margin-bottom:5px !important;
+}
+.number_of_policy{
+	width:calc(100% / 3);
+	float:left;
+	display: block;
+	height:35px;
+	line-height:35px;
+}
+
+.number_of_policy--data{
+	composes:number_of_policy;
+	height:30px;
+	line-height:30px;
+}
+.name{
+	width:42%;
+	float:left;
+	display: block;
+	font-size:14px;
+	text-align: right;
+	padding-right:3px;
+}
+.insurance-name{
+	width:42%;
+	float:left;
+	display: block;
+	font-size:14px;
+	text-align: right;
+	padding-right:3px;
+}
+.insurance-name_time{
+	width:58%;
+	float:right;
+	display: block;
+}
+.separator{
+	width:10%;
+	display:block;
+	float:left;
+	height:30px;
+	line-height: 30px;
+	text-align: center;
+	color:#ccc;
+}
+.area{
+	width:58%;
+	float:left;
+	display: block;
+}
+.resetting{
+	margin-left:45%;
+}
+.search{
+	margin-left:10px;
+}
+.table-wrap{
+	width:100%;
+	background:white;
+	padding:10px;
+	margin-top:10px;
+	overflow-x: scroll;
+}
+.table--main{
+	width:170%;
+	table-layout: fixed;
+}
+.table_title{
+	width:auto;
+	background:#ececec;
+	height:36px;
+	font-family:"微软雅黑";
+	font-size:14px;
+	line-height:36px;
+	color:#666666;
+	text-align:center;
+}
+.table_row{
+	width:100%;
+	background:#ececec;
+	height:36px;
+	font-family:"微软雅黑";
+	font-size:14px;
+	color:#666666;
+	text-align:center;
+	cursor: pointer;
+}
+.table_row:hover{
+	background: #e9f7ff;
+	color: #00bf9a;
+}
+
+.table_row td{
+	text-overflow: ellipsis; 
+	white-space: nowrap; 
+	overflow: hidden;
+	padding:0px 5px;
+}
+
+.pagination{
+	float: right;
+	margin-top: 10px;
+}
+.export--button{
+	width: 80px;
+    display: inline-block;
+    height: 30px;
+    overflow: hidden;
+    vertical-align: top;
+    line-height: 30px;
+    margin-left: 10px;
+    float:right;
+}

@@ -257,6 +257,7 @@ var ApplicantPassive = exports.ApplicantPassive = function (_Component6) {
 		key: "render",
 		value: function render() {
 			var passive = this.props.passive || {};
+
 			return _react2.default.createElement(
 				"div",
 				{ className: _detail2.default["applicant-wrap"] },
@@ -324,6 +325,11 @@ var SecurityInformation = exports.SecurityInformation = function (_Component7) {
 		key: "render",
 		value: function render() {
 			var security = this.props.security || {};
+			var status = {
+				1: "脱保",
+				2: "在保 ",
+				3: "待出单"
+			};
 			return _react2.default.createElement(
 				"div",
 				{ className: _detail2.default["applicant-wrap"] },
@@ -358,7 +364,7 @@ var SecurityInformation = exports.SecurityInformation = function (_Component7) {
 					_react2.default.createElement(LiComponent, { lableName: "投保日期 : ",
 						content: (0, _helpTools.getFormatData)(security.insure_date) }),
 					_react2.default.createElement(LiComponent, { lableName: "保险期限 : ",
-						content: (0, _helpTools.getFormatData)(security.start_date) + "~" + (0, _helpTools.getFormatData)(security.done_at) })
+						content: security.status == "3" ? '' : (0, _helpTools.getFormatData)(security.start_date) + "~" + (0, _helpTools.getFormatData)(security.done_at) })
 				)
 			);
 		}
@@ -565,7 +571,7 @@ var Clause = exports.Clause = function (_Component12) {
 						{ className: _detail2.default["clause--content"] },
 						_react2.default.createElement(
 							"a",
-							{ href: insuranceProduct.attachment_path },
+							{ href: insuranceProduct.attachment_path, download: "" },
 							insuranceProduct.name
 						)
 					)

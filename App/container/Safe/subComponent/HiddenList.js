@@ -9,8 +9,8 @@ import Action from '../model/safe/safe.action';
 import BigImg from '@stararc-component/big-img';
 
 // 一下路径为了测试暂时定死，以后要调整
-const ATTACHMENT_PATH  = "http://insurance.csgrid.cn";
-
+// const ATTACHMENT_PATH  = "http://insurance.csgrid.cn";
+const ATTACHMENT_PATH ="";
 
 class HiddenList extends Component{
 	componentDidMount(){
@@ -101,8 +101,8 @@ export class HiddenPie extends Component{
 	render() {
 		let {item={}} = this.props;
 		let attach={
-			"1":"./img/clear_not.png",//未消除
-			"2":"./img/clear.png"//已消除
+			"0":"./img/no-feek.png",//未反馈
+			"1":"./img/feek.png"//已反馈
 		};
 
 				/*<li>
@@ -142,7 +142,7 @@ export class HiddenPie extends Component{
                              	{this.getAttachment(item.attachment||[])}             
                             </div>
                             <div className={style["farm__img-right"]}>
-                             	<img src={require(attach[item.hidden_danger_status||1])}/>
+                             	<img src={require(attach[item.is_feedback])}/>
                             </div>
                         </dd>
                     </dl>

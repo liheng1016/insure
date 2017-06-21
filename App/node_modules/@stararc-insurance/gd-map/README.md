@@ -7,6 +7,8 @@
 ```
 import React, {Component} from 'react';
 import style from './GDMap.css';
+import {load_script} from "@stararc-insurance/help-tools";
+
 // import {CLUSTER_IMG_PATH} from '../../config';
 
 export default class GDMap extends Component {
@@ -18,9 +20,13 @@ export default class GDMap extends Component {
 
     componentDidMount() {
         let container = this.refs.mapContainer;
-        let map = initMap(container);
-        let {mapEvent, polygons, polygonEvent} = this.props;
+        let map = "";
+        
+        load_script("http://webapi.amap.com/maps?v=1.3&key=57263d2a64c3e10d5fc13819ed372b00",function(){
+            map = initMap(container);
+        })
 
+        let {mapEvent, polygons, polygonEvent} = this.props;
 
         this.map = map;
         bindMapEvent(map, mapEvent);
@@ -180,7 +186,4 @@ function addCluster(context, map, markers, clusterEvent = []) {
         context.cluster.addMarkers(markers);
     })
 }
-
-
-
 ```

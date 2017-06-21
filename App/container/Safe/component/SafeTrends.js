@@ -15,7 +15,7 @@ export class SafeTrends extends Component{
     constructor(props){
         super(props);
         this.state={
-            since_at:getFormatDay(new Date()),
+            since_at:getFormatDay(new Date())
         }
     }
     render(){

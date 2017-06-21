@@ -12,7 +12,11 @@ import {
 	getFormatData,
 	getHoursMinutes
 } from "@stararc-insurance/help-tools";
-
+import {
+	LayoutHeader,
+	LayoutContent,
+	LayoutFooter
+} from "@stararc-insurance/layout";
 /**
  * 详情
  */
@@ -26,14 +30,19 @@ class Detailing extends Component{
 
 		return (
 			<div>
-				<div className={style['de--clear']}>
-					<Button 
-					styleCss={ButtonStyle}
-					text={"返回"}
-					onClick={e=>history.go(-1)}/>
-				</div>
-				<Detail {...this.props}/>
-				<Detailcontent {...this.props}/>
+				<LayoutHeader styleCss={{height:50}}>
+					<div className={style['de--clear']}>
+						<Button 
+						styleCss={ButtonStyle}
+						text={"返回"}
+						onClick={e=>history.go(-1)}/>
+					</div>
+				</LayoutHeader>
+				<LayoutContent styleCss={{top:50,bottom:0}}>
+					<Detail {...this.props}></Detail>
+					<Detailcontent {...this.props}></Detailcontent>
+				</LayoutContent>
+				
 			</div>
 		);
 	}
@@ -52,7 +61,7 @@ export class Detail extends Component{
 		return (
 			<div className={style["detail"]}>
 				<div className={style["detail--main"]}>
-					<h1>{detail.title}</h1>
+					<h1 className={style["detail--main--h1"]}>{detail.title}</h1>
 					<div className={style["detail_new"]}>
 					 	<p className={style["detail_new--title"]}>
 					 		来源 : <span>{detail.insurance_com_name}</span>
@@ -77,9 +86,7 @@ export class Detailcontent extends Component{
 		return (
 			<div className={style["detail"]}>
 				<div className={style["detail--main"]}>
-					<div className={style["detail--content"]}>
-						<span className={style["detail-content--word"]} dangerouslySetInnerHTML={{__html:detail.content}}></span>
-					</div>
+					<div className={style["detail-content--word"]} dangerouslySetInnerHTML={{__html:detail.content}}></div>
 					<div className={style["clear"]}></div>
 					<ul className={style["detail-content--img"]}>
 						<li>

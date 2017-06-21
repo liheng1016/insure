@@ -526,8 +526,8 @@ var TabTable = exports.TabTable = function (_Component5) {
 					),
 					_react2.default.createElement(
 						"td",
-						{ title: (0, _helpTools.getFormatData)(l.apply_at) + " " + (0, _helpTools.getHoursMinutes)(l.apply_at) },
-						(0, _helpTools.getFormatData)(l.apply_at) + " " + (0, _helpTools.getHoursMinutes)(l.apply_at)
+						{ title: (0, _helpTools.getFormatData)(l.approval_at) + " " + (0, _helpTools.getHoursMinutes)(l.approval_at) },
+						(0, _helpTools.getFormatData)(l.approval_at) + " " + (0, _helpTools.getHoursMinutes)(l.approval_at)
 					)
 				);
 			});

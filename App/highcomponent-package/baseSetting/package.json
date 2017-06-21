@@ -1,6 +1,6 @@
 {
   "name": "@stararc-insurance_functional-module/base-setting",
-  "version": "1.0.1",
+  "version": "1.0.10",
   "description": "基础设置",
   "main": "index.js",
   "scripts": {

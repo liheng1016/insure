@@ -28,6 +28,29 @@
             "not_show":true,
             "level":3,
             "subs":[]
+        },{
+            "name":"insue/insuranceProduct",
+            "label":"保险产品管理",
+            "path":"/insuranceProduct",
+            "module_path":"/insuranceProduct/list/list.js",
+            "level":3,
+            "subs":[]
+        },{
+            "name":"insue/insuranceProduct",
+            "label":"保险产品管理/详情",
+            "path":"/insuranceProduct/detail/:id",
+            "module_path":"/insuranceProduct/detail/detail.js",
+            "level":3,
+            "not_show":true,
+            "subs":[]
+        },{
+            "name":"insue/insuranceProduct",
+            "label":"保险产品管理/添加",
+            "path":"/insuranceProduct/add",
+            "module_path":"/insuranceProduct/add/add.js",
+            "level":3,
+            "not_show":true,
+            "subs":[]
         }]
     }]
 }    

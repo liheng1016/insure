@@ -4,22 +4,31 @@ import style from "./detail.css";
 import Select from "@stararc-component/select";
 import Button from "@stararc-component/button";
 import Action from "../../model/survey/action";
-
+import BigImg from "@stararc-component/big-img";
 import{
  	getFormatData
 } from "@stararc-insurance/help-tools";
 
+import {
+	LayoutHeader,
+	LayoutContent,
+	LayoutFooter
+} from '@stararc-insurance/layout';
+
 /**
  * 主体框架
  */
-
 class RiskServeyDetail extends Component{
 	
 	render() {
 		return (
 			<div className={style["riskserveywrap"]}>
-				<HeaderButton/>
-				<RiskServeyContent {...this.props} risk={this.props.getdetail}/>
+				<LayoutHeader styleCss={{height:50}}>
+					<HeaderButton/>
+				</LayoutHeader>
+				<LayoutContent styleCss={{top:50,bottom:0}}>
+					<RiskServeyContent {...this.props} risk={this.props.getdetail}/>
+				</LayoutContent>
 			</div>
 		);
 	}
@@ -27,7 +36,7 @@ class RiskServeyDetail extends Component{
 		let {get_detail,params} = this.props;
 
 		get_detail({
-			id:params.id, 
+			id:params.id
 		});
 	}
 }
@@ -88,8 +97,8 @@ export class ContentGeneral extends Component{
 		return (
 			<ul className={style["general"]} >
 				<div className={style["general-title"]}>
-					<p className={style["general-company"]}>{risk.company_name}</p>
-					<p className={style["general-score"]}>
+					<div className={style["general-company"]}>{risk.company_name}</div>
+					<div className={style["general-score"]}>
 						<span className={style["score"]}>{risk.final_score}分</span>
 						<span className={style["general-img"]}>
 							<img src={require("../img/score.png")} onClick={(e)=>this.openMoreList()}/>
@@ -98,7 +107,7 @@ export class ContentGeneral extends Component{
 							this.state.isopenMoreList ? 
 							<ScoreDiv {...this.props}></ScoreDiv>:''
 						}
-					</p>
+					</div>
 				</div>
 				<LiGeneral LableName={"排查表 : "}
 					Content={risk.form_name}/>
@@ -172,29 +181,52 @@ export class LiScoreDiv extends Component{
  * 风险组件
  */
 export class Danger extends Component{
+	constructor(props) {
+	  	super(props);
+	  	this.state = {
+	  		isopenMoreArrow:false,
+	  		
+	  	};
+	}
 	render() {
 		return (
 			<div className={style["dangerdiv"]}>
-				<DangerTitle {...this.props}/>
-				<DangerConter {...this.props}/>
+				<DangerTitle {...this.props} isopenMoreArrow={this.state.isopenMoreArrow} openMoreArrow={(e)=>this.openMoreArrow()}/>
+				{
+					this.state.isopenMoreArrow?
+					<DangerConter {...this.props}></DangerConter>:''
+				}
 			</div>
 		);
+	}
+	openMoreArrow(){
+		let {isopenMoreArrow} = this.state;
+
+		this.setState({
+			isopenMoreArrow:!isopenMoreArrow,
+		})
 	}
 }
 
 /*风险标题组件*/
 export class DangerTitle extends Component{
+	
 	render() {
 		let risk = this.props.risk||{};
 		return (
 			<div className={style["danger-title"]}>
 				风险
-				<a href="javascript:;">  
+				<span className={style["danger_items"]}>  
 					(共{risk.items&&risk.items.rectify&&risk.items.rectify.total||0}条)
-				</a>
+				</span>
+				<span className={style["arrow"]} onClick={this.props.openMoreArrow}>
+					<img src={!this.props.isopenMoreArrow?require("../img/arrow.png"):require("../img/arrow-top.png")}/>
+				</span>
+
 			</div>	
 		);
 	}
+
 }
 
 /*风险内容组件*/
@@ -242,12 +274,26 @@ export class DangerConter extends Component{
 
 		return img.map((m,key)=>{
 			return(
-				<li className={style["pic--li"]}  key={key}>
+				<li className={style["pic--li"]}  key={key} onClick={e=>this.big_img(img,key)}>
 					<img src={m.attachment_path}/>
 				</li>
 			)
 		})
 	} 
+
+
+	big_img(imgArr=[],index){
+		let newImgArr = [];
+		
+		imgArr.map((img)=>{
+			newImgArr.push({
+				id:img.attachment_id,
+				path:img.attachment_path
+			})
+		});
+
+		BigImg(newImgArr,index);
+	}
 
 }
 
@@ -271,13 +317,28 @@ export class DangderP extends Component{
  * 合格组件
  */
 export class DangerQualified extends Component{
+	constructor(props){
+		super(props);
+		this.state = {
+			isopenMoreQualified:false,
+		}
+	}
 	render() {
 		let items = this.props.risk&&this.props.risk.items&&this.props.risk.items.finish||{};
 
 		return (
 			<div>
-				<div className={style["danger-title"]}>合格<a href="javascript:;">  (共{items.total||0}条)</a></div>
-				{this.getContent(items.list)}
+				<div className={style["danger-title"]}>
+				合格
+				<span className={style["danger_items"]}>(共{items.total||0}条)</span>
+				<span className={style["arrow"]} onClick={(e)=>this.openMoreQualified()}>
+					<img src={!this.state.isopenMoreQualified?require("../img/arrow.png"):require("../img/arrow-top.png")} />
+				</span>
+				</div>
+				{
+					this.state.isopenMoreQualified?
+					<div>{this.getContent(items.list)}</div>:''
+				}
 			</div>
 		);
 	}
@@ -293,19 +354,43 @@ export class DangerQualified extends Component{
 			)	
 		})
 	}
+	openMoreQualified(){
+		let {isopenMoreQualified} = this.state;
+
+		this.setState({
+			isopenMoreQualified:!isopenMoreQualified
+		})
+	}
 }
 
 /**
  * 未填组件
  */
 export class NotFilling extends Component{
+	constructor(props){
+		super(props);
+		this.state = {
+			isopenMoreNotFilling:false,
+		}
+	}
 	render() {
 		let items = this.props.risk&&this.props.risk.items&&this.props.risk.items.non||{};
-
+		console.log("123456")
 		return (
 			<div>
-				<div className={style["danger-title"]}>未填<a href="#">  (共{items.total||0}条)</a></div>
-				{this.getContent(items.list)}
+				<div className={style["danger-title"]}>
+				未填
+				<span className={style["danger_items"]}>
+				(共{items.total||0}条)
+				</span>
+				<span className={style["arrow"]} onClick={(e)=>this.openMoreNotFilling()}>
+					<img src={!this.state.isopenMoreNotFilling?require("../img/arrow.png"):require("../img/arrow-top.png")} />
+				</span>
+				</div>
+				{
+					this.state.isopenMoreNotFilling?
+					<div>{this.getContent(items.list)}</div>:''
+				}
 			</div>
 		);
 	}
@@ -314,13 +399,21 @@ export class NotFilling extends Component{
 
 		return items.map((item,key)=>{
 			return(
-				<div className={style["qualified"]}>
+				<div className={style["qualified"]} key={key}>
 					<DangderP LableName={item.classify} content={item.question}></DangderP>
 				</div>
 			)	
 		})
 
 	}
+	openMoreNotFilling(){
+		let {isopenMoreNotFilling} = this.state;
+
+		this.setState({
+			isopenMoreNotFilling:!isopenMoreNotFilling
+		})
+	}
+
 }
 let mapStateToProps = (state) => {
     return {

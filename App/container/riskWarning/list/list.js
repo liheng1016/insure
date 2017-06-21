@@ -92,11 +92,13 @@ export class SearchPie extends Component{
 		return (
 			<div className={style["search--pie"]}>
 				<form  onSubmit={this.props.onClick}>
-					<GridLayout width="2" offset="4">
+					{
+					/*<GridLayout width="2" offset="4">
 						<Select options={this.state.options} ref="read_type"></Select>
 					</GridLayout>
 					<GridLayout width="0.2">&nbsp;</GridLayout>
-					<GridLayout width="3">
+					*/}
+					<GridLayout width="9.2" >
 						<Input ref="input" placeholder="警示标题关键字" onChange={this.props.onChange}/>
 					</GridLayout>
 					<GridLayout width="1">
@@ -113,7 +115,7 @@ export class SearchPie extends Component{
 	getValue(){
 		return {
 			q:this.refs.input.getValue(),
-			read_type:this.refs.read_type.getValue()
+			// read_type:this.refs.read_type.getValue()
 		}
 	}
 	ceate_warning(){
@@ -125,12 +127,6 @@ export class SearchPie extends Component{
  * 表格数据
  */
 export class Table extends Component{
-	constructor(props) {
-	  	super(props);
-	  	this.state = {
-	  		isMouseMove:false
-	  	};
-	}
 	render(){
 		return(
 			<div className={style["table--list"]}>
@@ -138,7 +134,7 @@ export class Table extends Component{
 				<thead>
 					<tr className={style["table_title"]} >
 					    <th>警示标题</th>
-					    <th>状态</th>
+					    {/*<th>状态</th>*/}
 					    <th>发送地区</th>
 					    <th>发送对象</th>
 					    <th>发布时间</th>
@@ -158,7 +154,7 @@ export class Table extends Component{
 				return(
 				<tr className={style["table_row"]} key={key} onClick={e=>this.goto_detail(l)}>
 					<td title={l.title}>{l.title}</td>
-					<td title={l.is_read=="2"?"未读":"已读"}>{l.is_read=="2"?"未读":"已读"}</td>
+					{/*<td title={l.is_read=="2"?"未读":"已读"}>{l.is_read=="2"?"未读":"已读"}</td>*/}
 					<td title={this.getSendArea(l.grid_name)}>{this.getSendArea(l.grid_name)}</td>
 					<td title={l.send_object}>{l.send_object}</td>
 					<td title={getFormatData(l.create_at)+" " +getHoursMinutes(l.create_at)}>{getFormatData(l.create_at)+" " +getHoursMinutes(l.create_at)}</td>
@@ -166,7 +162,7 @@ export class Table extends Component{
 			     		{
 			     			l.status == 1?
 			     			<a href="javascript:;" onClick={(e)=>this.deleteRisk(e,l)}>删除</a>
-			     			:""
+			     			:<span style={{color:"#ccc"}}>删除</span>
 			     		}
 			     	</td>
 				</tr>

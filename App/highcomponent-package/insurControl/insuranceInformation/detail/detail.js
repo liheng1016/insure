@@ -158,7 +158,6 @@ var Enterprise = exports.Enterprise = function (_Component2) {
 			var _props$enter = this.props.enter,
 			    enter = _props$enter === undefined ? {} : _props$enter;
 
-			console.log(enter, '企业基本');
 			return _react2.default.createElement(
 				"div",
 				{ className: _detail2.default["enterprise"] },
@@ -301,7 +300,6 @@ var UlComponentInfo = exports.UlComponentInfo = function (_Component4) {
 		key: "render",
 		value: function render() {
 			var detail = this.props.detail || {};
-			console.log(detail, '信息保障部分');
 			return _react2.default.createElement(
 				"ul",
 				{ className: _detail2.default["guarantee-list"] },
@@ -421,7 +419,7 @@ var Claim = exports.Claim = function (_Component6) {
 					{ className: _detail2.default['claim-content'] },
 					_react2.default.createElement(
 						"span",
-						{ className: _detail2.default["tips"] },
+						{ className: _detail2.default["claim_tips"] },
 						"\u6682\u65E0\u7406\u8D54\u76F8\u5173\u4FE1\u606F"
 					)
 				) : _react2.default.createElement(
@@ -1058,11 +1056,11 @@ var AuditingResult = exports.AuditingResult = function (_Component13) {
 						{ className: _detail2.default["action--componnet"] },
 						_react2.default.createElement(
 							_gridlayout2.default,
-							{ width: "1", offset: "4.9" },
-							_react2.default.createElement(_button2.default, { text: "确定",
-								styleCss: buttonStyle,
+							{ width: "1.5", offset: "4.4" },
+							_react2.default.createElement(_button2.default, { text: "取消",
+								styleCss: cancelStyle,
 								onClick: function onClick(e) {
-									return _this19.conserveHandle();
+									return _this19.cancleHandle();
 								} })
 						),
 						_react2.default.createElement(
@@ -1072,11 +1070,11 @@ var AuditingResult = exports.AuditingResult = function (_Component13) {
 						),
 						_react2.default.createElement(
 							_gridlayout2.default,
-							{ width: "1" },
-							_react2.default.createElement(_button2.default, { text: "取消",
-								styleCss: cancelStyle,
+							{ width: "1.5" },
+							_react2.default.createElement(_button2.default, { text: "确定",
+								styleCss: buttonStyle,
 								onClick: function onClick(e) {
-									return _this19.cancleHandle();
+									return _this19.conserveHandle();
 								} })
 						)
 					)

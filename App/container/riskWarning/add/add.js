@@ -5,17 +5,18 @@ import Button from "@stararc-component/button";
 import GridLayout from "@stararc-component/gridlayout";
 import Input from "@stararc-component/input";
 import Upload,{UploadMedia} from "@stararc-insurance/upload-file";
-import {deepCopy} from "@stararc-insurance/help-tools"; 
+import {deepCopy,load_script} from "@stararc-insurance/help-tools"; 
 import gridAction from "../model/grid/action";
 import riskAction from "../model/riskwarning/action";
 
 import style from "./add.css";
 
-// require('imports?define=>false!../../../lib/kindeditor/kindeditor.min');
-// require('imports?define=>false!../../../lib/kindeditor/lang/zh_CN');
+// import Quill from "quill";
 
-require("@stararc-insurance/plug-in/kindeditor/kindeditor.min");
-require("@stararc-insurance/plug-in/kindeditor/lang/zh_CN");
+import ReactQuill from "react-quill";
+
+require("quill/dist/quill.snow.css");
+
 
 import {
 	LayoutHeader,
@@ -30,10 +31,29 @@ class AddWarning extends Component{
 	render() {
 		return (
 			<div >
-				<GoBack></GoBack>
-				<ContentBody {...this.props}></ContentBody>
+				<GoBack goBack={e=>this.goBack()}></GoBack>
+				<ContentBody ref="argv" {...this.props}></ContentBody>
 			</div>
 		);
+	}
+	// 判断页面是有有变动
+	goBack(){
+		let {formdata} = this.refs.argv.getValue(),flag = false;
+
+
+		for(let key in formdata){
+
+			flag = flag || !!formdata[key];
+		}
+
+
+		if(flag){
+			if(!confirm("确定要放弃已修改的部分吗？")){
+				return;
+			}
+		}
+
+		history.go(-1);
 	}
 	componentDidMount(){
 		let {unmount_attachment} = this.props;
@@ -51,14 +71,11 @@ export class GoBack extends Component {
 			<LayoutHeader styleCss={{height:50}}>
 				<div className={style["go_back"]}>
 					<GridLayout width="1" offset="11">
-						<Button text="返回" onClick={e=>this.goBack()}></Button>
+						<Button text="返回" onClick={this.props.goBack}></Button>
 					</GridLayout>
 				</div>
 			</LayoutHeader>
 		);
-	}
-	goBack(){
-		history.go(-1);
 	}
 }
 
@@ -98,36 +115,56 @@ export class ContentBody extends Component{
 		);
 	}
 	submitHandle(){
+		let {isValid,formdata} = this.getValue();
+
+		// 暂时先关闭发布按钮
+		if(isValid){
+			let {add} = this.props;
+
+				
+			add(formdata);
+		}
+
+		/*return {
+			isValid,
+			formdata
+		}*/
+	}
+	getValue(){
 		let refs = this.refs,isValid = true;
 		let title  =  refs.title.getValue();
 		let	content = refs.content.getValue();
-		if(!title.isValid || !content.isValid){
+		let	grid_ids = refs.grid_ids.getValue();
+		let	send_type = refs.send_type.getValue();
+
+		if(!title.isValid || !content.isValid || !grid_ids.isValid || !send_type.isValid ){
 			isValid = false;
 		}
 		let formdata = {
 			title:title.value,
 			content:content.value,
-			grid_ids:refs.grid_ids.getValue().join(","),
+			editorHtml:content.editorHtml,
+			grid_ids:refs.grid_ids.getValue()["gridsId"].join(","),
 			media_attachment_ids:refs.media.getValue().join(","),
 			attachment_ids:refs.attach.getValue().join(","),
-			...refs.send_type.getValue()
+			...refs.send_type.getValue()["typeId"]
 		};
+
 		return {
 			isValid,
 			formdata
-		}
+		};
 	}
 	verify_password(flag){
 		let result = this.submitHandle();
-		this.setState({
-			alertFlag:flag && result.isValid
-		})
+		// this.setState({
+		// 	alertFlag:flag && result.isValid
+		// })
 	}
 
 	componentWillReceiveProps(nextProps){
 		let {add} = this.props;
 		let self = this;
-		console.log(1111111)
 		if(nextProps.isRight != this.props.isRight && nextProps.isRight){
 			this.setState({
 				alertFlag:false
@@ -142,7 +179,6 @@ export class ContentBody extends Component{
 		let {getGridsList} = this.props;
 		getGridsList();
 	}
-	
 }
 
 /**
@@ -158,10 +194,10 @@ export class Title extends Component{
 	render() {
 		return (
 			<div className={style["form-pie"]}>
-				<label className={style["label"]}>警示标题：</label>
+				<label className={style["label_required"]}>警示标题：</label>
 				<div className={style["context"]}>
 					<div className={style["warning--title"]}>
-						<Input ref="input" maxLength={50}></Input>
+						<Input ref="input" maxLength={50} ></Input>
 						{
 							!this.state.isValid?
 							<span className={style["error--tips"]}>
@@ -175,7 +211,7 @@ export class Title extends Component{
 		);
 	}
 	getValue(){
-		let value = this.refs.input.getValue();
+		let value = this.refs.input.getValue(),self = this;
 		let isValid = true;
 
 		if(!value){
@@ -184,9 +220,18 @@ export class Title extends Component{
 
 		this.setState({
 			isValid
+		},()=>{
+			self.clearTime = setTimeout(()=>{
+				self.setState({
+					isValid:true
+				})
+			},2000)
 		})
 
 		return {value,isValid};
+	}
+	componentWillUnmount(){
+		clearTimeout(this.clearTime);
 	}
 }
 
@@ -203,50 +248,68 @@ export class MainBody extends Component{
 	render() {
 		return (
 			<div className={style["form-pie"]}>
-				<label className={style["label"]}>警示正文：</label>
+				<label className={style["label_required"]}>警示正文：</label>
 				<div className={style["context"]}>
-					<textarea id="noticeEditor" name="" cols="30" rows="10"></textarea>
+                	{/*<div style={{minHeight:200}} id="noticeEditor" className="ql-container ql-snow">
+                	</div>*/}
+                	<ReactQuill 
+                		ref="container" 
+                		theme="snow" 
+                		modules={this.getToobar()} 
+                		value={this.state.editorHtml} 
+                		onChange={(val)=>this.changeHandle(val)}>
+                	</ReactQuill>	
                 	{this.state.isValid === false ? <span className={style["error--tips"]}>请填写警示正文内容</span> : ''}
 				</div>
 			</div>
 		);
 	}
-	componentDidMount() {
-        let self = this;
-        // let uploadUrl = process.env.NODE_ENV != 'production' ? LOCAL_DOMAIN + '/Notice/receiveNoticeEditorAttachment' : '/Notice/receiveNoticeEditorAttachment';
-        let basePath = process.env.NODE_ENV != 'production' ? '../../../../lib/kindeditor/' : '/Static/lib/kindeditor/';
-        KindEditor.ready(function (K) {
-            self.K = K;
-            self.editor = K.create('#noticeEditor', {
-                basePath: basePath,
-                // uploadJson: uploadUrl,
-                allowImageUpload: false,
-                afterUpload: function (url) {
-
-                },
-                afterChange: function () {
-                    if (!this.isEmpty() && !self.state.isValid) {
-                        self.setState({isValid: true})
-                    }
-                }
-            });
-        });
-    }
-    componentWillReceiveProps(nextProps) {
-        if (nextProps !== this.props) {
-            let {defaultValue:content} = nextProps;
-            this.editor.html(content);
-        }
-    }
+	getToobar(){
+		return {
+			toolbar:[
+			['bold', 'italic', 'underline'],        // toggled buttons
+			['blockquote', 'code-block'],
+			[{ 'header': 1 }, { 'header': 2 }],               // custom button values
+			[{ 'list': 'ordered'}, { 'list': 'bullet' }],
+			[{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+			[{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+			[{ 'direction': 'rtl' }],                         // text direction
+			[{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+			[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+			[{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+			[{ 'font': [] }],
+			[{ 'align': [] }],
+			['clean']        
+		]};
+	}
     getValue() {
-        let value = this.editor.html();
+        let editorHtml = this.state.editorHtml,self = this;
+
+        let value = editorHtml?encodeURIComponent(editorHtml):"";
+
         let isValid = true;
-        if (!value) {
+
+
+        if (!editorHtml) {
             isValid = false;
-            this.setState({isValid});
+            this.setState({isValid},()=>{
+            	self.clearTime = setTimeout(()=>{
+            		self.setState({
+            			isValid:true
+            		})
+            	},2000)
+            });
         }
-        return {value, isValid};
+        return {value, isValid,editorHtml};
     }
+    changeHandle(html){
+    	this.setState({
+    		editorHtml:html
+    	})
+    }
+    componentWillUnmount(){
+		clearTimeout(this.clearTime);
+	}
 }
 
 /**
@@ -270,8 +333,8 @@ export class MultiMedia extends Component{
 					<div className={style["media"]}>
 						<UploadMedia 
 							ref="upload_img"
-							disabled={this.getIsDisabled()}
 							accept={"image/gif,image/jpeg,image/jpg,image/png,image/svg"} 
+							disabled={this.getIsDisabled()}
 							onChange={(e)=>this.changeHandle()}>
 						</UploadMedia>
 						<span className={style["help--line"]}>
@@ -279,7 +342,8 @@ export class MultiMedia extends Component{
 						</span>
 					</div>
 				</div>
-			</div>
+			</div>				
+		
 		);
 	}
 	changeHandle(){
@@ -336,14 +400,16 @@ export class Attachment extends Component{
 	  	};
 	}
 	render() {
+		let buttonstyle = {width:'90px'}
 		return (
 			<div className={style["form-pie"]}>
 				<label className={style["label"]}>附件：</label>
 				<div className={style["context"]}>
 					<div className={style["upload--button"]}>
 						<Upload ref="attachment"
+							styleCss={buttonstyle}
 							disabled={this.getIsDisabled()}
-							accept={"*.doc;*.xls;*.pdf;*.ppt;*.docx;*.xlsx;*.pptx"} 
+							accept={".doc,.xls,.pdf,.ppt,.docx,.xlsx,.pptx"} 
 							buttonName={"选择文件"}
 							onChange={(e)=>this.changeHandle()}>
 						</Upload>
@@ -363,6 +429,7 @@ export class Attachment extends Component{
 	changeHandle(){
         let {upload} = this.props;
         let attachment = this.refs.attachment.getValue();
+
         upload(attachment);
 	}
 	createAttachment(){
@@ -370,7 +437,7 @@ export class Attachment extends Component{
 		return	attachmentList.map((f,key)=>{
 			return(
 				<li className={style["attachment--li"]} key={key}>
-					<a href={f.attachment_path}>{f.name}</a>
+					<a href={f.attachment_path} download="">{f.name}</a>
 					<span className={style["attachment--delete"]} onClick={e=>this.delete_attach(f.attachment_id)}></span>
 				</li>
 			)
@@ -411,6 +478,7 @@ export class SendArea extends Component{
 	  	this.state = {
 	  		isOpenDialog:false,
 	  		grids:[],
+	  		isValid:true,
 	  		buttonStyle:{
 				border:"1px solid #f6a811",
 				background:"white",
@@ -421,7 +489,7 @@ export class SendArea extends Component{
 	render() {
 		return (
 			<div className={style["form-pie"]}>
-				<label className={style["label"]}>发送地区：</label>
+				<label className={style["label_required"]}>发送地区：</label>
 				<div className={style["context"]}>
 					<GridLayout width="1">
 						<Button 
@@ -430,6 +498,12 @@ export class SendArea extends Component{
 							onClick={(e)=>this.openDialog()}>
 						</Button>
 					</GridLayout>
+					{
+						!this.state.isValid?
+						<span className={style["error--tips"]} style={{clear:"both",display:"block"}}>
+							请选择发送地区！
+						</span>:""
+					}
 					<div className={style["attachment--area"]}>
 						<ul>
 							{this.getSelectedArea()}
@@ -486,13 +560,34 @@ export class SendArea extends Component{
 		}
 	}
 	getValue(){
-		let {grids=[]}=this.state,gridsId=[];
+		let {grids=[]}=this.state,gridsId=[],isValid = true,self = this;
 		grids.map((g,key)=>{
 			if(g.isSelected){
 				gridsId.push(g.id)
 			}
 		})
-		return gridsId;
+
+		if(gridsId && !gridsId.length){
+			isValid = false;
+		}
+
+		this.setState({
+			isValid
+		},()=>{
+			self.clearTime = setTimeout(()=>{
+				self.setState({
+					isValid:true
+				})
+			},2000)
+		})
+
+		return {
+			isValid,
+			gridsId
+		} 
+	}
+	componentWillUnmount(){
+		clearTimeout(this.clearTime);
 	}
 }
 
@@ -503,6 +598,7 @@ export class SendType extends Component{
 	constructor(props) {
 	  	super(props);
 	  	this.state = {
+	  		isValid:true,
 	  		types:[{
 	  			id:1,
 	  			param:"effect_insuce_ids",
@@ -517,11 +613,17 @@ export class SendType extends Component{
 	render() {
 		return (
 			<div className={style["form-pie"]}>
-				<label className={style["label"]}>发送对象：</label>
+				<label className={style["label_required"]}>发送对象：</label>
 				<div className={style["context"]}>
 					<ul className={style["type--ul"]}>
 						{this.getLiContent()}
 					</ul>
+					{
+						!this.state.isValid?
+						<span className={style["error--tips"]}>
+							请选择发送对象！
+						</span>:""
+					}	
 				</div>
 			</div>
 		);
@@ -543,15 +645,29 @@ export class SendType extends Component{
 		})
 	}
 	getValue(){
-		let {types=[]} = this.state,typeId={};
+		let {types=[]} = this.state,typeId={},isValid = false,self = this;
 		types.map((t,key)=>{
-			/*if(t.isSelected){
-				typeId.push({
-				})
-			}*/
 			typeId[t.param] = !!t.isSelected?1:0;
+			isValid = !!t.isSelected || isValid;
 		});
-		return typeId; 
+
+		this.setState({
+			isValid
+		},()=>{
+			self.clearTime = setTimeout(()=>{
+				self.setState({
+					isValid:true
+				})
+			},2000)
+		})
+
+		return {
+			isValid,
+			typeId
+		}; 
+	}
+	componentWillUnmount(){
+		clearTimeout(this.clearTime);
 	}
 }
 
@@ -637,6 +753,7 @@ export class AreaDialog extends Component{
 	// 全选
 	selectedAll(){
 		let {isSelectedAll,backupGrid=[]} = this.state;
+		
 		backupGrid.map((b)=>{
 			b.isSelected = !isSelectedAll;
 		})

@@ -6,14 +6,14 @@ import Select from "@stararc-component/select";
 import Button from "@stararc-component/button";
 import Pagination from "@stararc-component/pagination";
 import DatePicker from "@stararc-insurance/date-picker";
-// import ExportComponent from "../../../component/Export";
 
 import ExportComponent from "@stararc-insurance/export-file";
 
 
 import {
 	getFormatData,
-	getHoursMinutes
+	getHoursMinutes,
+	load_script
 } from "@stararc-insurance/help-tools";
 
 import Action from "../../model/insurInfo/action";
@@ -129,9 +129,23 @@ class AcceptInsurance extends Component{
 	}
 	componentDidMount(){
 		let {get_grid_list,get_industry_list} = this.props;
-		get_grid_list();
-		get_industry_list();
-		this.getList(this.getOps());
+		let sourceUrlOne = "",sourceUrlTwo = "",self = this;
+
+		if (process.env.NODE_ENV == 'production') {
+		 	sourceUrlOne = "/assets/lib/xls.min.js";
+		 	sourceUrlTwo = "/assets/lib/xlsx.core.min.js";
+		}else{
+		 	sourceUrlOne = "/lib/xls.min.js";
+		 	sourceUrlTwo = "/lib/xlsx.core.min.js";
+		} 
+
+		load_script(sourceUrlOne,()=>{
+			load_script(sourceUrlTwo,()=>{
+				get_grid_list();
+				get_industry_list();
+				self.getList(self.getOps());
+			})
+		})
 	}
 	componentWillReceiveProps(nextProps){
 		if(nextProps.exportList != this.props.exportList){
@@ -165,7 +179,7 @@ export class AcceptInsuranceTitle extends Component{
 		let button={
 			ButtonStyle:{width:'60px',float:'right',background:'#efc420'},
 			SearchStyle:{width:'60px',float:'right',background:'#0093e1',marginLeft:'10px'},
-			SetStyle:{width:'95px',float:'right',background:'#eec420',marginLeft:'10px'},
+			SetStyle:{width:'100px',float:'right',background:'#eec420',marginLeft:'10px'},
 			ExportStyle:{width:'60px',float:'right',background:'#f7a712',marginLeft:'10px'}
 		};
 		let DateStyle={

@@ -28,6 +28,12 @@ var _safe = require('../model/safe/safe.action');
 
 var _safe2 = _interopRequireDefault(_safe);
 
+var _map = require('@stararc-plugin/map');
+
+var Map = _interopRequireWildcard(_map);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -42,18 +48,23 @@ var MapForCompany = function (_Component) {
     function MapForCompany(props) {
         _classCallCheck(this, MapForCompany);
 
-        var _this2 = _possibleConstructorReturn(this, (MapForCompany.__proto__ || Object.getPrototypeOf(MapForCompany)).call(this, props));
+        var _this = _possibleConstructorReturn(this, (MapForCompany.__proto__ || Object.getPrototypeOf(MapForCompany)).call(this, props));
 
-        _this2.state = {
+        _this.state = {
             markers: [],
-            infowin: {}
+            infowin: {},
+            showMap: false
         };
-        return _this2;
+        return _this;
     }
 
     _createClass(MapForCompany, [{
         key: 'render',
         value: function render() {
+            var mapStyle = {
+                width: '100%',
+                height: '100%'
+            };
             return _react2.default.createElement(
                 'div',
                 { className: _MapForCompany2.default["map--content"] },
@@ -62,42 +73,8 @@ var MapForCompany = function (_Component) {
                     { className: _MapForCompany2.default["go_back"] },
                     _react2.default.createElement(_button.GoBackButton, null)
                 ),
-                _react2.default.createElement(_gdMap2.default, {
-                    markers: this.state.markers,
-                    infowin: this.state.infowin,
-                    markerEvent: this.setMarkerEvent() })
+                _react2.default.createElement('div', { ref: 'container', style: mapStyle })
             );
-        }
-        // 地图标志点击事件
-
-    }, {
-        key: 'setMarkerEvent',
-        value: function setMarkerEvent() {
-            var _this = this;
-            return [{
-                type: 'click',
-                eventHandle: function eventHandle(context) {
-                    var extData = context.getExtData();
-                    var data = _this.state.markers;
-                    var mapWindowData = null,
-                        infowin = null;
-                    for (var i = 0; i < data.length; i++) {
-                        if (data[i].id == extData.id) {
-                            mapWindowData = data[i];
-                            break;
-                        }
-                    }
-                    if (mapWindowData) {
-                        infowin = {
-                            content: _this.createInfoHtml(mapWindowData),
-                            position: { geo_long: Number(mapWindowData.geo_long) || 113.280637, geo_lat: Number(mapWindowData.geo_lat) || 23.125178 }
-                        };
-                        _this.setState({
-                            infowin: infowin
-                        });
-                    }
-                }
-            }];
         }
 
         // 创建地图窗口标签
@@ -122,10 +99,26 @@ var MapForCompany = function (_Component) {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             if (nextProps.complist != this.props.complist) {
+                var self = this;
+
                 var markers = this.filterCompany(nextProps.complist);
-                this.setState({
-                    markers: markers
-                });
+
+                var marker_events = [{
+                    type: 'click',
+                    handle: function handle(context) {
+                        var marker = this;
+
+                        var position = marker.getPosition();
+                        var info_config = {
+                            content: self.createInfoHtml(marker.G)
+                        };
+                        // 点击点标记时设置信息窗体
+                        Map.open_info_win(info_config, position, self.map);
+                    }
+                }];
+
+                // 标注点标记
+                Map.set_marker(markers, marker_events, self.map);
             }
         }
     }, {
@@ -135,8 +128,8 @@ var MapForCompany = function (_Component) {
 
             var complists = [];
             complist.map(function (com, key) {
-                com.geo_long = Number(com.geo_long || 113.280637);
-                com.geo_lat = Number(com.geo_lat || 23.125178);
+                com.lng = Number(com.geo_long || 116.280637);
+                com.lat = Number(com.geo_lat || 23.125178);
 
                 complists.push(com);
             });
@@ -146,10 +139,24 @@ var MapForCompany = function (_Component) {
     }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var insureCompanyListForMap = this.props.insureCompanyListForMap;
+            var insureCompanyListForMap = this.props.insureCompanyListForMap,
+                self = this;
 
+            var url = 'http://webapi.amap.com/maps?v=1.3&key=57263d2a64c3e10d5fc13819ed372b00';
 
-            insureCompanyListForMap();
+            (0, _helpTools.load_script)(url, function () {
+                insureCompanyListForMap();
+
+                var container = self.refs.container;
+                var map_config = {
+                    resizeEnable: true,
+                    zoom: 9,
+                    center: [113.280637, 23.125178]
+                };
+                var map_obj = Map.init(container, map_config);
+
+                self.map = map_obj;
+            });
         }
     }]);
 

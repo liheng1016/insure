@@ -254,7 +254,7 @@ var SettlementHeader = exports.SettlementHeader = function (_Component2) {
 					_react2.default.createElement(
 						"span",
 						{ className: _claimmanagement2.default["input-content"] },
-						_react2.default.createElement(_input2.default, { ref: 'q', placeholder: "投保单号/被保险人", styleCss: InputStyle })
+						_react2.default.createElement(_input2.default, { ref: 'q', placeholder: "报案号/被保人", styleCss: InputStyle })
 					),
 					_react2.default.createElement(_button2.default, { styleCss: ButtonStyle, text: '搜索', onClick: this.props.onClick })
 				),

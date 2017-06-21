@@ -3,11 +3,14 @@
 *{
 	text-decoration:none;
 }
-.tips{
+.claim_tips{
 	text-align: center;
 	font-size:14px;
 	height:30px;
 	line-height:30px;
+	width:100%;
+	display:block;
+	color:link_color;
 }
 .return--clear{
 	margin-top:10px;

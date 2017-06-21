@@ -110,7 +110,7 @@ var SettlementDetail = function (_Component) {
 		value: function componentWillUnmount() {
 			var unmout_claim_detail = this.props.unmout_claim_detail;
 
-			unmout_claim_detail({});
+			unmout_claim_detail();
 		}
 	}]);
 
@@ -132,7 +132,6 @@ var ActionBar = exports.ActionBar = function (_Component2) {
 			var _this3 = this;
 
 			var actionbar = this.props.actionbar || {};
-			console.log(actionbar.status, '状态');
 			var ButtonStyle = { width: '60px', background: '#f2c01f', float: 'right', marginLeft: '10px' };
 			var backStyle = { width: '60px', background: '#f5a70f', float: 'right', marginLeft: '10px' };
 			var status = {
@@ -218,25 +217,24 @@ var ApplicantContent = exports.ApplicantContent = function (_Component4) {
 	_createClass(ApplicantContent, [{
 		key: "render",
 		value: function render() {
-			var applicant = this.props.applicant.companyInsurance || {};
-			console.log(applicant, '所有数据投保人内容');
+			var applicant = this.props.applicant && this.props.applicant.company || {};
 			return _react2.default.createElement(
 				"ul",
 				{ className: _detail2.default["applicant"] },
 				_react2.default.createElement(LiComponent, { lableName: '投保人名称 : ',
-					content: applicant.company_name }),
+					content: applicant.organName }),
 				_react2.default.createElement(LiComponent, { lableName: '所属地区 : ',
-					content: applicant.grid_name }),
+					content: applicant.gridName }),
 				_react2.default.createElement(LiComponent, { lableName: '工商注册号 : ',
-					content: applicant.company }),
+					content: applicant.register }),
 				_react2.default.createElement(LiComponent, { lableName: '行业类型 : ',
-					content: applicant.type_name }),
+					content: applicant.typeName }),
 				_react2.default.createElement(LiComponent, { lableName: '法人 : ',
-					content: applicant.company }),
+					content: applicant.legalPerson }),
 				_react2.default.createElement(LiComponent, { lableName: '法人联系方式 : ',
-					content: applicant.company }),
+					content: applicant.legalPhone }),
 				_react2.default.createElement(LiComponent, { lableName: '企业地址 : ',
-					content: applicant.company })
+					content: applicant.address })
 			);
 		}
 	}]);
@@ -578,7 +576,7 @@ var AccidentDetailsContent = exports.AccidentDetailsContent = function (_Compone
 				_react2.default.createElement(LiComponent, { lableName: '出险时间 : ',
 					content: (0, _helpTools.getFormatData)(accident.accident_at) }),
 				_react2.default.createElement(LiComponent, { lableName: '事故类型 : ',
-					content: accident.accidentTypes }),
+					content: accident.accident_type_name }),
 				_react2.default.createElement(LiComponent, { lableName: '是否涉及人伤 : ',
 					content: accident.is_involve_people == "2" ? "是" : "否" }),
 				_react2.default.createElement(LiPass, { lableName: '事故经过 : ',
@@ -713,7 +711,9 @@ var LossSituationContent = exports.LossSituationContent = function (_Component16
 	_createClass(LossSituationContent, [{
 		key: "render",
 		value: function render() {
-			var content = this.props.loss && this.props.loss.attachment && this.props.loss.attachment[0] || {};
+			var accident = this.props.loss && this.props.loss.accidentAttachment && this.props.loss.accidentAttachment[0] || {};
+			var things = this.props.loss && this.props.loss.thingsAttachment && this.props.loss.thingsAttachment[0] || {};
+
 			return _react2.default.createElement(
 				"ul",
 				{ className: _detail2.default["applicant-content"] },
@@ -730,8 +730,8 @@ var LossSituationContent = exports.LossSituationContent = function (_Component16
 						{ className: _detail2.default["loss-content"] },
 						_react2.default.createElement(
 							"a",
-							{ href: content.attachment_path, download: "" },
-							content.name
+							{ href: accident.attachment_path, download: "" },
+							accident.name
 						)
 					)
 				),
@@ -748,8 +748,8 @@ var LossSituationContent = exports.LossSituationContent = function (_Component16
 						{ className: _detail2.default["loss-content"] },
 						_react2.default.createElement(
 							"a",
-							{ href: content.attachment_path, download: "" },
-							content.name
+							{ href: things.attachment_path, download: "" },
+							things.name
 						)
 					)
 				)

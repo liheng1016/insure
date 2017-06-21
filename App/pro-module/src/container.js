@@ -3,6 +3,8 @@ import Header from "@stararc-component/header";
 import SlideMenu from "@stararc-component/slidemenu";
 import style from './Gloable.css';
 
+import fetch from 'isomorphic-fetch';
+
 
 // 风险警示
 import { 
@@ -44,7 +46,7 @@ export default class HomeComponnet extends Component{
 	render() {
 		return (
 			<div>
-				<Header></Header>
+				<Header  url={"/Login/loginout"}></Header>
 				<div className={style["content"]}>
 					<SlideMenu menu={this.getMenu()} {...this.props}></SlideMenu>
 					<div className={style["content__main"]}>
@@ -54,7 +56,8 @@ export default class HomeComponnet extends Component{
 			</div>
 		);
 	}
+	
 	getMenu(){
-		return menu 
+		return menu; 
 	}
 }

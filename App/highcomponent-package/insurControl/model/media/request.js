@@ -22,7 +22,9 @@ var mediaRequest = {
 
     return fetch(path, {
       method: 'POST',
-      body: params
+      body: params,
+      credentials: 'include'
+
     }).then(function (response) {
       return response.json();
     });

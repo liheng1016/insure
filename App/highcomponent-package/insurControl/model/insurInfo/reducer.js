@@ -12,6 +12,8 @@ var _actiontype = require("./actiontype");
 
 var _actiontype2 = _interopRequireDefault(_actiontype);
 
+var _reactRouter = require("react-router");
+
 var _alertTips = require("@stararc-insurance/alert-tips");
 
 var _helpTools = require("@stararc-insurance/help-tools");
@@ -120,6 +122,15 @@ function get_industry_list(state, data) {
 	return Object.assign({}, state, { industryList: lists });
 }
 
+/**
+ * 获取详情之后拿到数据需要在编辑的
+ * 处理附件进行附件的删除操作
+ * @date   2017-06-07T12:04:32+0800
+ * @author liheng
+ * @param  {[type]}                 state [description]
+ * @param  {[type]}                 data  [description]
+ * @return {[type]}                       [description]
+ */
 function get_detail(state, data) {
 	var insureAcctach = state.insureAcctach;
 
@@ -185,8 +196,15 @@ function create_insur(state, data) {
 		(0, _alertTips.openAlert)(true, "创建成功！");
 		setTimeout(function () {
 			(0, _alertTips.closeAlert)();
-			window.location.href = "#/acceptInsurance";
+
+			if (process.env.NODE_ENV != 'production') {
+				location.href = "/acceptInsurance";
+			} else {
+				_reactRouter.browserHistory.push("/acceptInsurance");
+			}
 		}, 2000);
+	} else {
+		(0, _alertTips.openAlert)(false, "创建失败");
 	}
 
 	return Object.assign({}, state);
@@ -213,12 +231,8 @@ function upload_insur(state, data, condition) {
 	var type = condition.fileType,
 	    insureAcctach = state.insureAcctach;
 
-	// insureAcctach = Immutable.Map(insureAcctach)
 
 	insureAcctach = (0, _helpTools.deepCopy)(insureAcctach);
-
-	// const newRecord = Immutable.Record(insureAcctach);
-
 
 	insureAcctach[type] = data[0];
 
@@ -235,6 +249,7 @@ function unmout_upload_insur(state, data) {
 			seal: {},
 			people: {},
 			other: {}
-		}
+		},
+		applyNumber: ''
 	});
 }

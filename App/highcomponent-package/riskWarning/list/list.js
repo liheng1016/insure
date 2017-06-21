@@ -181,17 +181,7 @@ var SearchPie = exports.SearchPie = function (_Component2) {
 					{ onSubmit: this.props.onClick },
 					_react2.default.createElement(
 						_gridlayout2.default,
-						{ width: '2', offset: '4' },
-						_react2.default.createElement(_select2.default, { options: this.state.options, ref: 'read_type' })
-					),
-					_react2.default.createElement(
-						_gridlayout2.default,
-						{ width: '0.2' },
-						'\xA0'
-					),
-					_react2.default.createElement(
-						_gridlayout2.default,
-						{ width: '3' },
+						{ width: '9.2' },
 						_react2.default.createElement(_input2.default, { ref: 'input', placeholder: '\u8B66\u793A\u6807\u9898\u5173\u952E\u5B57', onChange: this.props.onChange })
 					),
 					_react2.default.createElement(
@@ -218,8 +208,7 @@ var SearchPie = exports.SearchPie = function (_Component2) {
 		key: 'getValue',
 		value: function getValue() {
 			return {
-				q: this.refs.input.getValue(),
-				read_type: this.refs.read_type.getValue()
+				q: this.refs.input.getValue()
 			};
 		}
 	}, {
@@ -240,15 +229,10 @@ var SearchPie = exports.SearchPie = function (_Component2) {
 var Table = exports.Table = function (_Component3) {
 	_inherits(Table, _Component3);
 
-	function Table(props) {
+	function Table() {
 		_classCallCheck(this, Table);
 
-		var _this5 = _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).call(this, props));
-
-		_this5.state = {
-			isMouseMove: false
-		};
-		return _this5;
+		return _possibleConstructorReturn(this, (Table.__proto__ || Object.getPrototypeOf(Table)).apply(this, arguments));
 	}
 
 	_createClass(Table, [{
@@ -270,11 +254,6 @@ var Table = exports.Table = function (_Component3) {
 								'th',
 								null,
 								'\u8B66\u793A\u6807\u9898'
-							),
-							_react2.default.createElement(
-								'th',
-								null,
-								'\u72B6\u6001'
 							),
 							_react2.default.createElement(
 								'th',
@@ -327,11 +306,6 @@ var Table = exports.Table = function (_Component3) {
 					),
 					_react2.default.createElement(
 						'td',
-						{ title: l.is_read == "2" ? "未读" : "已读" },
-						l.is_read == "2" ? "未读" : "已读"
-					),
-					_react2.default.createElement(
-						'td',
 						{ title: _this6.getSendArea(l.grid_name) },
 						_this6.getSendArea(l.grid_name)
 					),
@@ -354,7 +328,11 @@ var Table = exports.Table = function (_Component3) {
 									return _this6.deleteRisk(e, l);
 								} },
 							'\u5220\u9664'
-						) : ""
+						) : _react2.default.createElement(
+							'span',
+							{ style: { color: "#ccc" } },
+							'\u5220\u9664'
+						)
 					)
 				);
 			});

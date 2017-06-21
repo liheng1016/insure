@@ -51,7 +51,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var appReducer = exports.appReducer = (0, _redux.combineReducers)({
     riskWarningReducer: _reducer2.default,
     gridReducer: _reducer4.default,
-    baseSettingReducer: _reducer6.default,
+    basesettingReducer: _reducer6.default,
     acceptInsurReducer: _reducer8.default,
     insurUploadReducer: _reducer10.default,
     insurInfoReducer: _reducer12.default,

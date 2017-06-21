@@ -136,6 +136,7 @@ class AcceptinEdit extends Component{
 	}
 	componentDidMount(){
 		let {get_company_list,get_accept_company,get_detail,params,detail} = this.props;
+		
 		get_company_list();
 		get_accept_company();
 		get_detail({

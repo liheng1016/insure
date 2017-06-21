@@ -1,10 +1,13 @@
 {
   "name": "@stararc-insurance/high-charts",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "highcharts",
   "main": "index.js",
   "scripts": {
     "test": "test"
+  },
+  "dependencies": {
+    "@stararc-insurance/help-tools": "^1.0.2"
   },
   "author": "liheng",
   "license": "ISC"

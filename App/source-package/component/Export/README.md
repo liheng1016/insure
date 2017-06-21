@@ -59,6 +59,8 @@ export default class ExportTable extends Component{
                     path="";
                 }
 
+                path = PATH_PREFIX + path;
+
                 self.setState({
                     disabled:false
                 },()=>{
@@ -68,7 +70,6 @@ export default class ExportTable extends Component{
         }
     }
 }
-
 ```
 ###使用说明
 

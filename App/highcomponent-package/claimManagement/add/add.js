@@ -141,6 +141,8 @@ var SettleAddWrap = function (_Component) {
 				)
 			);
 		}
+		// 选择投保人信息
+
 	}, {
 		key: "conserveHandle",
 		value: function conserveHandle(selectValue) {
@@ -174,7 +176,8 @@ var SettleAddWrap = function (_Component) {
 			    get_accident_types = _props.get_accident_types;
 
 			get_insur_company({
-				count: 8
+				count: 8,
+				status: 2 //在保
 			});
 			get_accident_types();
 		}

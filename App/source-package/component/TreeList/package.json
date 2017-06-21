@@ -1,0 +1,11 @@
+{
+  "name": "@stararc-component/tree-structure",
+  "version": "1.0.1",
+  "description": "",
+  "main": "TreeList.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "liheng",
+  "license": "ISC"
+}

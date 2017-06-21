@@ -1,0 +1,40 @@
+/*scroll__bar*/
+.scroll__box{
+	position: relative;
+	top: 0;
+	left: 0;
+	height: 100%;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+.scroll__bar{
+	width: 10px;
+	position: absolute;
+	top: 0px;
+	left: 170px;
+	bottom: 0;
+	right: 0;
+	background: white;
+	box-shadow: 0px 0px 9px #27303f inset;
+}
+.scroll__bar--action{
+	width: 10px;
+	height: 25px;
+	background: #2696d6;
+	position: absolute;
+	top: 0;
+	left: 0;
+	/*left: -4px;*/
+	border-radius: 5px;
+	cursor: pointer;
+}
+/*内容区的滚动效果*/
+.scroll__container{
+	position: absolute;
+    top: 0;
+    left: 0;
+    right: -15px;
+    bottom: -15px;
+    overflow: scroll;
+    box-sizing: border-box;
+}

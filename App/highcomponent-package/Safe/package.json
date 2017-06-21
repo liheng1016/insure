@@ -1,6 +1,6 @@
 {
   "name": "@stararc-insurance_functional-module/home-statistic",
-  "version": "1.0.1",
+  "version": "1.0.10",
   "description": "首页统计",
   "main": "index.js",
   "scripts": {

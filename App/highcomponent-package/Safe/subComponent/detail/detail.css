@@ -3,9 +3,9 @@
 	height:auto;
 }
 .header-button{
-	width:100%;
+	width:auto;
 	height:auto;
-	margin:8px 0px;
+	margin:8px 17px;
 	overflow: hidden;
 }
 .content{
@@ -19,9 +19,9 @@
 	background:white;
 	padding: 10px 10px;
 	position: relative;
+	overflow: hidden;
 }
 .general-title{
-	
 	width:100%;
 }
 .general-company{
@@ -61,20 +61,25 @@
 }
 .general-li{
 	width:100%;
-	height:30px;
+	height:auto;
 	line-height:30px;
 	cursor: pointer;
+	clear:both;
 }
 .general-li--name{
 	width:auto;
-	display: inline-block;
+	display: block;
 	font-size:12px;
+	height:30px;
+	float:left;
 }
 .general-li--content{
-	width:auto;
-	display: inline-block;
+	width:90%;
+	display: block;
 	font-size:12px;
-	margin-left:3px;
+	padding-left:3px;
+	height:auto;
+	float:left;
 }
 
 /*9.6评分隐藏显示块*/
@@ -86,7 +91,6 @@
     padding: 3px 15px;
     position: absolute;
     left: 65px;
-
 }
 .score-header{
 	width:auto;
@@ -126,9 +130,21 @@
 	font-size:14px;
 	line-height:46px;
 }
-.danger-title a{
+.danger_items{
 	color:#a4a4a4;
 	font-size:12px;
+}
+.arrow{
+	width:30px;
+	display: block;
+	float:right;
+	height: 46px;
+	line-height:46px;
+	cursor: pointer;
+}
+.arrow img{
+	width:16px;
+	height:9px;
 }
 .dangercontent{
 	width:100%;
@@ -136,17 +152,17 @@
 	background:white;
 	height:auto;
 	position:relative;
+	margin-bottom: 4px !important;
 }
 .danger-content--line{
 	width:100%;
-	height:40px;
-	line-height:40px;
+	height:auto;
+	
 }
 .tips{
 	width:auto;
-	display:inline-block;
 	font-size:14px;
-
+	line-height:40px;
 }
 
 .line-identifying{
@@ -185,7 +201,7 @@
 	display:inline-block;
 	margin-right:10px;
 }
-.picture-li img{
+.pic--li img{
 	width:81px;
 	height:80px;
 	cursor:pointer;

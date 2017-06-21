@@ -8,6 +8,12 @@ let riskwarningListState={
 	isRight:""
 };
 
+import {
+	openAlert,
+	closeAlert
+} from "@stararc-insurance/alert-tips";
+
+
 let defaultState={...riskwarningListState};
 
 export default function  riskWarningReducer(state=defaultState,action) {
@@ -47,9 +53,19 @@ function getList(state,data,condition){
 
 function add_risk(state,data){
 	if(data.id){
+		openAlert(true,"添加成功");
+		setTimeout(()=>{
+			closeAlert();
 
-		// browserHistory.push("#/riskwarning")
-		location.href="#/riskwarning";
+	        if (process.env.NODE_ENV != 'production') {
+				location.href="/riskwarning";
+			}else{
+				browserHistory.push("/riskwarning");
+			}
+	
+		},1500)
+	}else{
+		openAlert(false,"创建失败");
 	}
 	return Object.assign({},state,{
 		isRight:""

@@ -28,10 +28,11 @@ let claimRequest={
 
 	    path = PATH_PREFIX + path;
 
-	    
+
 	    return fetch(path, {
 	        method: 'POST',
-	        body: params 
+	        body: params ,
+        	credentials: 'include'
 	    }).then(function (response) {
 	        return response.json();
 	    });

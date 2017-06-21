@@ -72,7 +72,6 @@ class InformationDetail extends Component{
 export class Enterprise extends Component{
 	render(){
 		let {enter={}} = this.props;
-		console.log(enter,'企业基本')
 		return(
 			<div className={style["enterprise"]}>
 				<span className={style["title"]}>
@@ -158,7 +157,6 @@ export class Guarantee extends Component{
 export class UlComponentInfo extends Component{
 	render() {
 		let detail = this.props.detail || {};
-		console.log(detail,'信息保障部分')
 		return (
 			<ul className={style["guarantee-list"]}>
 				<LiComponent lableName={"保险经纪公司 : "} 
@@ -227,7 +225,7 @@ export class Claim extends Component{
 				{
 					!claim.compensate?
 					<div className={style['claim-content']}>
-						<span className={style["tips"]}>暂无理赔相关信息</span>
+						<span className={style["claim_tips"]}>暂无理赔相关信息</span>
 					</div>
 					:
 					<div className={style['claim-content']}>
@@ -496,16 +494,24 @@ export class AuditingResult extends Component{
 				name:"同意投保",
 				params:"agree"
 			}],
+			type:{
+				2:'reject',
+				3:'agree',
+			},
 			create_insurance:2,
+			resultFlag:true,
+			insuranceFlag:true
 		}
 	}
 	render() {
 		let InputStyle={width:'14px',height:'14px',border:'#46b0d7'};
+
 		let buttonStyle={
 			border:"1px solid #f6a811",
 			background:"#f6a811",
 			color:"black",
 		};
+
 		let cancelStyle={
 			border:"1px solid #f6a811",
 			background:"white",
@@ -516,7 +522,7 @@ export class AuditingResult extends Component{
 			<div className={style["area--dialog"]}>
 				<div className={style["dialog--shade"]}></div>
 				<div className={style["auditingresult"]}>
-					<p className={style["res--title"]}>审核结果</p>
+					<p className={style["res--title"]}>保险审核</p>
 					<div className={style["res-select"]}>
 						<span className={style["res-selest_name"]}>
 							<img src={require("../img/pic.png")}/>
@@ -525,13 +531,18 @@ export class AuditingResult extends Component{
 						<span className={style["res-selest_content"]}>
 							<Select ref="approval_status" options={this.state.status}></Select>
 						</span>
+						{
+							!this.state.resultFlag?
+							<p className={style["must_p"]}>请输入必填字段</p>:''
+						}
+
 					</div>
 					<div className={style["res--radio"]}>
 						<span className={style["res-selest_name"]}>
 							<img src={require("../img/pic.png")}/>
 							是否创建新保单 : 
 						</span>
-						<span className={style["res-selest_content"]}>
+						<span className={style["res-selest_radios"]}>
 							<span onClick={e=>this.isCreateNewItem(1)} 
 								className={this.state.create_insurance==1?style["res--active"]:""}>
 								是
@@ -541,6 +552,12 @@ export class AuditingResult extends Component{
 								否
 							</span>
 						</span>
+						{
+							!this.state.insuranceFlag?
+							<span className={style["must"]}>请输入必填字段</span>:''
+						}
+						
+
 					</div>
 					<div className={style["res--remark"]}>
 						<span className={style["res-remark_name"]}>
@@ -574,20 +591,20 @@ export class AuditingResult extends Component{
 
 					<div className={style["action--componnet"]}>
 
-						<GridLayout width="1" offset="4.9">
-							<Button text={"确定"} 
-								styleCss={buttonStyle} 
-								onClick={(e)=>this.conserveHandle()}>
+						<GridLayout width="1.5" offset="4.4">
+							<Button text={"取消"} 
+								styleCss={cancelStyle} 
+								onClick={(e)=>this.cancleHandle()}>
 							</Button>
 						</GridLayout>
 						
 						<GridLayout width="0.2">
 							&nbsp;
 						</GridLayout>
-						<GridLayout width="1">
-							<Button text={"取消"} 
-								styleCss={cancelStyle} 
-								onClick={(e)=>this.cancleHandle()}>
+						<GridLayout width="1.5">
+							<Button text={"确定"} 
+								styleCss={buttonStyle} 
+								onClick={(e)=>this.conserveHandle()}>
 							</Button>
 						</GridLayout>
 					</div>
@@ -611,15 +628,25 @@ export class AuditingResult extends Component{
 			create_insurance
 		})
 	}
-	// conserve
+	// conserve确认
 	conserveHandle(){
 		let {conserveHandle,approval} = this.props;
 		let params = this.getValue();
-		approval(params);
-		conserveHandle && conserveHandle("cancle");
+		let resultFlag = true;
+		let value = params.approval_status;
+		if(!value){
+			resultFlag = false;
+		}
+		this.setState({
+			resultFlag
+		},function(){
+			resultFlag && approval(params);
+			resultFlag && conserveHandle && conserveHandle("cancle");
+		})
+		
 	}
 
-	// cancle
+	// cancle取消
 	cancleHandle(){
 		let {cancleHandle} = this.props;
 		cancleHandle && cancleHandle("cancle");
@@ -635,9 +662,10 @@ export class AuditingResult extends Component{
 		delete_attach(data);
 	}
 	getValue(){
-		let refs = this.refs,result={};
+		let refs = this.refs,result={},type=this.state.type;
+
 		result={
-			approval_status:refs.approval_status.getValue() == '2' ? "reject":"agree",
+			approval_status:type[refs.approval_status.getValue()],
 			create_insurance:this.state.create_insurance,
 			approval_remark:refs.approval_remark.getValue(),
 			attachment_ids:this.getAttachIds(),

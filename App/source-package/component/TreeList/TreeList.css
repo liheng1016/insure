@@ -1,0 +1,87 @@
+@value grey_color: #999999;
+@value green_color: #00bf9a;
+
+.tree__list{
+	min-height: 400px;
+	padding: 10px;
+	background: white;
+	overflow: auto;
+}
+.tree__ul{
+	border-left: 1px solid grey_color;
+	margin-left: 28px;
+	overflow:auto;
+}
+.tree__list>.tree__ul{
+	border-left: initial;
+	margin-left: initial;
+}
+
+.tree__p{
+	height: 35px;
+	line-height: 35px;
+	padding: 0;
+	margin: 0;
+}
+
+.tree__span{
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	border-bottom: 1px solid grey_color;
+	float: left;
+}
+.tree__list>.tree__ul>li>.tree__p>.tree__span{
+	border-bottom: initial
+}
+.tree__icon{
+	width: 20px;
+	height: 35px;
+	float: left;
+	margin-right: 5px;
+}
+.icon__close{
+	composes:tree__icon;
+	background: url('./img/close.png') no-repeat center left;	
+	background-size:100%; 
+}
+.icon__open{
+	composes:tree__icon;
+	background: url('./img/open.png') no-repeat center left;	
+	background-size:100%; 
+}
+.tree__link{
+	display: inline-block;
+	float: left;
+	color: black;
+	margin-top: 5px;
+	height: 25px;
+	line-height: 25px;
+	font-size: 14px;
+	word-break: keep-all;
+	padding-right: 10px;
+}
+.tree__link--select{
+	composes:tree__link;
+	/*background: green_color;*/
+	background-size:50% 50%; 
+	/*color: white;*/
+	border-right: 5px solid #0095e2;
+}
+
+/*树状列表的外层盒子*/
+.tree__list--box{
+	width: 335px;
+	display: inline-block;
+	float: left;
+}
+.tree__title{
+	height: 38px;
+	min-width: 330px;
+	line-height: 38px;
+	text-align: center;
+	background: #f6fffd;
+	color: green_color;
+	padding: 0;
+	margin: 0;
+}

@@ -58,7 +58,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import ExportComponent from "../../../component/Export";
 
 /**
  * 承保主体
@@ -196,9 +195,25 @@ var AcceptInsurance = function (_Component) {
 			    get_grid_list = _props.get_grid_list,
 			    get_industry_list = _props.get_industry_list;
 
-			get_grid_list();
-			get_industry_list();
-			this.getList(this.getOps());
+			var sourceUrlOne = "",
+			    sourceUrlTwo = "",
+			    self = this;
+
+			if (process.env.NODE_ENV == 'production') {
+				sourceUrlOne = "/assets/lib/xls.min.js";
+				sourceUrlTwo = "/assets/lib/xlsx.core.min.js";
+			} else {
+				sourceUrlOne = "/lib/xls.min.js";
+				sourceUrlTwo = "/lib/xlsx.core.min.js";
+			}
+
+			(0, _helpTools.load_script)(sourceUrlOne, function () {
+				(0, _helpTools.load_script)(sourceUrlTwo, function () {
+					get_grid_list();
+					get_industry_list();
+					self.getList(self.getOps());
+				});
+			});
 		}
 	}, {
 		key: "componentWillReceiveProps",
@@ -251,7 +266,7 @@ var AcceptInsuranceTitle = exports.AcceptInsuranceTitle = function (_Component2)
 			var button = {
 				ButtonStyle: { width: '60px', float: 'right', background: '#efc420' },
 				SearchStyle: { width: '60px', float: 'right', background: '#0093e1', marginLeft: '10px' },
-				SetStyle: { width: '95px', float: 'right', background: '#eec420', marginLeft: '10px' },
+				SetStyle: { width: '100px', float: 'right', background: '#eec420', marginLeft: '10px' },
 				ExportStyle: { width: '60px', float: 'right', background: '#f7a712', marginLeft: '10px' }
 			};
 			var DateStyle = {

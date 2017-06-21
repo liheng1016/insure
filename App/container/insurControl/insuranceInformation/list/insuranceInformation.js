@@ -293,7 +293,7 @@ export class TabTable extends Component{
 					<td title={l.effect_grid_name}>{l.effect_grid_name}</td>
 					<td title={statu[l.status]}>{statu[l.status]}</td>
 					<td title={l.approval_user_name}>{l.approval_user_name}</td>
-					<td title={getFormatData(l.apply_at)+" "+getHoursMinutes(l.apply_at)}>{getFormatData(l.apply_at)+" "+getHoursMinutes(l.apply_at)}</td>
+					<td title={getFormatData(l.approval_at)+" "+getHoursMinutes(l.approval_at)}>{getFormatData(l.approval_at)+" "+getHoursMinutes(l.approval_at)}</td>
 				</tr>
 			)
 		})

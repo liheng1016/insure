@@ -10,7 +10,7 @@
     "datepicker"
   ],
   "dependencies": {
-    "@stararc-component/datepicker": "^1.0.20"
+    "@stararc-component/datepicker": "^1.0.21"
   },
   "author": "liheng",
   "license": "ISC"

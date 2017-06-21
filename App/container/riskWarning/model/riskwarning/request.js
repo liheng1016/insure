@@ -5,7 +5,7 @@ let riskwarningRequest={
 		return commonRequest('/Riskwarning/getRiskList', params, 'get');
 	},
 	add: (params)=> {
-		return commonRequest('/Riskwarning/addRisk', params, 'get');
+		return commonRequest('/Riskwarning/addRisk', params, 'post');
 	},
 	detail: (params)=> {
 		return commonRequest('/Riskwarning/detail', params, 'get');
@@ -30,11 +30,9 @@ let riskwarningRequest={
             method: 'POST',
             body: params ,
         	credentials: 'include'
-
         }).then(function (response) {
             return response.json();
         });
-        
 	},
 	media: (params)=> {
 		let path = '/Media/upload';
@@ -43,9 +41,12 @@ let riskwarningRequest={
             path = LOCAL_DOMAIN + path;
         }
        	
+	    path = PATH_PREFIX + path;
+
         return fetch(path, {
             method: 'POST',
-            body: params 
+            body: params ,
+        	credentials: 'include'
         }).then(function (response) {
             return response.json();
         });

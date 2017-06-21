@@ -169,6 +169,7 @@ var BXChart = exports.BXChart = function (_Component4) {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nextProps) {
             if (nextProps.incomeTrendslist != this.props.incomeTrendslist) {
+
                 var _BXChart = filterBXdata(nextProps.incomeTrendslist);
                 var conf = getChartConf(_BXChart.categories, _BXChart.series, this.state.title, _BXChart.yAxis, _BXChart.plotOptions);
                 this.setState({

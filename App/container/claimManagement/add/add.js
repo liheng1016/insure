@@ -67,7 +67,6 @@ class SettleAddWrap extends Component{
 							{...this.props}
 							selectValue={this.state.selectValue}
 							conserveHandle={(selectValue)=>this.conserveHandle(selectValue)}>
-							
 						</ApplicantInformation>	
 						<SecurityInformation 
 							{...this.props}
@@ -105,6 +104,7 @@ class SettleAddWrap extends Component{
 			</div>
 		);
 	}
+	// 选择投保人信息
 	conserveHandle(selectValue){
 		this.setState({
 			selectValue
@@ -127,9 +127,15 @@ class SettleAddWrap extends Component{
 	componentDidMount(){
 		let {get_insur_company,get_accident_types} = this.props;
 		get_insur_company({
-			count:8
+			count:8,
+			status:2  //在保
 		});
 		get_accident_types();
+	}
+
+	componentWillUnmount() {
+		let {unmout_claim_detail} = this.props;
+		unmout_claim_detail()
 	}
 }
 
@@ -165,6 +171,10 @@ let mapDispatchToProps = (dispatch) => {
         // 删除现场附件
         delete_claim:(index) => {
             dispatch(Action.delete_claim({index}));
+        },
+
+        unmout_claim_detail: (obj) => {
+            dispatch(Action.unmout_claim_detail(obj))
         },
         
     }

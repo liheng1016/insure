@@ -1,0 +1,12 @@
+.wrap_p{
+	width: 890px;
+	height: 84%;
+	background: white;
+	border-radius: 5px;
+	position: absolute;
+	/*margin:0 auto;*/
+	top: 8%;
+	left: 50%;
+	margin-left: -450px;
+	padding: 30px;
+}

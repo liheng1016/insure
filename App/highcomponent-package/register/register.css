@@ -1,0 +1,79 @@
+.wrap{
+	width:470px;
+	height:470px;
+	background: white;
+	border-radius:10px;
+	position: relative;
+	margin-left:-235px;
+	margin-top:-235px;
+	top:50%;
+	left:50%;
+}
+.close{
+	width:26px;
+	height:26px;
+	position: absolute;
+	display: block;
+	right:-26px;
+	top:-26px;
+}
+/*	
+企业
+*/
+.enterprise{
+	width:470px;
+	height:470px;
+	background: white;
+	border-radius:10px;
+}
+.people{
+	width:470px;
+	height:470px;
+	background: white;
+	border-radius:10px;
+}
+.nav{
+	width:100%;
+	height:47px;
+	line-height:47px;
+	font-size:14px;
+	text-align: center;
+	color:#3fa2ff;
+}
+.enterprise_nav{
+	width:50%;
+	height:47px;
+	display: inline-block;
+	border-radius:10px 0 0 0;
+	border-bottom: 2px solid #3fa2ff;
+}
+.people_nav{
+	width:50%;
+	height:47px;
+	display: inline-block;
+	border-radius: 0 10px 0 0;
+	border-bottom: 2px solid #3fa2ff;
+	cursor: pointer;
+}
+.enterprise_content{
+	width:100%;
+	height:100%;
+	border-radius: 0 0 10px 10px;
+
+}
+.en_pointer{
+	background:#3fa2ff;
+	width:50%;
+	height:47px;
+	display: inline-block;
+	color:white;
+	border-radius:10px 0 0 0;
+}
+.pe_pointer{
+	background:#3fa2ff;
+	width:50%;
+	height:47px;
+	display: inline-block;
+	color:white;
+	border-radius: 0 10px 0 0;
+}

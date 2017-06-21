@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _commonRequest = require('@stararc-insurance/common-request');
 
 var _commonRequest2 = _interopRequireDefault(_commonRequest);
@@ -28,10 +30,33 @@ var basesettingRequest = {
 
 		return fetch(path, {
 			method: 'POST',
-			body: params
+			body: params,
+			credentials: 'include'
 		}).then(function (response) {
 			return response.json();
 		});
 	}
 };
-exports.default = basesettingRequest;
+
+var productRequest = {
+	product_list: function product_list(params) {
+		return (0, _commonRequest2.default)('/InsurProduct/get_insur_product', params, 'get');
+	},
+	product_add: function product_add(params) {
+		return (0, _commonRequest2.default)('/InsurProduct/product_add', params, 'get');
+	},
+	product_detail: function product_detail(params) {
+		return (0, _commonRequest2.default)('/InsurProduct/product_detail', params, 'get');
+	},
+	product_forbidden: function product_forbidden(params) {
+		return (0, _commonRequest2.default)('/InsurProduct/product_forbidden', params, 'get');
+	},
+	get_insur_company: function get_insur_company(params) {
+		return (0, _commonRequest2.default)('/InsurProduct/get_accept_company', params, 'get');
+	},
+	get_authorized_area: function get_authorized_area(params) {
+		return (0, _commonRequest2.default)('/Grid/getList', params, 'get');
+	}
+};
+
+exports.default = _extends({}, basesettingRequest, productRequest);

@@ -1,0 +1,29 @@
+{
+    "name":"register",
+    "label":"注册",
+    "path":"/register",
+    "module_path":"/register/index.js",
+    "level":2,
+    "subs":[{
+    	"name":"register/entry",
+	    "label":"选择入口",
+	    "path":"/register/entry",
+	    "module_path":"/register/entrance/register.js",
+	    "level":2,
+	    "subs":[]
+    },{
+    	"name":"register",
+	    "label":"注册/步骤",
+	    "path":"/register/step",
+	    "module_path":"/register/steps/index.js",
+	    "level":2,
+	    "subs":[]
+    },{
+        "name":"register",
+        "label":"注册/个人",
+        "path":"/register/person",
+        "module_path":"/register/person/index.js",
+        "level":2,
+        "subs":[]
+    }]
+}

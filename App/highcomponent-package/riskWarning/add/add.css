@@ -17,6 +17,16 @@
 	text-align: right;
 	vertical-align: top;
 }
+.label_required{
+	composes:label;
+}
+.label_required:before{
+	content: "*";
+	margin-right: 5px;
+	vertical-align: middle;
+	color:red;
+}
+
 .context{
 	display: inline-block;
 	width:90%;
@@ -69,9 +79,6 @@
 	color: #0095e2;
 	display: inline-block;
 	margin-right: 15px;
-	float: left;
-	height: 35px;
-	line-height: 35px;
 }
 .attachment--li a{
 	display: inline;
@@ -121,8 +128,6 @@
 }
 
 /*选择发送地区选择框*/
-.area--dialog{
-}
 .dialog--shade{
 	background: #999999;
 	opacity: 0.8;
@@ -131,6 +136,7 @@
 	height: 100%;
 	left:0;
 	top: 0; 
+	z-index: 1000;
 }
 .dialog--content{
 	position: fixed;
@@ -141,6 +147,7 @@
 	background: white;
 	border-radius: 5px;
 	padding:15px;
+	z-index: 1001;
 }
 .dialog-action{
 	width: 100%;
@@ -188,7 +195,7 @@
 }
 
 .form-pie{
-	margin-bottom: 15px;
+	margin-bottom: 10px;
 }
 
 /*多媒体附件*/

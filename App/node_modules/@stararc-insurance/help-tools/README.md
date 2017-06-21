@@ -228,4 +228,23 @@ export function getFormatDay(time,type,format="-"){
             return getYear(time)+format+(getMonth(time)+1)+format+days.getDate();
     }
  }
+
+
+ /**
+ * 动态加载依赖
+ * @date   2017-05-22T14:58:03+0800
+ * @author liheng
+ * @param  {[type]}                 src      [description]
+ * @param  {Function}               callback [description]
+ * @return {[type]}                          [description]
+ */
+export function load_script(src,callback) {
+    let script = document.createElement('script');
+    script.src=src;
+    document.body.appendChild(script);
+    if(typeof callback === 'function'){
+        script.onload = callback;
+    }
+}
+
 ```

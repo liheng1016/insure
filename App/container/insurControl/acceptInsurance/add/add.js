@@ -21,6 +21,10 @@ import{
 	LayoutFooter
 }from "@stararc-insurance/layout";
 
+import{
+	convertCookieToObj
+} from "@stararc-insurance/help-tools";
+
 
 class AcceptinAdd extends Component{
 	constructor(props) {
@@ -97,6 +101,7 @@ class AcceptinAdd extends Component{
 	insuranceChangeHandle(organ_id){
 		let {get_insur_product} = this.props;
 
+
 		get_insur_product({
 			organ_id
 		});
@@ -128,15 +133,17 @@ class AcceptinAdd extends Component{
 			params["company_name"] = params.apply_company_name;
 			params["company_id"] = params.apply_company_id;
 		}
-		create_insur(params)
+		create_insur(params);
 	}
 	componentDidMount(){
-		let {get_company_list,get_accept_company} = this.props;
+		let {get_company_list,unmout_upload_insur} = this.props;
+
+		unmout_upload_insur();
+
 		get_company_list({
 			page:1,
 			count:8
 		});
-		get_accept_company();
 	}
 	componentWillUnmount(){
 		let {unmout_upload_insur} = this.props;
@@ -182,7 +189,7 @@ let mapDispatchToProps = (dispatch) => {
         create_insur: (obj) => {
             dispatch(Action.create_insur(obj));
         },
-        // 卸载
+        // 卸载附件
         unmout_upload_insur:(obj) => {
             dispatch(Action.unmout_upload_insur(obj));
         }

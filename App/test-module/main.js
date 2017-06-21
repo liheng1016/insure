@@ -3,10 +3,10 @@ import {render} from 'react-dom';
 import {Router, browserHistory, hashHistory} from 'react-router';
 import {appRoute} from './routes';
 
+
 import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
-
 import {appReducer} from './App.reducer.js';
 
 import createLogger from 'redux-logger';

@@ -131,7 +131,6 @@ var RiskSurvey = function (_Component) {
 
 			var search = this.refs.q.getValue();
 
-			console.log(search);
 			return _extends({}, search, {
 				count: 20,
 				page: page
@@ -356,7 +355,6 @@ var TableContent = exports.TableContent = function (_Component3) {
 			var _props$lists = this.props.lists,
 			    lists = _props$lists === undefined ? [] : _props$lists;
 
-			console.log(lists, '风险数据');
 			var status = {
 				1: '待处理任务',
 				3: '已完成',

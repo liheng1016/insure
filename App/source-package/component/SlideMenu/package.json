@@ -1,0 +1,22 @@
+{
+  "name": "@stararc-component/slidemenu",
+  "version": "1.0.1",
+  "description": "slidemenu",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "slidemenu"
+  ],
+  "dependencies": {
+    "babel-loader": "^6.4.1",
+    "react": "^15.4.2",
+    "css-loader": "^0.28.0",
+    "webpack": "^1.13.0",
+    "babel-core": "^6.9.0",
+    "babel-plugin-transform-runtime": "^6.9.0"
+  },
+  "author": "liheng",
+  "license": "ISC"
+}

@@ -24,6 +24,10 @@ var _Gloable = require("./Gloable.css");
 
 var _Gloable2 = _interopRequireDefault(_Gloable);
 
+var _isomorphicFetch = require("isomorphic-fetch");
+
+var _isomorphicFetch2 = _interopRequireDefault(_isomorphicFetch);
+
 var _riskWarning = require("@stararc-insurance_functional-module/risk-warning");
 
 var _insurControl = require("@stararc-insurance_functional-module/insur-control");
@@ -77,7 +81,7 @@ var HomeComponnet = function (_Component) {
 			return _react2.default.createElement(
 				"div",
 				null,
-				_react2.default.createElement(_header2.default, null),
+				_react2.default.createElement(_header2.default, { url: "/Login/loginout" }),
 				_react2.default.createElement(
 					"div",
 					{ className: _Gloable2.default["content"] },

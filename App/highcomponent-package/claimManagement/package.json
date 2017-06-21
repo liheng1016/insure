@@ -1,6 +1,6 @@
 {
   "name": "@stararc-insurance_functional-module/claim-management",
-  "version": "1.0.1",
+  "version": "1.0.12",
   "description": "理赔管理",
   "main": "index.js",
   "scripts": {

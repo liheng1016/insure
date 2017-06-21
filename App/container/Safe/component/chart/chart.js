@@ -4,6 +4,7 @@
 import React,{Component,PropTypes} from 'react';
 import style from './chart.css';
 import HightChart from '@stararc-insurance/high-charts';
+
 class Chart extends Component{
     render(){
         let styleClass={width:'100%',height:'92%',float:'left'};
@@ -85,6 +86,7 @@ export class BXChart extends Component{
     }
     componentWillReceiveProps(nextProps){
         if(nextProps.incomeTrendslist!=this.props.incomeTrendslist){
+
             let BXChart=filterBXdata(nextProps.incomeTrendslist);
             let conf=getChartConf(BXChart.categories,BXChart.series,this.state.title,BXChart.yAxis,BXChart.plotOptions);
             this.setState({

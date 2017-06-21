@@ -216,7 +216,7 @@ var ChoiceEnterprise = exports.ChoiceEnterprise = function (_Component4) {
 			var _this6 = this;
 
 			var ButtonStyle = {
-				width: '76px',
+				width: '80px',
 				background: '#eec420',
 				float: 'right',
 				marginTop: '5px'
@@ -262,8 +262,6 @@ var ChoiceEnterprise = exports.ChoiceEnterprise = function (_Component4) {
 			    selectCompany = this.state.selectCompany;
 
 
-			console.log(company, 22222222222222);
-			// if(selectCompany){
 			this.setState({
 				selectCompany: company ? company : selectCompany,
 				isOpenChoicelog: false
@@ -273,11 +271,6 @@ var ChoiceEnterprise = exports.ChoiceEnterprise = function (_Component4) {
 
 				company && selectValue && selectValue(company);
 			});
-			// }else{
-			// 	this.setState({
-			// 		isOpenChoicelog:false,
-			// 	})
-			// }
 		}
 	}]);
 
@@ -915,6 +908,7 @@ var SecurityInformation = exports.SecurityInformation = function (_Component10) 
 
 		var _this15 = _possibleConstructorReturn(this, (SecurityInformation.__proto__ || Object.getPrototypeOf(SecurityInformation)).call(this, props));
 
+		_this15.cookiesObj = {};
 		_this15.state = {};
 		return _this15;
 	}
@@ -924,7 +918,8 @@ var SecurityInformation = exports.SecurityInformation = function (_Component10) 
 		value: function render() {
 			var _this16 = this;
 
-			var InputStyle = { width: '100px' };
+			var InputStyle = { width: '100%', marginTop: '-4px' };
+			var MaxInputStyle = { width: '100%', marginTop: '0px' };
 			var DateStyle = {
 				width: '100%',
 				float: 'left',
@@ -955,7 +950,10 @@ var SecurityInformation = exports.SecurityInformation = function (_Component10) 
 					_react2.default.createElement(
 						LiMustComponent,
 						{ LabelName: "承保公司", errorTips: this.state.insurance_id_error },
-						_react2.default.createElement(_select2.default, {
+						this.cookiesObj["organ_type"] == '3' ? _react2.default.createElement(_input2.default, {
+							ref: "insurance_id",
+							defaultValue: this.cookiesObj["organName"],
+							disabled: true }) : _react2.default.createElement(_select2.default, {
 							ref: "insurance_id",
 							defaultValue: this.props.insurance_id,
 							onChange: function onChange(e) {
@@ -1054,6 +1052,8 @@ var SecurityInformation = exports.SecurityInformation = function (_Component10) 
 				)
 			);
 		}
+		// 承保公司发生改变获取保险产品
+
 	}, {
 		key: "insuranceChangeHandle",
 		value: function insuranceChangeHandle() {
@@ -1062,6 +1062,8 @@ var SecurityInformation = exports.SecurityInformation = function (_Component10) 
 
 			insuranceChangeHandle && insuranceChangeHandle(value);
 		}
+		// 保险产品的变动会获取免责条例
+
 	}, {
 		key: "productChangeHandle",
 		value: function productChangeHandle() {
@@ -1070,6 +1072,8 @@ var SecurityInformation = exports.SecurityInformation = function (_Component10) 
 
 			productChangeHandle && productChangeHandle(value);
 		}
+		// 获取值
+
 	}, {
 		key: "getValue",
 		value: function getValue() {
@@ -1077,15 +1081,23 @@ var SecurityInformation = exports.SecurityInformation = function (_Component10) 
 			    result = {},
 			    errorTips = {},
 			    isVerify = true;
+
 			for (var r in refs) {
 				var value = refs[r].getValue();
+
 				result[r] = value;
 				isVerify = isVerify && !!value;
+
 				if (!value) {
 					errorTips[r + "_error"] = "该项是必填项";
 				} else {
 					errorTips[r + "_error"] = "";
 				}
+			}
+
+			// 如果是保险公司登录创建保单
+			if (this.cookiesObj["organ_type"] == "3") {
+				result["insurance_id"] = this.cookiesObj["organ_id"];
 			}
 
 			this.setState(_extends({}, errorTips));
@@ -1097,8 +1109,33 @@ var SecurityInformation = exports.SecurityInformation = function (_Component10) 
 	}, {
 		key: "componentWillReceiveProps",
 		value: function componentWillReceiveProps(nextProps) {
+			// 承保公司id发生变化
 			if (nextProps.insurance_id != this.props.insurance_id) {
 				this.insuranceChangeHandle();
+			}
+		}
+		// 首先判断是不是保险公司，
+		// 如果是直接请求投保产品
+		// 如果不是，发出获取承保公司请求
+
+	}, {
+		key: "componentDidMount",
+		value: function componentDidMount() {
+			var organ_id = "",
+			    _props = this.props,
+			    insuranceChangeHandle = _props.insuranceChangeHandle,
+			    get_accept_company = _props.get_accept_company;
+
+
+			this.cookiesObj = (0, _helpTools.convertCookieToObj)();
+
+			// 如果是保险公司创建保单
+			if (this.cookiesObj["organ_type"] == "3") {
+				organ_id = this.cookiesObj["organ_id"];
+
+				insuranceChangeHandle && insuranceChangeHandle(organ_id);
+			} else {
+				get_accept_company();
 			}
 		}
 	}]);
@@ -1272,7 +1309,6 @@ var Upload = exports.Upload = function (_Component14) {
 			var _props$insureAcctach = this.props.insureAcctach,
 			    insureAcctach = _props$insureAcctach === undefined ? {} : _props$insureAcctach;
 
-			console.log(insureAcctach, '上传文件');
 			return _react2.default.createElement(
 				"div",
 				{ className: _index2.default["applicant-wrap"] },
@@ -1297,7 +1333,7 @@ var Upload = exports.Upload = function (_Component14) {
 							{ className: _index2.default["attach--display"] },
 							_react2.default.createElement(
 								"a",
-								{ href: insureAcctach.business.attachment_path },
+								{ href: insureAcctach.business.attachment_path, download: "" },
 								insureAcctach.business.name
 							)
 						)
@@ -1311,7 +1347,7 @@ var Upload = exports.Upload = function (_Component14) {
 							{ className: _index2.default["attach--display"] },
 							_react2.default.createElement(
 								"a",
-								{ href: insureAcctach.full.attachment_path },
+								{ href: insureAcctach.full.attachment_path, download: "" },
 								insureAcctach.full.name
 							)
 						),
@@ -1329,7 +1365,7 @@ var Upload = exports.Upload = function (_Component14) {
 							{ className: _index2.default["attach--display"] },
 							_react2.default.createElement(
 								"a",
-								{ href: insureAcctach.social.attachment_path },
+								{ href: insureAcctach.social.attachment_path, download: "" },
 								insureAcctach.social.name
 							)
 						),
@@ -1347,7 +1383,7 @@ var Upload = exports.Upload = function (_Component14) {
 							{ className: _index2.default["attach--display"] },
 							_react2.default.createElement(
 								"a",
-								{ href: insureAcctach.seal.attachment_path },
+								{ href: insureAcctach.seal.attachment_path, download: "" },
 								insureAcctach.seal.name
 							)
 						),
@@ -1365,7 +1401,7 @@ var Upload = exports.Upload = function (_Component14) {
 							{ className: _index2.default["attach--display"] },
 							_react2.default.createElement(
 								"a",
-								{ href: insureAcctach.people.attachment_path },
+								{ href: insureAcctach.people.attachment_path, download: "" },
 								insureAcctach.people.name
 							)
 						),
@@ -1384,7 +1420,7 @@ var Upload = exports.Upload = function (_Component14) {
 							{ className: _index2.default["attach--display"] },
 							_react2.default.createElement(
 								"a",
-								{ href: insureAcctach.other.attachment_path },
+								{ href: insureAcctach.other.attachment_path, download: "" },
 								insureAcctach.other.name
 							)
 						),
@@ -1438,10 +1474,11 @@ var UploadFile = exports.UploadFile = function (_Component15) {
 
 			var ButtonStyle = {
 				position: "absolute",
-				width: '80px',
+				width: '90px',
 				background: 'white',
 				color: 'orange',
-				border: '1px solid orange'
+				border: '1px solid orange',
+				marginRight: '5px'
 			};
 
 			return _react2.default.createElement(
@@ -1464,9 +1501,9 @@ var UploadFile = exports.UploadFile = function (_Component15) {
 		key: "upload",
 		value: function upload() {
 			var value = this.refs.file.getValue();
-			var _props = this.props,
-			    uploadHandle = _props.uploadHandle,
-			    type = _props.type;
+			var _props2 = this.props,
+			    uploadHandle = _props2.uploadHandle,
+			    type = _props2.type;
 
 			uploadHandle && uploadHandle(value, type);
 		}
@@ -1514,7 +1551,7 @@ var ArticleContent = exports.ArticleContent = function (_Component16) {
 						{ className: _index2.default["article--content"] },
 						_react2.default.createElement(
 							"a",
-							{ href: articleContent.attachment_path },
+							{ href: articleContent.attachment_path, download: "" },
 							articleContent.name
 						)
 					)
@@ -1525,9 +1562,11 @@ var ArticleContent = exports.ArticleContent = function (_Component16) {
 
 	return ArticleContent;
 }(_react.Component);
+
 /**
  * 保存按钮
  */
+
 
 var ActionComponent = exports.ActionComponent = function (_Component17) {
 	_inherits(ActionComponent, _Component17);

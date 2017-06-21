@@ -121,7 +121,6 @@ class SettleEditWrap extends Component{
 		for(let r in refs){
 			paramsFeild = Object.assign(paramsFeild,paramsFeild,{...refs[r].getValue()})
 		};
-		console.log(paramsFeild);
 		// 报案人信息，案件受理信息 必填字段不通过不发送请求
 		if(!paramsFeild["infoVerify"] || !paramsFeild["hearVerify"]){
 			return;
@@ -143,7 +142,10 @@ class SettleEditWrap extends Component{
 	componentWillReceiveProps(nextProps){
 		if(nextProps.detail != this.props.detail){
 			this.setState({
-				selectValue:nextProps.detail.companyInsurance
+				selectValue:{
+					...nextProps.detail.companyInsurance,
+					...nextProps.detail.company
+				}	
 			})
 		}
 	}

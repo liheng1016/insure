@@ -8,9 +8,6 @@ import DatePicker from "@stararc-insurance/date-picker";
 import Textarea from "@stararc-component/textarea";
 import Pagination from "@stararc-component/pagination";
 
-
-// import IframeUpload from "@stararc-component/iframe-upload";
-
 import {
 	CommonUpload
 } from "@stararc-insurance/upload-file";
@@ -44,18 +41,29 @@ export class LiContent extends Component{
  * 投保人信息
  */
 export class ApplicantInformation extends Component{
+	
 	render() {
 		return (
 			<div className={style["applicant"]}>
 				<span className={style["applicant--title"]}>投保人信息</span>
-				<ApplicantInformationButton {...this.props} conserveHandle={this.props.conserveHandle}/>
-				<ApplicantInformationContent selectValue={this.props.selectValue}/>
+				<ApplicantInformationButton 
+					{...this.props} 
+					conserveHandle={this.props.conserveHandle}/>
+				{
+					this.props.selectValue && this.props.selectValue.id ? 
+					<ApplicantInformationContent selectValue = {this.props.selectValue}>
+					</ApplicantInformationContent>:""
+				}
 			</div>
 		);
 	}
+	
 	getValue(){
+		let {selectValue} = this.props;
 		return{
-			company_insurance_id:this.props.selectValue.id
+			company_insurance_id:selectValue.id,
+			apply_company_name:selectValue.apply_company_name,
+			
 		}
 	}
 }
@@ -72,17 +80,22 @@ export class ApplicantInformationButton extends Component{
 	}
 	render() {
 		let accpt = this.props;
-		let ButtonStyle = {width:'76px',background:'orange',float:'right',marginTop:'10px',marginRight:'20px'}
+		let ButtonStyle = {width:'80px',background:'orange',float:'right',marginTop:'10px',marginRight:'20px'}
 		return (
 			<div className={style["applicantcontent-wrap"]}>
 				<span className={style["applicant-select"]}>请点击右侧按钮选择理赔企业</span>
-				<Button styleCss={ButtonStyle} text={"选择企业"} onClick={(e)=>this.openChoicelog()}/>
+				<Button 
+					styleCss={ButtonStyle} 
+					text={"选择企业"} 
+					onClick={(e)=>this.openChoicelog()}/>
 				{
 					this.state.isOpenChoicelog ? 
 					<EnterprisePopups 
 						{...this.props}
-						conserveHandle={(action,selectValue)=>this.closeReslog(action,selectValue)}
-						cancleHandle={(action)=>this.closeReslog(action)}>
+						lists={this.state.lists}
+						conserveHandle={(action,selectValue,index)=>this.closeReslog(action,selectValue,index)}
+						cancleHandle={(action)=>this.closeReslog(action)}
+						>
 					</EnterprisePopups>:''
 				}
 			</div>
@@ -95,13 +108,24 @@ export class ApplicantInformationButton extends Component{
 		})
 	}
 	// 关闭弹出框
-	closeReslog(action,selectValue){
-		let {conserveHandle} = this.props;
+	closeReslog(action,selectCompany,companyList){
+		let self = this,{lists} = this.state;
 		this.setState({
 			isOpenChoicelog:false,
-		},function(){
-			conserveHandle && conserveHandle(selectValue);
+			lists:companyList?companyList: lists
+		},()=>{
+			let {conserveHandle} = self.props;
+			selectCompany && conserveHandle && conserveHandle(selectCompany);
 		})	
+		
+	}
+	componentWillReceiveProps(nextProps){
+		if(nextProps.lists != this.props.lists){
+			this.setState({
+				lists:nextProps.lists
+			})
+		}
+
 	}
 }
 
@@ -112,7 +136,7 @@ export class EnterprisePopups extends Component{
 	constructor(props) {
 	  	super(props);
 	  	this.state = {
-	  		index:'',
+	  		index:props.index|| '',
 	  		companyList:props.lists||[]
 	  	};
 	}
@@ -124,12 +148,12 @@ export class EnterprisePopups extends Component{
 			border:"1px solid #f6a811",
 			background:"#f6a811",
 			color:"black",
-		}
+		};
 		let cancelStyle={
 			border:"1px solid #f6a811",
 			background:"white",
 			color:"black",
-		}
+		};
 		return (
 			<div className={style["area--dialog"]}>
 				<div className={style["dialog--shade"]}></div>
@@ -193,19 +217,18 @@ export class EnterprisePopups extends Component{
 	}
 
 	getTrPopupsContent(){
-		let {companyList=[]} = this.state,
+		let {companyList=[],index} = this.state,
 			status={
 				1:"脱保",
 				2:"在保 ",
 				3:"待出单"
 			};;
-
 		return companyList.map((l,key)=>{
-			let classname = l.isSelected?style["table_row--hover"]:style["table_row"];
+			let classname =l.isSelected?style["table_row--hover"]:style["table_row"];
 			return (
 				<tr className={classname} key={key}>
 					<td onClick={e=>this.selectedTr(key)}>
-						<span className={l.isSelected?style["company_select"]:style["company_select--not"]}> </span>
+						<span  className={ l.isSelected?style["company_select"]:style["company_select--not"]}> </span>
 					</td>
 				    <td title={l.company_name}>{l.company_name}</td>
 				    <td title={l.apply_number}>{l.apply_number}</td>
@@ -225,7 +248,8 @@ export class EnterprisePopups extends Component{
 		let params={
 			q:q,
 			page:page,
-			count:8
+			count:8,
+			status:2   //在保
 		};
 
 		get_insur_company(params);
@@ -238,16 +262,24 @@ export class EnterprisePopups extends Component{
 		});
 		companyList[index].isSelected = true;
 		this.setState({
-			companyList,
-			index
+			companyList
 		});
 	}
 	
 	// conserve
 	conserveHandle(){
 		let {conserveHandle} = this.props,
-			{companyList,index} = this.state;
-		conserveHandle && conserveHandle("cancle",companyList[index]);
+			{companyList} = this.state,
+			selectValue={};
+
+			companyList.map((c,key)=>{
+				if(c.isSelected){
+					selectValue = c;
+					return;
+				}
+			});
+
+		conserveHandle && conserveHandle("cancle",selectValue,companyList);
 	}
 
 	// cancle
@@ -270,7 +302,7 @@ export class EnterprisePopups extends Component{
  */
 export class ApplicantInformationContent extends Component{
 	render() {
-		let InputStyle = {width:'100%',marginTop:'8px'};
+		let InputStyle = {width:'100%'};
 		let {selectValue={}} = this.props;
 		return (
 			<ul className={style["applicant-content"]}>
@@ -308,7 +340,14 @@ export class SecurityInformation extends Component{
 		return (
 			<div className={style["applicant"]}>
 				<span className={style["applicant--title"]}>保障信息</span>
-				<SecurityInformationContent selectValue = {this.props.selectValue}/>
+				{
+					this.props.selectValue && this.props.selectValue.id?
+					<SecurityInformationContent selectValue = {this.props.selectValue}/>
+					:
+					<ul className={style["applicant-content--tips"]}>
+						提示:在选择理赔企业完成后会显示该企业对应的保障信息。
+					</ul>
+				}
 			</div>
 		);
 	}
@@ -319,7 +358,8 @@ export class SecurityInformation extends Component{
  */
 export class SecurityInformationContent extends Component{
 	render() {
-		let InputStyle = {width:'100%',marginTop:'8px'}
+		let InputStyle = {width:'100%'};
+		let MaxInputStyle={width:'100%',marginTop:'0px'};
 		let DateStyle={
 			width:'100%',
 			float:'left',
@@ -327,7 +367,7 @@ export class SecurityInformationContent extends Component{
 			border:'1px solid #ccc',
 			paddingLeft:'8px',
 			color:'#666',
-			marginTop:'8px'
+		
 		};
 		let CoverStyle={ 
 			width:'45%',
@@ -336,13 +376,15 @@ export class SecurityInformationContent extends Component{
 			border:'1px solid #ccc',
 			textAlign:'center',
 			color:'#666',
-			marginTop:'8px'
+		
 		};
 
 		let security = this.props.selectValue||{};
+
 		return (
 			<ul className={style["applicant-content"]}>
 				<LiContent LabelName={'保险经纪公司'}>
+
 					<Input styleCss={InputStyle} defaultValue={security.broker_name} disabled={true}/>
 				</LiContent>
 				<LiContent LabelName={'承保公司'}>
@@ -358,25 +400,25 @@ export class SecurityInformationContent extends Component{
 					<Input styleCss={InputStyle} defaultValue={security.apply_number} disabled={true}/>
 				</LiContent>
 				<LiContent LabelName={'保单号'}>
-					<Input styleCss={InputStyle} defaultValue={security.insurance_number} disabled={true}/>
+					<Input styleCss={InputStyle} defaultValue={security.insurance_number } disabled={true}/>
 				</LiContent>
 				<LiContent LabelName={'投保产品'}>
-					<Input styleCss={InputStyle} defaultValue={security.insurance_type} disabled={true}/>
+					<Input styleCss={InputStyle} defaultValue={security.insurance_type } disabled={true}/>
 				</LiContent>
 				<LiContent LabelName={'投保人数'}>
-					<Input styleCss={InputStyle} defaultValue={security.insurance_population} disabled={true}/>
+					<Input styleCss={InputStyle} defaultValue={security.insurance_population } disabled={true}/>
 				</LiContent>
 				<LiContent LabelName={'保费(元)'}>
-					<Input styleCss={InputStyle} defaultValue={security.insure_money} disabled={true}/>
+					<Input styleCss={InputStyle} defaultValue={security.insure_money } disabled={true}/>
 				</LiContent>
 				<LiContent LabelName={'累计责任限额(万元)'}>
-					<Input styleCss={InputStyle} defaultValue={security.add_up_liability_limit} disabled={true}/>
+					<Input styleCss={InputStyle} defaultValue={security.add_up_liability_limit } disabled={true}/>
 				</LiContent>
 				<LiContent LabelName={'每次事故责任限额(万元)'}>
-					<Input styleCss={InputStyle} defaultValue={security.every_liability_limit} disabled={true}/>
+					<Input styleCss={InputStyle} defaultValue={security.every_liability_limit } disabled={true}/>
 				</LiContent>
 				<LiContent LabelName={'每次事故每人责任限额(万元)'}>
-					<Input styleCss={InputStyle} defaultValue={security.person_avg_insurance} disabled={true}/>
+					<Input styleCss={InputStyle} defaultValue={security.person_avg_insurance } disabled={true}/>
 				</LiContent>
 				<LiContent LabelName={'投保日期'}>
 					<DatePicker inputCss={DateStyle} defaultValue={getFormatData(security.insure_date)} disabled={true}/>
@@ -444,8 +486,8 @@ export class InformantInformationContent extends Component{
 	  	};
 	}
 	render() {
-		let InputStyle = {width:'100%',marginTop:'8px'};
-		let SelectStyle = {width:'100%',marginTop:'8px'};
+		let InputStyle = {width:'100%'};
+		let SelectStyle = {width:'100%'};
 		let CoverStyle={ 
 			width:'100%',
 			float:'left',
@@ -453,7 +495,7 @@ export class InformantInformationContent extends Component{
 			border:'1px solid #ccc',
 			paddingLeft:'8px',
 			color:'#666',
-			marginTop:'8px'
+		
 		};
 		let selectValue = this.props.selectValue||{};
 		return (
@@ -467,7 +509,7 @@ export class InformantInformationContent extends Component{
 
 				</LiMustContent>
 				<LiMustContent LabelName={"报案类型"} helpTips={"选择企业后会自动带出相关信息"}>
-					<Input  defaultValue={selectValue.insurance_type} styleCss={InputStyle} disabled={true}/>
+					<Input  defaultValue={selectValue.insurance_type || ""} styleCss={InputStyle} disabled={true}/>
 				</LiMustContent>
 				<LiMustContent LabelName={"报案时间"} errorTips={this.state.report_at_error}>
 					<DatePicker ref="report_at" defaultValue={getFormatData(this.props.report_at)} inputCss={CoverStyle} />
@@ -484,14 +526,13 @@ export class InformantInformationContent extends Component{
 
 	getValue(){
 		let refs = this.refs,result={},errorTips={},isVerify=true,RegExpPhone={},RegExpContactsPhone={};
-		console.log(refs,'refs')
 		for(let r in refs){
 			let value = refs[r].getValue()
 			if(!value && r !== 'contacts_phone'){
 				errorTips[r+"_error"] = "该项是必填项";
 			}else{
 				if(r == 'phone'){
-					RegExpPhone = RegExpPhoneFeild(value);
+					RegExpPhone = RegExpPhoneFeild(value,true);
 					errorTips[r+"_error"] = RegExpPhone.msg;
 
 				}else if(r == 'contacts_phone'){
@@ -564,8 +605,8 @@ export class HearingCasesContent extends Component{
 	  	};
 	}
 	render() {
-		let InputStyle = {width:'100%',marginTop:'8px'};
-		let SelectStyle = {width:'100%',marginTop:'8px'};
+		let InputStyle = {width:'100%'};
+		let SelectStyle = {width:'100%'};
 		let CoverStyle={ 
 			width:'100%',
 			float:'left',
@@ -573,9 +614,8 @@ export class HearingCasesContent extends Component{
 			border:'1px solid #ccc',
 			paddingLeft:'8px',
 			color:'#666',
-			marginTop:'8px'
+		
 		};
-	console.log('=================')
 		return (
 			<ul className={style["applicant-mustcontent"]}>
 				<LiMustContent LabelName={"报案状态"} errorTips={this.state.status_error}>
@@ -594,7 +634,6 @@ export class HearingCasesContent extends Component{
 		if(nextProps.status != this.props.status){
 			let  status = this.state.status,newStatus=[];
 			newStatus=status.slice(Number(nextProps.status)-1);
-			console.log(newStatus,'状态值')
 			this.setState({
 				status:newStatus,
 				errorFlag:true
@@ -604,7 +643,6 @@ export class HearingCasesContent extends Component{
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
-		console.log(nextState,this.state)
       return this.props.status !== nextProps.status || nextState.errorFlag;
 	}
 	getValue(){
@@ -625,7 +663,6 @@ export class HearingCasesContent extends Component{
 			...errorTips,
 			errorFlag:true
 		})
-		console.log(result,errorTips,'aa')
 		return {
 			hearVerify:isVerify,
 			...result
@@ -684,12 +721,15 @@ export class AccidentDetailsContent extends Component{
 	  		},{
 	  			id:2,
 	  			name:"否"
-	  		}]
+	  		}],
+	  		maxLength:4
 	  	};
 	}
+
+	
 	render() {
-		let InputStyle = {width:'100%',marginTop:'8px'};
-		let SelectStyle = {width:'100%',marginTop:'8px'};
+		let InputStyle = {width:'100%'};
+		let SelectStyle = {width:'100%'};
 		let DateStyle={ 
 			width:'100%',
 			float:'left',
@@ -697,7 +737,7 @@ export class AccidentDetailsContent extends Component{
 			border:'1px solid #ccc',
 			paddingLeft:'8px',
 			color:'#666',
-			marginTop:'8px'
+		
 		};
 		return (
 			<div className={style["applicant-mustcontent"]}>
@@ -748,19 +788,19 @@ export class AccidentDetailsContent extends Component{
 					</span>
 					<ul className={style["deductible--content"]}>
 						{this.getListImg()}
-						
 						<li className={style["res-remark--upload"]}>
-							{/*<IframeUpload 
-								url="http://insur_tp.com/Media/receive_attachment" 
-								onComplete={(response)=>this.onComplete(response)}>
-							</IframeUpload>*/}
 							<div className={style["upload--icon"]}>
 								<CommonUpload 
-									ref="uploadFile" 
+									ref="uploadFile"
+									disabled={this.getIsDisabled()} 
 									onChange={(e)=>this.uploadChangeHandle()}
-									accept={"image/gif,image/jpeg,image/jpg,image/png,image/svg"}></CommonUpload>
+									accept={"image/gif,image/jpeg,image/jpg,image/png,image/svg"}>
+								</CommonUpload>
 							</div>
 						</li>
+						<span className={style["help--line"]}>
+							已上传{this.getMediaLength()}个，还可上传{this.state.maxLength-this.getMediaLength()}个
+						</span>
 						
 					</ul>
 				</div>
@@ -775,6 +815,15 @@ export class AccidentDetailsContent extends Component{
 			</div>
 		);
 	}
+	getIsDisabled(){
+		let hasUploadLenth = this.getMediaLength();
+		return hasUploadLenth>=this.state.maxLength?true:false; 
+	}
+	// 获取上传的个数
+	getMediaLength(){
+		let {sceneAttachment=[]} = this.props;
+		return sceneAttachment && sceneAttachment.length?sceneAttachment.length:0;
+	}
 	uploadChangeHandle(){
 		let {upload_claim} = this.props;
 		let formdata = this.refs.uploadFile.getValue();
@@ -783,9 +832,6 @@ export class AccidentDetailsContent extends Component{
 	delete_attach(index){
 		let {delete_claim} = this.props;
 		delete_claim(index)
-	}
-	onComplete(response){
-		console.log(response)
 	}
 	getListImg(){
 		let attachment =this.props.sceneAttachment|| [],self = this;
@@ -841,7 +887,7 @@ export class LiUpLoad extends Component{
 export class Upload extends Component{
 	render() {
 		let ButtonStyle={
-			width: "80px",
+			width: "90px",
 		    background: "white",
 		    color: "orange",
 		    border: "1px solid orange",
@@ -922,11 +968,19 @@ export class PaymentTime extends Component{
 }
 
 /**
- * 赔付时间内容组件
+ * 赔付信息内容组件
  */
 export class PaymentTimeContent extends Component{
+	constructor(props){
+		super(props);
+		this.state={
+			comp_money:props.comp_money,
+			apply_money:props.apply_money
+		}
+
+	}
 	render() {
-		let InputStyle = {width:'100%',marginTop:'8px'};
+		let InputStyle = {width:'100%'};
 		let DateStyle={
 			width:'100%',
 			float:'left',
@@ -934,7 +988,7 @@ export class PaymentTimeContent extends Component{
 			border:'1px solid #ccc',
 			paddingLeft:'8px',
 			color:'#666',
-			marginTop:'8px'
+		
 		};
 		return (
 			<ul className={style["applicant-content"]}>
@@ -942,14 +996,15 @@ export class PaymentTimeContent extends Component{
 					<Input 
 						ref="apply_money" 
 						styleCss={InputStyle} 
-						defaultValue={this.props.apply_money}>
+						defaultValue={this.state.apply_money}>
+						
 					</Input>	
 				</LiContent>
 				<LiContent LabelName={'赔付金额 (元)'}>
 					<Input 
 						ref="comp_money" 
 						styleCss={InputStyle} 
-						defaultValue={this.props.comp_money}>
+						defaultValue={this.state.comp_money}>
 					</Input>	
 				</LiContent>
 				<LiContent LabelName={'赔付时间'}>
@@ -968,6 +1023,19 @@ export class PaymentTimeContent extends Component{
 			result[r] = refs[r].getValue();
 		}
 		return result;
+	}
+
+	componentWillReceiveProps(nextProps){
+		if(nextProps.apply_money != this.props.apply_money){
+			this.setState({
+				apply_money:nextProps.apply_money
+			})
+		}
+		if(nextProps.comp_money != this.props.comp_money){
+			this.setState({
+				comp_money:nextProps.comp_money
+			})
+		}
 	}
 }
 
@@ -998,11 +1066,13 @@ export class FooterButton extends Component{
 }
 
 
-function RegExpPhoneFeild(value=""){
+function RegExpPhoneFeild(value="",isMust=false){
 	let regExp = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+
 	let isRight = regExp.test(value);
+
 	return {
-		isRight,
+		isRight:(isMust && !value) || (value && !isRight) ? false:true,
 		msg:value?isRight?"":"手机号格式不正确":""
 	}
 }

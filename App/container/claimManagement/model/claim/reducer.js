@@ -1,4 +1,6 @@
 import ACTION_TYPE from './actiontype';
+import {browserHistory} from "react-router";
+
 let claimListState={
 	List:[],
 	condition:{},
@@ -79,13 +81,21 @@ function create_suc(state,data){
 		openAlert(true,"创建成功！");
 		setTimeout(()=>{
 			closeAlert();
-			window.location.href="#/claimManagement";
-		},2000);
+			if (process.env.NODE_ENV != 'production') {
+				location.href="/claimManagement";
+			}else{
+				browserHistory.push("/claimManagement");
+			}
+		},1500);
 	}else{
 		openAlert(false,"创建失败！");
 	}
 
-	return Object.assign({},state);
+	return Object.assign({},state,{
+		sceneAttachment:[],
+		accidentAttachment:{},
+		thingsAttachment:{}
+	});
 }
 
 function update_suc(state,data){
@@ -178,9 +188,12 @@ function delete_attach(state,data){
 		sceneAttachment:newMediaList
 	})
 }
-//
+//卸载附件
 function clear_claim_detail(state){
 	return Object.assign({},state,{
-		detail:{}
+		detail:{},
+		sceneAttachment:[],
+		accidentAttachment:{},
+		thingsAttachment:{}
 	})
 }

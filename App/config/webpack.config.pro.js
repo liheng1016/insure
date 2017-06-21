@@ -49,9 +49,19 @@ module.exports = {
                 }
             },
             {
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&minimize!postcss-loader')
+                test:function(path){
+                   var reg = /quill\.(core|snow)\.css$/
+                   return reg.test(path);
+                },
+                loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')
             },
+            {
+                test:function(path){
+                    return /\.css$/.test(path)&&!/quill\.(core|snow)\.css$/.test(path)
+                },
+                loader: ExtractTextPlugin.extract('style-loader', 'css-loader?modules&localIdentName=[path][name]---[local]---[hash:base64:5]!postcss-loader'),
+               
+            }, 
             {test: /\.(png|jpg|gif)\??.*$/, loader: "file-loader"},
             {test: /\.json$/, loader: "json-loader"},
         ]
@@ -68,7 +78,7 @@ module.exports = {
             title: PLATFORM_NAME,
             filename: path.resolve(__dirname, '../build/index.html'),
             inject: 'body',
-            // favicon: path.resolve(__dirname, './icon.png'),
+            favicon: path.resolve(__dirname, './icon.png'),
             templateContent: function (templateParams, compilation) {
                 let html = '<!DOCTYPE html>';
                 html += '<html lang="zh-CN">';
@@ -79,10 +89,10 @@ module.exports = {
                 html += '</head>';
                 html += '<body>';
                 html += '<div id="root" class="root"></div>';
-                html += '<script type="text/javascript" src="/build/lib/xls.min.js"></script>';
-                html += '<script type="text/javascript" src="/build/lib/xlsx.core.min.js"></script>';
-                html += '<script type="text/javascript" src="/build/lib/highcharts.js"></script>';
-                html += '<script src="http://webapi.amap.com/maps?v=1.3&key=57263d2a64c3e10d5fc13819ed372b00" async defer></script>';
+                // html += '<script type="text/javascript" src="/build/lib/xls.min.js"></script>';
+                // html += '<script type="text/javascript" src="/build/lib/xlsx.core.min.js"></script>';
+                // html += '<script type="text/javascript" src="/build/lib/highcharts.js"></script>';
+                // html += '<script src="http://webapi.amap.com/maps?v=1.3&key=57263d2a64c3e10d5fc13819ed372b00" async defer></script>';
                 html += '</body>';
                 html += '</html>';
                 return html;

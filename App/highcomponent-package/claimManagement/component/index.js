@@ -59,8 +59,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// import IframeUpload from "@stararc-component/iframe-upload";
-
 /**
  * 不必要验证的input  li组件
  */
@@ -126,15 +124,20 @@ var ApplicantInformation = exports.ApplicantInformation = function (_Component2)
 					{ className: _index2.default["applicant--title"] },
 					"\u6295\u4FDD\u4EBA\u4FE1\u606F"
 				),
-				_react2.default.createElement(ApplicantInformationButton, _extends({}, this.props, { conserveHandle: this.props.conserveHandle })),
-				_react2.default.createElement(ApplicantInformationContent, { selectValue: this.props.selectValue })
+				_react2.default.createElement(ApplicantInformationButton, _extends({}, this.props, {
+					conserveHandle: this.props.conserveHandle })),
+				this.props.selectValue && this.props.selectValue.id ? _react2.default.createElement(ApplicantInformationContent, { selectValue: this.props.selectValue }) : ""
 			);
 		}
 	}, {
 		key: "getValue",
 		value: function getValue() {
+			var selectValue = this.props.selectValue;
+
 			return {
-				company_insurance_id: this.props.selectValue.id
+				company_insurance_id: selectValue.id,
+				apply_company_name: selectValue.apply_company_name
+
 			};
 		}
 	}]);
@@ -167,7 +170,7 @@ var ApplicantInformationButton = exports.ApplicantInformationButton = function (
 			var _this4 = this;
 
 			var accpt = this.props;
-			var ButtonStyle = { width: '76px', background: 'orange', float: 'right', marginTop: '10px', marginRight: '20px' };
+			var ButtonStyle = { width: '80px', background: 'orange', float: 'right', marginTop: '10px', marginRight: '20px' };
 			return _react2.default.createElement(
 				"div",
 				{ className: _index2.default["applicantcontent-wrap"] },
@@ -176,16 +179,21 @@ var ApplicantInformationButton = exports.ApplicantInformationButton = function (
 					{ className: _index2.default["applicant-select"] },
 					"\u8BF7\u70B9\u51FB\u53F3\u4FA7\u6309\u94AE\u9009\u62E9\u7406\u8D54\u4F01\u4E1A"
 				),
-				_react2.default.createElement(_button2.default, { styleCss: ButtonStyle, text: "选择企业", onClick: function onClick(e) {
+				_react2.default.createElement(_button2.default, {
+					styleCss: ButtonStyle,
+					text: "选择企业",
+					onClick: function onClick(e) {
 						return _this4.openChoicelog();
 					} }),
 				this.state.isOpenChoicelog ? _react2.default.createElement(EnterprisePopups, _extends({}, this.props, {
-					conserveHandle: function conserveHandle(action, selectValue) {
-						return _this4.closeReslog(action, selectValue);
+					lists: this.state.lists,
+					conserveHandle: function conserveHandle(action, selectValue, index) {
+						return _this4.closeReslog(action, selectValue, index);
 					},
 					cancleHandle: function cancleHandle(action) {
 						return _this4.closeReslog(action);
-					} })) : ''
+					}
+				})) : ''
 			);
 		}
 		// 打开弹出框
@@ -201,14 +209,26 @@ var ApplicantInformationButton = exports.ApplicantInformationButton = function (
 
 	}, {
 		key: "closeReslog",
-		value: function closeReslog(action, selectValue) {
-			var conserveHandle = this.props.conserveHandle;
-
+		value: function closeReslog(action, selectCompany, companyList) {
+			var self = this,
+			    lists = this.state.lists;
 			this.setState({
-				isOpenChoicelog: false
+				isOpenChoicelog: false,
+				lists: companyList ? companyList : lists
 			}, function () {
-				conserveHandle && conserveHandle(selectValue);
+				var conserveHandle = self.props.conserveHandle;
+
+				selectCompany && conserveHandle && conserveHandle(selectCompany);
 			});
+		}
+	}, {
+		key: "componentWillReceiveProps",
+		value: function componentWillReceiveProps(nextProps) {
+			if (nextProps.lists != this.props.lists) {
+				this.setState({
+					lists: nextProps.lists
+				});
+			}
 		}
 	}]);
 
@@ -229,7 +249,7 @@ var EnterprisePopups = exports.EnterprisePopups = function (_Component4) {
 		var _this5 = _possibleConstructorReturn(this, (EnterprisePopups.__proto__ || Object.getPrototypeOf(EnterprisePopups)).call(this, props));
 
 		_this5.state = {
-			index: '',
+			index: props.index || '',
 			companyList: props.lists || []
 		};
 		return _this5;
@@ -376,15 +396,16 @@ var EnterprisePopups = exports.EnterprisePopups = function (_Component4) {
 		value: function getTrPopupsContent() {
 			var _this7 = this;
 
-			var _state$companyList = this.state.companyList,
+			var _state = this.state,
+			    _state$companyList = _state.companyList,
 			    companyList = _state$companyList === undefined ? [] : _state$companyList,
+			    index = _state.index,
 			    status = {
 				1: "脱保",
 				2: "在保 ",
 				3: "待出单"
 			};
 			;
-
 			return companyList.map(function (l, key) {
 				var classname = l.isSelected ? _index2.default["table_row--hover"] : _index2.default["table_row"];
 				return _react2.default.createElement(
@@ -443,7 +464,8 @@ var EnterprisePopups = exports.EnterprisePopups = function (_Component4) {
 			var params = {
 				q: q,
 				page: page,
-				count: 8
+				count: 8,
+				status: 2 //在保
 			};
 
 			get_insur_company(params);
@@ -461,8 +483,7 @@ var EnterprisePopups = exports.EnterprisePopups = function (_Component4) {
 			});
 			companyList[index].isSelected = true;
 			this.setState({
-				companyList: companyList,
-				index: index
+				companyList: companyList
 			});
 		}
 
@@ -472,11 +493,18 @@ var EnterprisePopups = exports.EnterprisePopups = function (_Component4) {
 		key: "conserveHandle",
 		value: function conserveHandle() {
 			var conserveHandle = this.props.conserveHandle,
-			    _state = this.state,
-			    companyList = _state.companyList,
-			    index = _state.index;
+			    companyList = this.state.companyList,
+			    selectValue = {};
 
-			conserveHandle && conserveHandle("cancle", companyList[index]);
+
+			companyList.map(function (c, key) {
+				if (c.isSelected) {
+					selectValue = c;
+					return;
+				}
+			});
+
+			conserveHandle && conserveHandle("cancle", selectValue, companyList);
 		}
 
 		// cancle
@@ -519,7 +547,7 @@ var ApplicantInformationContent = exports.ApplicantInformationContent = function
 	_createClass(ApplicantInformationContent, [{
 		key: "render",
 		value: function render() {
-			var InputStyle = { width: '100%', marginTop: '8px' };
+			var InputStyle = { width: '100%' };
 			var _props$selectValue = this.props.selectValue,
 			    selectValue = _props$selectValue === undefined ? {} : _props$selectValue;
 
@@ -593,7 +621,11 @@ var SecurityInformation = exports.SecurityInformation = function (_Component6) {
 					{ className: _index2.default["applicant--title"] },
 					"\u4FDD\u969C\u4FE1\u606F"
 				),
-				_react2.default.createElement(SecurityInformationContent, { selectValue: this.props.selectValue })
+				this.props.selectValue && this.props.selectValue.id ? _react2.default.createElement(SecurityInformationContent, { selectValue: this.props.selectValue }) : _react2.default.createElement(
+					"ul",
+					{ className: _index2.default["applicant-content--tips"] },
+					"\u63D0\u793A:\u5728\u9009\u62E9\u7406\u8D54\u4F01\u4E1A\u5B8C\u6210\u540E\u4F1A\u663E\u793A\u8BE5\u4F01\u4E1A\u5BF9\u5E94\u7684\u4FDD\u969C\u4FE1\u606F\u3002"
+				)
 			);
 		}
 	}]);
@@ -618,15 +650,16 @@ var SecurityInformationContent = exports.SecurityInformationContent = function (
 	_createClass(SecurityInformationContent, [{
 		key: "render",
 		value: function render() {
-			var InputStyle = { width: '100%', marginTop: '8px' };
+			var InputStyle = { width: '100%' };
+			var MaxInputStyle = { width: '100%', marginTop: '0px' };
 			var DateStyle = {
 				width: '100%',
 				float: 'left',
 				height: '30px',
 				border: '1px solid #ccc',
 				paddingLeft: '8px',
-				color: '#666',
-				marginTop: '8px'
+				color: '#666'
+
 			};
 			var CoverStyle = {
 				width: '45%',
@@ -634,11 +667,12 @@ var SecurityInformationContent = exports.SecurityInformationContent = function (
 				height: '30px',
 				border: '1px solid #ccc',
 				textAlign: 'center',
-				color: '#666',
-				marginTop: '8px'
+				color: '#666'
+
 			};
 
 			var security = this.props.selectValue || {};
+			console.log(security);
 			return _react2.default.createElement(
 				"ul",
 				{ className: _index2.default["applicant-content"] },
@@ -830,16 +864,16 @@ var InformantInformationContent = exports.InformantInformationContent = function
 	_createClass(InformantInformationContent, [{
 		key: "render",
 		value: function render() {
-			var InputStyle = { width: '100%', marginTop: '8px' };
-			var SelectStyle = { width: '100%', marginTop: '8px' };
+			var InputStyle = { width: '100%' };
+			var SelectStyle = { width: '100%' };
 			var CoverStyle = {
 				width: '100%',
 				float: 'left',
 				height: '30px',
 				border: '1px solid #ccc',
 				paddingLeft: '8px',
-				color: '#666',
-				marginTop: '8px'
+				color: '#666'
+
 			};
 			var selectValue = this.props.selectValue || {};
 			return _react2.default.createElement(
@@ -858,7 +892,7 @@ var InformantInformationContent = exports.InformantInformationContent = function
 				_react2.default.createElement(
 					LiMustContent,
 					{ LabelName: "报案类型", helpTips: "选择企业后会自动带出相关信息" },
-					_react2.default.createElement(_input2.default, { defaultValue: selectValue.insurance_type, styleCss: InputStyle, disabled: true })
+					_react2.default.createElement(_input2.default, { defaultValue: selectValue.insurance_type || "", styleCss: InputStyle, disabled: true })
 				),
 				_react2.default.createElement(
 					LiMustContent,
@@ -886,14 +920,13 @@ var InformantInformationContent = exports.InformantInformationContent = function
 			    isVerify = true,
 			    RegExpPhone = {},
 			    RegExpContactsPhone = {};
-			console.log(refs, 'refs');
 			for (var r in refs) {
 				var value = refs[r].getValue();
 				if (!value && r !== 'contacts_phone') {
 					errorTips[r + "_error"] = "该项是必填项";
 				} else {
 					if (r == 'phone') {
-						RegExpPhone = RegExpPhoneFeild(value);
+						RegExpPhone = RegExpPhoneFeild(value, true);
 						errorTips[r + "_error"] = RegExpPhone.msg;
 					} else if (r == 'contacts_phone') {
 						RegExpContactsPhone = RegExpPhoneFeild(value);
@@ -990,18 +1023,17 @@ var HearingCasesContent = exports.HearingCasesContent = function (_Component12) 
 	_createClass(HearingCasesContent, [{
 		key: "render",
 		value: function render() {
-			var InputStyle = { width: '100%', marginTop: '8px' };
-			var SelectStyle = { width: '100%', marginTop: '8px' };
+			var InputStyle = { width: '100%' };
+			var SelectStyle = { width: '100%' };
 			var CoverStyle = {
 				width: '100%',
 				float: 'left',
 				height: '30px',
 				border: '1px solid #ccc',
 				paddingLeft: '8px',
-				color: '#666',
-				marginTop: '8px'
+				color: '#666'
+
 			};
-			console.log('=================');
 			return _react2.default.createElement(
 				"ul",
 				{ className: _index2.default["applicant-mustcontent"] },
@@ -1029,7 +1061,6 @@ var HearingCasesContent = exports.HearingCasesContent = function (_Component12) 
 				var status = this.state.status,
 				    newStatus = [];
 				newStatus = status.slice(Number(nextProps.status) - 1);
-				console.log(newStatus, '状态值');
 				this.setState({
 					status: newStatus,
 					errorFlag: true
@@ -1039,7 +1070,6 @@ var HearingCasesContent = exports.HearingCasesContent = function (_Component12) 
 	}, {
 		key: "shouldComponentUpdate",
 		value: function shouldComponentUpdate(nextProps, nextState) {
-			console.log(nextState, this.state);
 			return this.props.status !== nextProps.status || nextState.errorFlag;
 		}
 	}, {
@@ -1064,7 +1094,6 @@ var HearingCasesContent = exports.HearingCasesContent = function (_Component12) 
 			this.setState(_extends({}, errorTips, {
 				errorFlag: true
 			}));
-			console.log(result, errorTips, 'aa');
 			return _extends({
 				hearVerify: isVerify
 			}, result);
@@ -1166,7 +1195,8 @@ var AccidentDetailsContent = exports.AccidentDetailsContent = function (_Compone
 			}, {
 				id: 2,
 				name: "否"
-			}]
+			}],
+			maxLength: 4
 		};
 		return _this18;
 	}
@@ -1176,16 +1206,16 @@ var AccidentDetailsContent = exports.AccidentDetailsContent = function (_Compone
 		value: function render() {
 			var _this19 = this;
 
-			var InputStyle = { width: '100%', marginTop: '8px' };
-			var SelectStyle = { width: '100%', marginTop: '8px' };
+			var InputStyle = { width: '100%' };
+			var SelectStyle = { width: '100%' };
 			var DateStyle = {
 				width: '100%',
 				float: 'left',
 				height: '30px',
 				border: '1px solid #ccc',
 				paddingLeft: '8px',
-				color: '#666',
-				marginTop: '8px'
+				color: '#666'
+
 			};
 			return _react2.default.createElement(
 				"div",
@@ -1256,11 +1286,21 @@ var AccidentDetailsContent = exports.AccidentDetailsContent = function (_Compone
 								{ className: _index2.default["upload--icon"] },
 								_react2.default.createElement(_uploadFile.CommonUpload, {
 									ref: "uploadFile",
+									disabled: this.getIsDisabled(),
 									onChange: function onChange(e) {
 										return _this19.uploadChangeHandle();
 									},
 									accept: "image/gif,image/jpeg,image/jpg,image/png,image/svg" })
 							)
+						),
+						_react2.default.createElement(
+							"span",
+							{ className: _index2.default["help--line"] },
+							"\u5DF2\u4E0A\u4F20",
+							this.getMediaLength(),
+							"\u4E2A\uFF0C\u8FD8\u53EF\u4E0A\u4F20",
+							this.state.maxLength - this.getMediaLength(),
+							"\u4E2A"
 						)
 					)
 				),
@@ -1273,6 +1313,22 @@ var AccidentDetailsContent = exports.AccidentDetailsContent = function (_Compone
 						defaultValue: this.props.remark })
 				)
 			);
+		}
+	}, {
+		key: "getIsDisabled",
+		value: function getIsDisabled() {
+			var hasUploadLenth = this.getMediaLength();
+			return hasUploadLenth >= this.state.maxLength ? true : false;
+		}
+		// 获取上传的个数
+
+	}, {
+		key: "getMediaLength",
+		value: function getMediaLength() {
+			var _props$sceneAttachmen = this.props.sceneAttachment,
+			    sceneAttachment = _props$sceneAttachmen === undefined ? [] : _props$sceneAttachmen;
+
+			return sceneAttachment && sceneAttachment.length ? sceneAttachment.length : 0;
 		}
 	}, {
 		key: "uploadChangeHandle",
@@ -1288,11 +1344,6 @@ var AccidentDetailsContent = exports.AccidentDetailsContent = function (_Compone
 			var delete_claim = this.props.delete_claim;
 
 			delete_claim(index);
-		}
-	}, {
-		key: "onComplete",
-		value: function onComplete(response) {
-			console.log(response);
 		}
 	}, {
 		key: "getListImg",
@@ -1316,8 +1367,8 @@ var AccidentDetailsContent = exports.AccidentDetailsContent = function (_Compone
 			var refs = this.refs,
 			    result = {},
 			    attachment_ids = [],
-			    _props$sceneAttachmen = this.props.sceneAttachment,
-			    sceneAttachment = _props$sceneAttachmen === undefined ? [] : _props$sceneAttachmen;
+			    _props$sceneAttachmen2 = this.props.sceneAttachment,
+			    sceneAttachment = _props$sceneAttachmen2 === undefined ? [] : _props$sceneAttachmen2;
 
 
 			for (var r in refs) {
@@ -1393,7 +1444,7 @@ var Upload = exports.Upload = function (_Component17) {
 			var _this22 = this;
 
 			var ButtonStyle = {
-				width: "80px",
+				width: "90px",
 				background: "white",
 				color: "orange",
 				border: "1px solid orange",
@@ -1530,31 +1581,38 @@ var PaymentTime = exports.PaymentTime = function (_Component18) {
 }(_react.Component);
 
 /**
- * 赔付时间内容组件
+ * 赔付信息内容组件
  */
 
 
 var PaymentTimeContent = exports.PaymentTimeContent = function (_Component19) {
 	_inherits(PaymentTimeContent, _Component19);
 
-	function PaymentTimeContent() {
+	function PaymentTimeContent(props) {
 		_classCallCheck(this, PaymentTimeContent);
 
-		return _possibleConstructorReturn(this, (PaymentTimeContent.__proto__ || Object.getPrototypeOf(PaymentTimeContent)).apply(this, arguments));
+		var _this24 = _possibleConstructorReturn(this, (PaymentTimeContent.__proto__ || Object.getPrototypeOf(PaymentTimeContent)).call(this, props));
+
+		_this24.state = {
+			comp_money: props.comp_money,
+			apply_money: props.apply_money
+		};
+
+		return _this24;
 	}
 
 	_createClass(PaymentTimeContent, [{
 		key: "render",
 		value: function render() {
-			var InputStyle = { width: '100%', marginTop: '8px' };
+			var InputStyle = { width: '100%' };
 			var DateStyle = {
 				width: '100%',
 				float: 'left',
 				height: '30px',
 				border: '1px solid #ccc',
 				paddingLeft: '8px',
-				color: '#666',
-				marginTop: '8px'
+				color: '#666'
+
 			};
 			return _react2.default.createElement(
 				"ul",
@@ -1565,7 +1623,7 @@ var PaymentTimeContent = exports.PaymentTimeContent = function (_Component19) {
 					_react2.default.createElement(_input2.default, {
 						ref: "apply_money",
 						styleCss: InputStyle,
-						defaultValue: this.props.apply_money })
+						defaultValue: this.state.apply_money })
 				),
 				_react2.default.createElement(
 					LiContent,
@@ -1573,7 +1631,7 @@ var PaymentTimeContent = exports.PaymentTimeContent = function (_Component19) {
 					_react2.default.createElement(_input2.default, {
 						ref: "comp_money",
 						styleCss: InputStyle,
-						defaultValue: this.props.comp_money })
+						defaultValue: this.state.comp_money })
 				),
 				_react2.default.createElement(
 					LiContent,
@@ -1594,6 +1652,20 @@ var PaymentTimeContent = exports.PaymentTimeContent = function (_Component19) {
 				result[r] = refs[r].getValue();
 			}
 			return result;
+		}
+	}, {
+		key: "componentWillReceiveProps",
+		value: function componentWillReceiveProps(nextProps) {
+			if (nextProps.apply_money != this.props.apply_money) {
+				this.setState({
+					apply_money: nextProps.apply_money
+				});
+			}
+			if (nextProps.comp_money != this.props.comp_money) {
+				this.setState({
+					comp_money: nextProps.comp_money
+				});
+			}
 		}
 	}]);
 
@@ -1643,11 +1715,14 @@ var FooterButton = exports.FooterButton = function (_Component20) {
 
 function RegExpPhoneFeild() {
 	var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
+	var isMust = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
 
 	var regExp = /^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\d{8}$/;
+
 	var isRight = regExp.test(value);
+
 	return {
-		isRight: isRight,
+		isRight: isMust && !value || value && !isRight ? false : true,
 		msg: value ? isRight ? "" : "手机号格式不正确" : ""
 	};
 }

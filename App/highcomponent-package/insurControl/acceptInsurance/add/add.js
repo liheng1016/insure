@@ -26,6 +26,8 @@ var _action2 = _interopRequireDefault(_action);
 
 var _layout = require("@stararc-insurance/layout");
 
+var _helpTools = require("@stararc-insurance/help-tools");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -189,13 +191,15 @@ var AcceptinAdd = function (_Component) {
 		value: function componentDidMount() {
 			var _props = this.props,
 			    get_company_list = _props.get_company_list,
-			    get_accept_company = _props.get_accept_company;
+			    unmout_upload_insur = _props.unmout_upload_insur;
+
+
+			unmout_upload_insur();
 
 			get_company_list({
 				page: 1,
 				count: 8
 			});
-			get_accept_company();
 		}
 	}, {
 		key: "componentWillUnmount",
@@ -247,7 +251,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 		create_insur: function create_insur(obj) {
 			dispatch(_action2.default.create_insur(obj));
 		},
-		// 卸载
+		// 卸载附件
 		unmout_upload_insur: function unmout_upload_insur(obj) {
 			dispatch(_action2.default.unmout_upload_insur(obj));
 		}

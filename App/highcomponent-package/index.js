@@ -50,10 +50,14 @@ var Container = function (_Component) {
 	_createClass(Container, [{
 		key: "render",
 		value: function render() {
+			var _this2 = this;
+
 			return _react2.default.createElement(
 				"div",
 				null,
-				_react2.default.createElement(_header2.default, this.props),
+				_react2.default.createElement(_header2.default, _extends({}, this.props, { loginOut: function loginOut(e) {
+						return _this2.loginOut();
+					} })),
 				_react2.default.createElement(
 					"div",
 					{ className: _Gloable2.default["content"] },
@@ -67,6 +71,14 @@ var Container = function (_Component) {
 			);
 		}
 	}, {
+		key: "loginOut",
+		value: function loginOut() {
+			console.log("loginOut");
+			clearCookie();
+
+			this.context.router.push("/");
+		}
+	}, {
 		key: "getMenu",
 		value: function getMenu() {
 			return menu.subs;
@@ -77,3 +89,17 @@ var Container = function (_Component) {
 }(_react.Component);
 
 exports.default = Container;
+
+
+Container.contextTypes = {
+	router: _react2.default.PropTypes.object.isRequired
+};
+
+function clearCookie() {
+	var keys = document.cookie.match(/[^ =;]+(?=\=)/g);
+	if (keys) {
+		for (var i = keys.length; i--;) {
+			document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString();
+		}
+	}
+}

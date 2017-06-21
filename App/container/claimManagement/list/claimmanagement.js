@@ -149,7 +149,7 @@ export class SettlementHeader extends Component{
 
 				<div className={style["settlement-header--input"]}>
 					<span className={style["input-content"]}>
-						<Input ref={'q'} placeholder={"投保单号/被保险人"} styleCss={InputStyle} />
+						<Input ref={'q'} placeholder={"报案号/被保人"} styleCss={InputStyle} />
 					</span>
 					<Button styleCss={ButtonStyle} text={'搜索'} onClick={this.props.onClick}/>
 				</div>

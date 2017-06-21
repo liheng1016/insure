@@ -28,6 +28,8 @@ exports.filterRouteMenu = filterRouteMenu;
 exports.getFirstAndLastDay = getFirstAndLastDay;
 exports.deepCopy = deepCopy;
 exports.getFormatDay = getFormatDay;
+exports.load_script = load_script;
+exports.convertCookieToObj = convertCookieToObj;
 function timeToString(time, format) {
     var localTimeString = new Date(time * 1000).toLocaleString();
     var tmpArr = localTimeString.match(/\d{1,4}/g);
@@ -256,5 +258,76 @@ function getFormatDay(time, type) {
 
             return getYear(time) + format + (getMonth(time) + 1) + format + days.getDate();
     }
+}
+
+/**
+ * 动态加载依赖
+ * 为了防止多次加载依赖
+ * 依赖的名字做了处理当成id来作为唯一的标识
+ * @date   2017-05-22T14:58:03+0800
+ * @author liheng
+ * @param  {[type]}                 src      [description]
+ * @param  {Function}               callback [description]
+ * @return {[type]}                          [description]
+ */
+function load_script(src, callback) {
+    var newSrc = getRegId(src);
+
+    var script = document.getElementById(newSrc);
+
+    if (script) {
+        if (typeof callback === 'function') {
+            callback();
+        }
+    } else {
+        script = document.createElement('script');
+        script.src = src;
+        script.id = newSrc;
+
+        document.body.appendChild(script);
+
+        if (typeof callback === 'function') {
+            script.onload = callback;
+        }
+    }
+
+    // 过滤脚本名称拼接为id
+    function getRegId(str) {
+        var strArr = str.split("/"),
+            result = "";
+
+        if (strArr && strArr.length > 1) {
+            result = strArr[strArr.length - 1];
+        } else {
+            result = str;
+        }
+
+        result = result.replace(/\./g, "-");
+
+        return result;
+    }
+}
+
+/**
+ * 获取cookies
+ * @date   2017-05-25T09:55:18+0800
+ * @author liheng
+ * @return {[type]}                 [description]
+ */
+function convertCookieToObj() {
+    var cookie = document.cookie;
+
+    var tmp = cookie.split('; ');
+
+    var cookieObj = {};
+
+    tmp.forEach(function (str) {
+        var index = str.indexOf('=');
+        var key = str.slice(0, index);
+        var value = str.slice(index + 1);
+        cookieObj[key] = decodeURI(value);
+    });
+
+    return cookieObj;
 }
 

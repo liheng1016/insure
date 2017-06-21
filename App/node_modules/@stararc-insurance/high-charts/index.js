@@ -4,13 +4,9 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.default = Chart;
-/**
- * 传递配置参数实例化图表
- * @date   2017.1.04
- * @author liheng
- * @param  {[type]}                 container [description]
- * @param  {[type]}                 data      [description]
- */
+
+var _helpTools = require('@stararc-insurance/help-tools');
+
 function Chart(container, data) {
     var init = {
         chart: {
@@ -63,16 +59,28 @@ function Chart(container, data) {
         init = Object.assign({}, init, data);
     }
 
-    // Highcharts.setOptions({
-    //     lang: {
-    //         noData: '暂无数据'
-    //     }
-    // });
-
     init.chart.renderTo = container;
 
-    new Highcharts.Chart(init);
-}
+    // 插件的路径
+    var url = "";
+
+    if (process.env.NODE_ENV == 'production') {
+        url = "/assets/lib/highcharts.js";
+    } else {
+        url = "/lib/highcharts.js";
+    }
+
+    (0, _helpTools.load_script)(url, function () {
+        new Highcharts.Chart(init);
+    });
+} /**
+   * 传递配置参数实例化图表
+   * @date   2017.1.04
+   * @author liheng
+   * @param  {[type]}                 container [description]
+   * @param  {[type]}                 data      [description]
+   */
+
 function callback(c) {
     // 环形图圆心
     var centerX = c.series[0].center[0];
@@ -88,4 +96,3 @@ function callback(c) {
 
     this.chart = c;
 }
-

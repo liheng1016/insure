@@ -1,0 +1,151 @@
+.list_button{
+	width:auto;
+	margin:8px 17px;
+	float:right;
+}
+.content_wrap{
+	width:auto;
+	height:auto;
+	padding:0px 17px;
+}
+
+.essential{
+	width:100%;
+	height:auto;
+	clear:both;
+}
+.essential_title{
+	width:100%;
+	height:32px;
+	line-height:32px;
+	padding-left:12px;
+	line-height: 32px;
+	font-size:14px;
+	color:#313131;
+}
+.essential_content{
+	width:100%;
+	height:auto;
+	background:white;
+}
+.essential_content--li{
+	width:100%;
+	height:40px;
+	line-height: 40px;
+	padding:0 12px;
+	color:#313131;
+	font-size:14px;
+}
+.essential_li--name{
+	width:auto;
+	float:left;
+	display: block;
+	margin-right:5px;
+}
+
+.essential_li--content{
+	width:auto;
+	float:left;
+	display: block;
+}
+
+.applicant-wrap{
+	width: 100%;
+	height:auto;
+}
+
+.title{
+	width: 100%;
+    height: 32px;
+    line-height: 32px;
+    padding-left: 12px;
+    line-height: 32px;
+    font-size: 14px;
+    color: #313131;
+}
+
+.content{
+	width:100%;
+	background:white;
+	height:auto;
+	padding:5px 10px;
+	margin-bottom: 10px;
+	overflow: hidden;
+	font-size:14px;
+}
+.content li{
+	width:50%;
+	float:left;
+	height:30px;
+	line-height:30px;
+}
+
+.lable--name{
+	color:#767676;
+	font-size:14px;
+}
+.lable--content{
+	color:#353535;
+	
+}
+.content--span{
+	width:100%;
+	height:30px;
+	line-height:30px;
+	color:#17a3e1;
+}
+.content--left{
+	width:auto;
+	float:left;
+	display:block;
+	font-size:14px;
+}
+.content--right{
+	width:auto;
+	float:left;
+	display:block;
+	
+	margin-left:5px;
+}
+.content .deductible{
+	width:100%;
+	height:auto;
+	margin-top:10px;
+	color:#313131;
+}
+.deductible--title{
+	width:90px;
+	height:auto;
+	display: block;
+	float:left;
+	font-size:14px;
+}
+.deductible--content{
+	width:calc(100% - 90px);
+	height:auto;
+	display: block;
+	float:left;
+	font-size:14px;
+	line-height:30px;
+}
+
+.clause--title{
+	width:75px;
+	display:inline-block;
+	vertical-align:top;
+	font-size:14px;
+}
+.content a{
+	display:inline-block;
+	line-height:36px;
+	color:#20a5e8;
+	font-size:14px;
+	
+}
+
+.clause--content {
+	width: calc(100% - 75px);
+	display:inline-block;
+	line-height:1.5em;
+	font-size:14px;
+}

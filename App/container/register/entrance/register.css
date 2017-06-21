@@ -1,0 +1,61 @@
+.wrap{
+	width: 890px;
+	height: 84%;
+	background: white;
+	border-radius: 5px;
+	position: absolute;
+	top: 8%;
+	left: 50%;
+	margin-left: -450px;
+	padding: 60px 205px;
+	box-shadow:0px 3px 5px #afafaf;
+}
+.wrap_pic{
+	top:-7px;
+	right:-7px;
+	position:absolute;
+}
+.company_wrap{
+	width:auto;
+	height:142px;
+	margin:35px 0;
+}
+
+.person_wrap{
+	width:auto;
+	height:142px;
+}
+.company_title{
+	width:100%;
+	height:62px;
+	font-size:24px;
+	color:#666666;
+	line-height:62px;
+	display:block;
+}
+.company_button{
+	width:100%;
+	height:80px;
+	background:#3fa2ff;
+	display:block;
+	border-radius:10px;
+	color:white;
+	line-height:80px;
+	text-align:center;
+	font-size:22px;
+}
+
+.company_button a{
+	color:white;
+	font-size:22px;
+}
+.picture{
+	margin-right:10px;
+	margin-top:12px;
+	vertical-align: sub;
+}
+.person_picture{
+	margin-right:10px;
+	margin-top:12px;
+	vertical-align: sub;
+}

@@ -22,7 +22,7 @@ export default function commonRequest(path, data = {}, method = 'GET', headers =
 
     let p = m === 'GET' ? path + '?' + objToUrlString(data) : path;
 
-    return fetch(p, opts).then(function (response) {
+    return fetch(p, opts).then(checkStatus).then(function (response) {
         let r = '';
         try {
             r = response.json();
@@ -35,7 +35,7 @@ export default function commonRequest(path, data = {}, method = 'GET', headers =
 
         return r;
     }, function (err) {
-        return {'ret': '-1', 'msg': '网络连接失败!', error: err};
+        return {'ret': '-1', 'msg': '网络连接失败!'};
     });
 }
 
@@ -59,4 +59,23 @@ function objToUrlString(obj) {
         }
     }
     return result;
+}
+
+/**
+ * 监测状态值
+ * @date   2017-06-13T14:24:11+0800
+ * @author liheng
+ * @param  {[type]}                 response [description]
+ * @return {[type]}                          [description]
+ */
+function checkStatus(response) {
+    console.log(response.status);
+    if (response.status >= 200 && response.status < 300) {
+        return response
+    } else {
+        console.log('0000');
+        var error = new Error(response.statusText)
+        error.response = response
+        throw error
+    }
 }

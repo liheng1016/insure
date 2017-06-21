@@ -215,6 +215,7 @@ var AcceptinEdit = function (_Component) {
 			    params = _props2.params,
 			    detail = _props2.detail;
 
+
 			get_company_list();
 			get_accept_company();
 			get_detail({

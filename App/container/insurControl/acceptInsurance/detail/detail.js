@@ -117,6 +117,7 @@ export class AcceptDetailApplicant extends Component{
 export class ApplicantPassive extends Component{
 	render(){
 		let passive = this.props.passive || {};
+
 		return(
 			<div className={style["applicant-wrap"]}>
 				<span className={style["title"]}>被投保人信息</span>
@@ -156,6 +157,11 @@ export class ApplicantPassive extends Component{
 export class SecurityInformation extends Component{
 	render(){
 		let security = this.props.security||{};
+		let status={
+				1:"脱保",
+				2:"在保 ",
+				3:"待出单"
+			};
 		return(
 			<div className={style["applicant-wrap"]}>
 				<span className={style["title"]}>保障信息</span>
@@ -183,7 +189,7 @@ export class SecurityInformation extends Component{
 					<LiComponent lableName={"投保日期 : "} 
 						content={getFormatData(security.insure_date)}/>
 					<LiComponent lableName={"保险期限 : "} 
-						content={getFormatData(security.start_date)+"~"+getFormatData(security.done_at)}/>
+						content={security.status=="3"?'':getFormatData(security.start_date)+"~"+getFormatData(security.done_at)}/>
 				</ul>
 			</div>
 		)
@@ -278,7 +284,7 @@ export class Clause extends Component{
 				<div className={style["content"]}>
 					<span className={style["clause--title"]}>保险条款 : </span>
 					<span className={style["clause--content"]}>
-						<a href={insuranceProduct.attachment_path}>{insuranceProduct.name}</a>
+						<a href={insuranceProduct.attachment_path} download="">{insuranceProduct.name}</a>
 					</span>
 				</div>
 			</div>
